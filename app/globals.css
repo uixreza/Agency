@@ -1,26 +1,460 @@
 @import "tailwindcss";
 
+/* ==================== Font Faces ==================== */
+
+/* Dana - Farsi (Persian) Font */
+@font-face {
+  font-family: "Dana";
+  src: url("/assets/fonts/farsi/Dana-Thin.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dana";
+  src: url("/assets/fonts/farsi/Dana-ExtraLight.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dana";
+  src: url("/assets/fonts/farsi/Dana-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dana";
+  src: url("/assets/fonts/farsi/Dana-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dana";
+  src: url("/assets/fonts/farsi/Dana-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dana";
+  src: url("/assets/fonts/farsi/Dana-DemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dana";
+  src: url("/assets/fonts/farsi/Dana-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dana";
+  src: url("/assets/fonts/farsi/Dana-ExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dana";
+  src: url("/assets/fonts/farsi/Dana-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Inter - English Font */
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/english/Inter-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/english/Inter-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/english/Inter-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/english/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/english/Inter-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/english/Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/english/Inter-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/english/Inter-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/english/Inter-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==================== Theme Variables ==================== */
+
 :root {
+  /* Light theme (default) */
   --background: #ffffff;
   --foreground: #171717;
+  --color-bg: #ffffff;
+  --color-surface: #f9fafb;
+  --color-card: #f3f4f6;
+  --color-border: #e5e7eb;
+  --color-muted: #6b7280;
+  --color-accent: #00b8a3;
+  --color-accentDark: #009688;
+  --color-warm: #ff6b4a;
+
+  /* Font families */
+  --font-dana: "Dana", system-ui, sans-serif;
+  --font-inter: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+.dark,
+[data-theme="dark"] {
+  /* Dark theme */
+  --background: #08090d;
+  --foreground: #e5e7eb;
+  --color-bg: #08090d;
+  --color-surface: #0f1117;
+  --color-card: #161922;
+  --color-border: #252a36;
+  --color-muted: #6b7280;
+  --color-accent: #00e5cc;
+  --color-accentDark: #00b8a3;
+  --color-warm: #ff6b4a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-card: var(--color-card);
+  --color-border: var(--color-border);
+  --color-muted: var(--color-muted);
+  --color-accent: var(--color-accent);
+  --color-accentDark: var(--color-accentDark);
+  --color-warm: var(--color-warm);
+  --font-sans: var(--font-dana);
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==================== Base Styles ==================== */
+
+@layer base {
+  * {
+    cursor: url("/assets/cursor.ani"), auto;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--foreground);
+    font-family:
+      "Dana",
+      "Inter",
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
+
+  /* English text uses Inter */
+  .font-en,
+  [lang="en"],
+  [dir="ltr"] {
+    font-family:
+      "Inter",
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
+
+  /* Farsi text uses Dana */
+  .font-fa,
+  [lang="fa"],
+  [dir="rtl"] {
+    font-family: "Dana", system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-surface);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+
+  /* Focus styles */
+  *:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==================== Component Styles ==================== */
+
+@layer components {
+  /* Gradient text utility */
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      var(--color-accent) 0%,
+      var(--color-accentDark) 50%,
+      var(--color-warm) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Noise overlay utility */
+  .noise-overlay {
+    position: relative;
+  }
+
+  .noise-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Ccircle cx='7' cy='11' r='0.8'/%3E%3Ccircle cx='21' cy='5' r='0.6'/%3E%3Ccircle cx='38' cy='14' r='0.7'/%3E%3Ccircle cx='56' cy='8' r='0.5'/%3E%3Ccircle cx='13' cy='31' r='0.5'/%3E%3Ccircle cx='29' cy='24' r='0.8'/%3E%3Ccircle cx='48' cy='34' r='0.6'/%3E%3Ccircle cx='61' cy='25' r='0.5'/%3E%3Ccircle cx='5' cy='52' r='0.7'/%3E%3Ccircle cx='23' cy='58' r='0.5'/%3E%3Ccircle cx='42' cy='49' r='0.8'/%3E%3Ccircle cx='58' cy='57' r='0.6'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 64px 64px;
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .noise-overlay > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Grid pattern utility */
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(37, 42, 54, 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37, 42, 54, 0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Button primary styles */
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-primary:hover::before {
+    opacity: 1;
+  }
+
+  .btn-primary:active {
+    transform: scale(0.97);
+  }
+
+  /* Glow effects */
+  .glow-accent {
+    box-shadow: 0 0 40px rgba(0, 229, 204, 0.15);
+  }
+
+  .glow-warm {
+    box-shadow: 0 0 40px rgba(255, 107, 74, 0.15);
+  }
+
+  /* Service card */
+  .service-card {
+    transition:
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.4s ease,
+      border-color 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Blob styles */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: blobFloat 20s ease-in-out infinite;
+  }
+
+  /* Counter font */
+  .counter {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Navigation link */
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-accent);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Portfolio item */
+  .portfolio-item {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .portfolio-item:hover {
+    transform: scale(1.02);
+  }
+
+  .portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+  }
+
+  .portfolio-overlay {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  /* Testimonial card */
+  .testimonial-card {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 229, 204, 0.1);
+  }
+}
+
+/* ==================== Utility Styles ==================== */
+
+@layer utilities {
+  @keyframes blobFloat {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    25% {
+      transform: translate(20px, -30px) scale(1.1);
+    }
+    50% {
+      transform: translate(-20px, 20px) scale(0.95);
+    }
+    75% {
+      transform: translate(30px, 10px) scale(1.05);
+    }
+  }
 }
