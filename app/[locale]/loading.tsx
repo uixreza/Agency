@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export default function Loading() {
+  const t = useTranslations("loading");
   return (
     <main className="relative min-h-screen flex items-center justify-center bg-bg overflow-hidden font-vazir">
       {/* Subtle grid */}
@@ -98,8 +100,8 @@ export default function Loading() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}>
-          <h2 className="text-lg font-bold text-white mb-2">در حال بارگذاری</h2>
-          <p className="text-gray-500 text-sm">لطفاً چند لحظه صبر کنید</p>
+          <h2 className="text-lg font-bold text-white mb-2">{t("title")}</h2>
+          <p className="text-gray-500 text-sm">{t("subtitle")}</p>
         </motion.div>
       </div>
     </main>

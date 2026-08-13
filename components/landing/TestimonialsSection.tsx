@@ -1,22 +1,39 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { testimonialsData } from "@/lib/data";
 import { fadeInUp, smoothTransition } from "@/lib/animations";
+import { useTranslations } from "next-intl";
+
+function avatarInitials(name: string): string {
+  return name
+    .split(/\s+/)
+    .map((word) => word[0] ?? "")
+    .join("")
+    .slice(0, 2);
+}
 
 export default function TestimonialsSection() {
+  const t = useTranslations("testimonials");
+  const items = t.raw("items") as {
+    name: string;
+    role: string;
+    text: string;
+  }[];
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  const paginate = useCallback((newDirection: number) => {
-    setDirection(newDirection);
-    setCurrent((prev) => {
-      const next = prev + newDirection;
-      if (next < 0) return testimonialsData.length - 1;
-      if (next >= testimonialsData.length) return 0;
-      return next;
-    });
-  }, []);
+  const paginate = useCallback(
+    (newDirection: number) => {
+      setDirection(newDirection);
+      setCurrent((prev) => {
+        const next = prev + newDirection;
+        if (next < 0) return items.length - 1;
+        if (next >= items.length) return 0;
+        return next;
+      });
+    },
+    [items.length],
+  );
 
   // Auto-play
   useEffect(() => {
@@ -39,7 +56,7 @@ export default function TestimonialsSection() {
     }),
   };
 
-  const testimonial = testimonialsData[current];
+  const testimonial = items[current];
 
   return (
     <section id="testimonials" className="relative py-20 lg:py-32 bg-bg">
@@ -53,13 +70,13 @@ export default function TestimonialsSection() {
             variants={fadeInUp}
             transition={smoothTransition}
             className="inline-block text-accent font-medium mb-4">
-            نظرات مشتریان
+            {t("title")}
           </motion.span>
           <motion.h2
             variants={fadeInUp}
             transition={smoothTransition}
             className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-            آنچه مشتریان می‌گویند
+            {t("heading")}
           </motion.h2>
         </motion.div>
 
@@ -80,7 +97,7 @@ export default function TestimonialsSection() {
                 className="relative p-8 lg:p-10 rounded-3xl bg-card border border-border">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-14 h-14 rounded-full bg-gradient-to-br from-accent to-accentDark flex items-center justify-center text-black font-bold text-xl ring-2 ring-offset-4 ring-offset-card ring-accent">
-                    {testimonial.avatar}
+                    {avatarInitials(testimonial.name)}
                   </div>
                   <div>
                     <div className="font-bold text-foreground text-lg">
@@ -121,7 +138,7 @@ export default function TestimonialsSection() {
               whileTap={{ scale: 0.9 }}
               onClick={() => paginate(-1)}
               className="w-12 h-12 rounded-2xl border border-border bg-card flex items-center justify-center text-muted hover:border-accent hover:text-accent transition-all"
-              aria-label="قبلی">
+              aria-label={t("prev")}>
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -137,7 +154,7 @@ export default function TestimonialsSection() {
             </motion.button>
 
             <div className="flex items-center gap-3">
-              {testimonialsData.map((_, i) => (
+              {items.map((_, i) => (
                 <motion.button
                   key={i}
                   onClick={() => {
@@ -150,7 +167,7 @@ export default function TestimonialsSection() {
                       : "bg-muted hover:bg-foreground/50 w-3 h-3"
                   }`}
                   whileHover={{ scale: 1.2 }}
-                  aria-label={`اسلاید ${i + 1}`}
+                  aria-label={t("slide", { n: i + 1 })}
                 />
               ))}
             </div>
@@ -160,7 +177,7 @@ export default function TestimonialsSection() {
               whileTap={{ scale: 0.9 }}
               onClick={() => paginate(1)}
               className="w-12 h-12 rounded-2xl border border-border bg-card flex items-center justify-center text-muted hover:border-accent hover:text-accent transition-all"
-              aria-label="بعدی">
+              aria-label={t("next")}>
               <svg
                 className="w-5 h-5"
                 fill="none"

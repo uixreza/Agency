@@ -6,8 +6,10 @@ import {
   useTransform,
   AnimatePresence,
 } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export default function ScrollProgressIndicator() {
+  const t = useTranslations("ui");
   const [isNearBottom, setIsNearBottom] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -42,7 +44,7 @@ export default function ScrollProgressIndicator() {
   };
 
   return (
-    <div className="fixed right-0 top-0 h-full z-50 pointer-events-none">
+    <div className="fixed right-0 top-0 h-full z-30 pointer-events-none">
       <div className="relative h-full flex items-center justify-center">
         {/* Main container */}
         <div className="relative h-[70vh] flex flex-col items-center justify-between py-8 mr-3 sm:mr-4 lg:mr-6">
@@ -97,8 +99,8 @@ export default function ScrollProgressIndicator() {
               exit={{ opacity: 0, scale: 0, x: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={scrollToTop}
-              className="absolute bottom-8 sm:bottom-12 lg:bottom-16  -translate-x-1/2 pointer-events-auto group z-50"
-              aria-label="Scroll to top">
+              className="absolute bottom-8 sm:bottom-12 lg:bottom-16  -translate-x-1/2 pointer-events-auto group z-30"
+              aria-label={t("backToTop")}>
               <div className="relative">
                 {/* Button background with glow */}
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm transition-all duration-300 group-hover:bg-accent/10 group-hover:border-accent/30 group-hover:shadow-[0_0_20px_rgba(0,229,204,0.3)]">
@@ -125,7 +127,7 @@ export default function ScrollProgressIndicator() {
                 {/* Tooltip on hover */}
                 <div className="absolute right-full top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden sm:block">
                   <div className="bg-surface/90 absolute  backdrop-blur-sm border border-border/50 rounded-lg px-3 py-1.5 text-xs text-foreground whitespace-nowrap shadow-lg">
-                    بازگشت به بالا
+                    {t("backToTop")}
                   </div>
                 </div>
               </div>

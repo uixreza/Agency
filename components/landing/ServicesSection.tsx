@@ -1,10 +1,14 @@
 "use client";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { fadeInUp, staggerContainer, smoothTransition } from "@/lib/animations";
+import { useTranslations } from "next-intl";
 
-const services = [
-  {
+const serviceMeta: Record<
+  string,
+  { icon: React.ReactNode; iconBg: string; checkColor: string }
+> = {
+  seo: {
     icon: (
       <svg
         className="w-8 h-8 text-accent"
@@ -20,13 +24,9 @@ const services = [
       </svg>
     ),
     iconBg: "bg-accent/10",
-    title: "سئو و بهینه‌سازی",
-    description:
-      "با تکنیک‌های پیشرفته سئو، سایت شما را به صفحه اول گوگل می‌آوریم و ترافیک ارگانیک را چند برابر کنید.",
-    items: ["سئو تکنیکال", "تحقیقات کلمات کلیدی", "لینک‌سازی"],
     checkColor: "text-accent",
   },
-  {
+  ads: {
     icon: (
       <svg
         className="w-8 h-8 text-warm"
@@ -48,13 +48,9 @@ const services = [
       </svg>
     ),
     iconBg: "bg-warm/10",
-    title: "تبلیغات کلیکی",
-    description:
-      "مدیریت حرفه‌ای کمپین‌های گوگل ادز و شبکه‌های تبلیغاتی با بالاترین نرخ تبدیل و کمترین هزینه.",
-    items: ["گوگل ادز", "ریمارکتینگ", "بهینه‌سازی نرخ تبدیل"],
     checkColor: "text-warm",
   },
-  {
+  social: {
     icon: (
       <svg
         className="w-8 h-8 text-accent"
@@ -70,13 +66,9 @@ const services = [
       </svg>
     ),
     iconBg: "bg-accent/10",
-    title: "شبکه‌های اجتماعی",
-    description:
-      "تولید محتوای خلاقانه و مدیریت حرفه‌ای حضور برند شما در تمام پلتفرم‌های اجتماعی.",
-    items: ["اینستاگرام مارکتینگ", "لینکدین بیزینس", "تولید محتوا"],
     checkColor: "text-accent",
   },
-  {
+  web: {
     icon: (
       <svg
         className="w-8 h-8 text-warm"
@@ -92,13 +84,9 @@ const services = [
       </svg>
     ),
     iconBg: "bg-warm/10",
-    title: "طراحی وب‌سایت",
-    description:
-      "طراحی و توسعه وب‌سایت‌های مدرن، سریع و بهینه‌شده برای تبدیل بازدیدکننده به مشتری.",
-    items: ["طراحی UI/UX", "فروشگاه آنلاین", "لندینگ پیج"],
     checkColor: "text-warm",
   },
-  {
+  email: {
     icon: (
       <svg
         className="w-8 h-8 text-accent"
@@ -114,13 +102,9 @@ const services = [
       </svg>
     ),
     iconBg: "bg-accent/10",
-    title: "ایمیل مارکتینگ",
-    description:
-      "طراحی و اجرای کمپین‌های ایمیل هدفمند برای افزایش وفاداری مشتریان و فروش مجدد.",
-    items: ["اتوماسیون ایمیل", "خبرنامه", "سگمنت مشتریان"],
     checkColor: "text-accent",
   },
-  {
+  analytics: {
     icon: (
       <svg
         className="w-8 h-8 text-warm"
@@ -136,15 +120,23 @@ const services = [
       </svg>
     ),
     iconBg: "bg-warm/10",
-    title: "تحلیل و گزارش",
-    description:
-      "تحلیل دقیق داده‌ها و ارائه گزارش‌های منظم برای شناسایی فرصت‌های رشد.",
-    items: ["گوگل آنالیتیکس", "داشبورد اختصاصی", "گزارش ماهانه"],
     checkColor: "text-warm",
   },
-];
+};
 
 export default function ServicesSection() {
+  const t = useTranslations("services");
+  const dynamicT = t as unknown as {
+    (key: string): string;
+    raw: (key: string) => any;
+  };
+  const keys = ["seo", "ads", "social", "web", "email", "analytics"];
+  const services = keys.map((key) => ({
+    meta: serviceMeta[key],
+    title: dynamicT(`${key}.title`),
+    description: dynamicT(`${key}.description`),
+    items: dynamicT.raw(`${key}.items`) as string[],
+  }));
   return (
     <section id="services" className="relative py-20 lg:py-32 bg-bg">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
@@ -157,20 +149,19 @@ export default function ServicesSection() {
             variants={fadeInUp}
             transition={smoothTransition}
             className="inline-block text-accent font-medium mb-4">
-            خدمات ما
+            {t("title")}
           </motion.span>
           <motion.h2
             variants={fadeInUp}
             transition={smoothTransition}
             className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-            راه‌حل‌های جامع دیجیتال
+            {t("subtitle")}
           </motion.h2>
           <motion.p
             variants={fadeInUp}
             transition={smoothTransition}
             className="text-muted max-w-2xl mx-auto text-lg">
-            از استراتژی تا اجرا، تمام نیازهای دیجیتال کسب‌وکار شما را پوشش
-            می‌دهیم
+            {t("description")}
           </motion.p>
         </motion.div>
 
@@ -192,11 +183,11 @@ export default function ServicesSection() {
               <div className="relative h-full p-8 rounded-3xl transition-all duration-300 group-hover:scale-[1.02] bg-card border border-border shadow-[0_15px_35px_rgba(0,0,0,0.2)]">
                 {/* Icon with enhanced color */}
                 <div
-                  className={`w-16 h-16 rounded-2xl ${service.iconBg} flex items-center justify-center mb-6 ring-1 ring-offset-4 ring-offset-card ring-current/10 transition-all group-hover:scale-110`}
+                  className={`w-16 h-16 rounded-2xl ${service.meta.iconBg} flex items-center justify-center mb-6 ring-1 ring-offset-4 ring-offset-card ring-current/10 transition-all group-hover:scale-110`}
                   style={{
-                    boxShadow: `0 0 25px ${service.iconBg.includes("accent") ? "rgba(0,229,204,0.25)" : "rgba(255,107,74,0.25)"}`,
+                    boxShadow: `0 0 25px ${service.meta.iconBg.includes("accent") ? "rgba(0,229,204,0.25)" : "rgba(255,107,74,0.25)"}`,
                   }}>
-                  {service.icon}
+                  {service.meta.icon}
                 </div>
 
                 <h3 className="text-xl font-bold mb-3 text-foreground">
@@ -210,9 +201,9 @@ export default function ServicesSection() {
                   {service.items.map((item, i) => (
                     <li key={i} className="flex items-center gap-3">
                       <div
-                        className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${service.checkColor === "text-accent" ? "bg-accent/10" : "bg-warm/10"}`}>
+                        className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${service.meta.checkColor === "text-accent" ? "bg-accent/10" : "bg-warm/10"}`}>
                         <svg
-                          className={`w-3.5 h-3.5 ${service.checkColor}`}
+                          className={`w-3.5 h-3.5 ${service.meta.checkColor}`}
                           fill="currentColor"
                           viewBox="0 0 20 20">
                           <path
@@ -242,7 +233,7 @@ export default function ServicesSection() {
               href="/our-services"
               className="relative inline-flex items-center justify-center px-8 py-4 rounded-2xl font-bold text-lg overflow-hidden group transition-all duration-300 bg-card border border-border shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
               <span className="relative z-10 text-foreground">
-                مشاهده بیشتر
+                {t("viewMore")}
               </span>
               <motion.div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"

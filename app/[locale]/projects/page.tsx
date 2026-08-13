@@ -6,147 +6,66 @@ import {
   useTransform,
   AnimatePresence,
 } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { toLocalDigits } from "@/lib/data";
 
-const works = [
-  {
-    title: "هویت بصری رستوران باران",
-    category: "graphic",
-    label: "طراحی گرافیک",
-    result: "کیت کامل برند",
-    color: "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",
-    tags: ["لوگو", "منو", "شبکه اجتماعی"],
-  },
-  {
-    title: "اپلیکیشن سفارش آنلاین مدیس",
-    category: "mobile",
-    label: "اپلیکیشن موبایل",
-    result: "+۴۲٪ نرخ سفارش",
-    color: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-    tags: ["UI/UX", "Android", "iOS"],
-  },
-  {
-    title: "فروشگاه اینترنتی آرتان",
-    category: "web",
-    label: "توسعه وب",
-    result: "+۲۸۰٪ فروش",
-    color: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    tags: ["E-commerce", "Dashboard", "SEO"],
-  },
-  {
-    title: "کمپین لانچ فین تک",
-    category: "marketing",
-    label: "دیجیتال مارکتینگ",
-    result: "ROAS ۴.۵x",
-    color: "linear-gradient(135deg, #ff6b4a 0%, #ff4757 100%)",
-    tags: ["Ads", "Landing", "Analytics"],
-  },
-  {
-    title: "بازطراحی برند کلینیک آوین",
-    category: "branding",
-    label: "برندینگ",
-    result: "+۳۵٪ مراجعه جدید",
-    color: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-    tags: ["Brand book", "Tone", "Identity"],
-  },
-  {
-    title: "داشبورد مدیریت حمل و نقل",
-    category: "web",
-    label: "توسعه وب",
-    result: "۵۰٪ کاهش زمان عملیات",
-    color: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
-    tags: ["SaaS", "Admin", "Reports"],
-  },
-  {
-    title: "اپلیکیشن رزرو نوبت سلامت",
-    category: "mobile",
-    label: "اپلیکیشن موبایل",
-    result: "+۱۵۰٪ نوبت دهی",
-    color: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
-    tags: ["Booking", "Profile", "Payment"],
-  },
-  {
-    title: "پکیج محتوایی کافه نوین",
-    category: "graphic",
-    label: "طراحی گرافیک",
-    result: "+۵۰K دنبال کننده",
-    color: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-    tags: ["Post", "Story", "Motion"],
-  },
-  {
-    title: "سئو سایت خبری اقتصاد روز",
-    category: "marketing",
-    label: "دیجیتال مارکتینگ",
-    result: "+۵۰۰٪ ترافیک",
-    color: "linear-gradient(135deg, #f6d365 0%, #fda085 100%)",
-    tags: ["SEO", "Content", "Growth"],
-  },
-  {
-    title: "وب سایت شرکتی مهندسی نیکان",
-    category: "web",
-    label: "توسعه وب",
-    result: "+۷۰٪ لید ورودی",
-    color: "linear-gradient(135deg, #00c6fb 0%, #005bea 100%)",
-    tags: ["Corporate", "RTL", "Forms"],
-  },
-  {
-    title: "سیستم طراحی محصول آموزشی",
-    category: "branding",
-    label: "برندینگ",
-    result: "یکپارچه سازی محصول",
-    color: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-    tags: ["Design system", "UI kit", "Guide"],
-  },
-  {
-    title: "کمپین تبلیغاتی پوشاک نارین",
-    category: "marketing",
-    label: "دیجیتال مارکتینگ",
-    result: "+۱۹۰٪ فروش فصلی",
-    color: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
-    tags: ["PPC", "Social", "Retarget"],
-  },
+const workColors = [
+  "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",
+  "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+  "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  "linear-gradient(135deg, #ff6b4a 0%, #ff4757 100%)",
+  "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+  "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+  "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
+  "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+  "linear-gradient(135deg, #f6d365 0%, #fda085 100%)",
+  "linear-gradient(135deg, #00c6fb 0%, #005bea 100%)",
+  "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+  "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
 ];
 
-const filters = [
-  { id: "all", label: "همه" },
-  { id: "graphic", label: "طراحی گرافیک" },
-  { id: "mobile", label: "اپلیکیشن موبایل" },
-  { id: "web", label: "توسعه وب" },
-  { id: "marketing", label: "دیجیتال مارکتینگ" },
-  { id: "branding", label: "برندینگ" },
+const workCategories = [
+  "graphic",
+  "mobile",
+  "web",
+  "marketing",
+  "branding",
+  "web",
+  "mobile",
+  "graphic",
+  "marketing",
+  "web",
+  "branding",
+  "marketing",
 ];
 
-const processSteps = [
-  {
-    number: "۱",
-    title: "تحلیل نیاز",
-    description:
-      "هدف، مخاطب، رقبا و شاخص های موفقیت قبل از طراحی مشخص می شوند.",
-    color: "accent",
-  },
-  {
-    number: "۲",
-    title: "طراحی مسیر",
-    description: "ساختار تجربه کاربر، هویت بصری و نقشه اجرای فنی آماده می شود.",
-    color: "warm",
-  },
-  {
-    number: "۳",
-    title: "تولید و توسعه",
-    description:
-      "طراحی ها به محصول، کمپین یا دارایی های آماده انتشار تبدیل می شوند.",
-    color: "accent",
-  },
-  {
-    number: "۴",
-    title: "بهبود مستمر",
-    description:
-      "عملکرد بررسی می شود و نسخه های بعدی بر اساس داده و بازخورد ساخته می شوند.",
-    color: "warm",
-  },
-];
+const processColors = ["accent", "warm", "accent", "warm"];
 
 export default function WorksPage() {
+  const t = useTranslations("works");
+  const locale = useLocale();
+  const rawT = t as unknown as { raw: (key: string) => any };
+  const filters = rawT.raw("filters") as { id: string; label: string }[];
+  const works = (
+    rawT.raw("items") as {
+      title: string;
+      label: string;
+      result: string;
+      tags: string[];
+    }[]
+  ).map((work, i) => ({
+    ...work,
+    category: workCategories[i] ?? "web",
+    color: workColors[i] ?? workColors[0],
+  }));
+  const processSteps = (
+    rawT.raw("processSteps") as { title: string; description: string }[]
+  ).map((step, i) => ({
+    ...step,
+    color: processColors[i % processColors.length],
+    number: toLocalDigits(i + 1, locale),
+  }));
   const [activeFilter, setActiveFilter] = useState("all");
   const sectionRef = useRef(null);
 
@@ -220,7 +139,7 @@ export default function WorksPage() {
                 className="inline-flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2 mb-6">
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                 <span className="text-sm text-muted">
-                  نمای کامل پروژه های اجرا شده
+                  {t("badge")}
                 </span>
               </motion.div>
               <motion.h1
@@ -228,16 +147,14 @@ export default function WorksPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
                 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-foreground">
-                نمونه کارهای <span className="gradient-text">نوین دیجیتال</span>
+                {t("title")} <span className="gradient-text">{t("highlight")}</span>
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-lg sm:text-xl text-muted max-w-2xl">
-                از طراحی گرافیک و هویت بصری تا توسعه اپلیکیشن موبایل، طراحی وب
-                سایت، سئو و کمپین های دیجیتال؛ این صفحه نمایی از پروژه هایی است
-                که برای رشد برندها ساخته ایم.
+                {t("description")}
               </motion.p>
             </div>
 
@@ -249,9 +166,9 @@ export default function WorksPage() {
               <div className="space-y-4">
                 <div className="bg-card border border-border rounded-2xl p-6">
                   <div className="text-4xl font-black gradient-text mb-2">
-                    ۵۰۰+
+                    {toLocalDigits(500, locale)}+
                   </div>
-                  <div className="text-sm text-muted">پروژه موفق</div>
+                  <div className="text-sm text-muted">{t("statProjects")}</div>
                 </div>
                 <div className="bg-card border border-border rounded-2xl p-6 h-40 flex items-center justify-center">
                   <div className="text-center">
@@ -268,21 +185,25 @@ export default function WorksPage() {
                       />
                     </svg>
                     <div className="font-bold text-foreground">
-                      طراحی اختصاصی
+                      {t("statCustom")}
                     </div>
                   </div>
                 </div>
               </div>
               <div className="space-y-4 pt-8">
                 <div className="bg-warm/10 border border-warm/30 rounded-2xl p-6">
-                  <div className="text-4xl font-black text-warm mb-2">۱۲</div>
-                  <div className="text-sm text-muted">حوزه تخصصی</div>
+                  <div className="text-4xl font-black text-warm mb-2">
+                    {toLocalDigits(12, locale)}
+                  </div>
+                  <div className="text-sm text-muted">{t("statFields")}</div>
                 </div>
                 <div className="bg-card border border-border rounded-2xl p-6">
                   <div className="text-4xl font-black gradient-text mb-2">
-                    ۹۸٪
+                    {toLocalDigits(98, locale)}%
                   </div>
-                  <div className="text-sm text-muted">رضایت مشتری</div>
+                  <div className="text-sm text-muted">
+                    {t("statSatisfaction")}
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -300,14 +221,13 @@ export default function WorksPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-14">
             <span className="inline-block text-accent font-medium mb-4">
-              آرشیو پروژه ها
+              {t("gridBadge")}
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-              پروژه ها بر اساس تخصص
+              {t("gridTitle")}
             </h2>
             <p className="text-muted max-w-2xl mx-auto text-lg">
-              فیلتر کنید و نمونه هایی از خروجی تیم های طراحی، توسعه، بازاریابی و
-              محصول را ببینید.
+              {t("gridDescription")}
             </p>
           </motion.div>
 
@@ -363,7 +283,7 @@ export default function WorksPage() {
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between gap-4 mb-5">
-                      <span className="text-muted text-sm">نتیجه پروژه</span>
+                      <span className="text-muted text-sm">{t("resultLabel")}</span>
                       <strong className="text-accent">{work.result}</strong>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -416,14 +336,13 @@ export default function WorksPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}>
               <span className="inline-block text-accent font-medium mb-4">
-                روش همکاری
+                {t("processBadge")}
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-                از ایده تا اجرای قابل اندازه گیری
+                {t("processTitle")}
               </h2>
               <p className="text-muted text-lg">
-                هر پروژه با شناخت هدف تجاری شروع می شود و با طراحی، توسعه، تست و
-                گزارش عملکرد ادامه پیدا می کند.
+                {t("processDescription")}
               </p>
             </motion.div>
 
@@ -484,22 +403,21 @@ export default function WorksPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-              پروژه بعدی شما را شروع کنیم؟
+              {t("ctaTitle")}
             </h2>
             <p className="text-muted text-lg mb-10 max-w-2xl mx-auto">
-              برای طراحی گرافیک، اپلیکیشن موبایل، وب سایت یا کمپین دیجیتال،
-              brief اولیه را برای ما ارسال کنید.
+              {t("ctaDescription")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
                 className="bg-accent text-bg px-8 py-4 rounded-xl font-bold text-lg hover:bg-accentDark transition-colors shadow-[0_0_30px_rgba(0,229,204,0.3)]">
-                شروع همکاری
+                {t("ctaPrimary")}
               </Link>
               <Link
                 href="/"
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border hover:border-accent transition-colors text-foreground">
-                بازگشت به صفحه اصلی
+                {t("ctaSecondary")}
               </Link>
             </div>
           </motion.div>

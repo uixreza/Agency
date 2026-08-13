@@ -1,9 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { fadeInUp, staggerContainer, smoothTransition } from "@/lib/animations";
+import { useTranslations } from "next-intl";
 
 export default function CTASection() {
+  const t = useTranslations("cta");
   return (
     <section className="relative py-20 lg:py-32 bg-bg overflow-hidden">
       {/* Radial gradient background effects */}
@@ -54,14 +56,13 @@ export default function CTASection() {
             variants={fadeInUp}
             transition={smoothTransition}
             className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-            آماده رشد کسب‌وکارتان هستید؟
+            {t("heading")}
           </motion.h2>
           <motion.p
             variants={fadeInUp}
             transition={smoothTransition}
             className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
-            همین امروز با تیم ما تماس بگیرید و مشاوره رایگان دریافت کنید.
-            کارشناسان ما آماده پاسخگویی به سوالات شما هستند.
+            {t("description")}
           </motion.p>
 
           <motion.div
@@ -79,7 +80,7 @@ export default function CTASection() {
                   boxShadow: "0 0 30px rgba(0, 229, 204, 0.4)",
                 }}>
                 <span className="relative z-10 text-black">
-                  درخواست مشاوره رایگان
+                  {t("button")}
                 </span>
                 <motion.div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -108,7 +109,7 @@ export default function CTASection() {
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                   />
                 </svg>
-                <span>۰۲۱-۱۲۳۴۵۶۷۸</span>
+                <span>{t("phone")}</span>
               </Link>
             </motion.div>
           </motion.div>

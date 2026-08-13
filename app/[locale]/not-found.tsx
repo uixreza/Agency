@@ -1,9 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function NotFound() {
+  const t = useTranslations("notfound");
   return (
     <main className="relative min-h-screen flex items-center justify-center bg-bg overflow-hidden font-vazir">
       {/* Subtle grid */}
@@ -71,11 +73,10 @@ export default function NotFound() {
           transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-md mb-12">
           <h2 className="text-xl sm:text-2xl font-bold text-white mb-3">
-            صفحه پیدا نشد
+            {t("title")}
           </h2>
           <p className="text-gray-500 text-sm leading-relaxed">
-            به نظر می‌رسد این صفحه به مقصد دیگری کوچ کرده. بیایید شما را به مسیر
-            درست برگردانیم.
+            {t("description")}
           </p>
         </motion.div>
 
@@ -104,13 +105,13 @@ export default function NotFound() {
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-            <span className="text-black font-medium">بازگشت به خانه</span>
+            <span className="text-black font-medium">{t("home")}</span>
           </Link>
 
           <Link
             href="/contact"
             className="group flex items-center gap-2 px-6 py-3 rounded-xl text-sm text-gray-400 hover:text-white transition-all duration-300">
-            <span>گزارش مشکل</span>
+            <span>{t("report")}</span>
             <svg
               className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1"
               fill="none"

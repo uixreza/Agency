@@ -1,25 +1,34 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { portfolioData, categoryNames } from "@/lib/data";
+import { Link } from "@/i18n/navigation";
 import { fadeInUp, staggerContainer, smoothTransition } from "@/lib/animations";
+import { useTranslations } from "next-intl";
 
-const filters = [
-  { value: "all", label: "همه" },
-  { value: "seo", label: "سئو" },
-  { value: "ads", label: "تبلیغات" },
-  { value: "social", label: "شبکه اجتماعی" },
-  { value: "web", label: "طراحی وب" },
+const cardStyles = [
+  { category: "web", image: "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)" },
+  { category: "seo", image: "linear-gradient(135deg, #ff6b4a 0%, #ff4757 100%)" },
+  { category: "ads", image: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" },
+  { category: "social", image: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)" },
+  { category: "web", image: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)" },
+  { category: "seo", image: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)" },
 ];
 
 export default function PortfolioSection() {
+  const t = useTranslations("portfolio");
+  const filters = t.raw("filters") as { value: string; label: string }[];
+  const categories = t.raw("categories") as Record<string, string>;
+  const items = t.raw("items") as { title: string; result: string }[];
+  const portfolio = items.map((item, index) => ({
+    ...item,
+    ...(cardStyles[index] ?? cardStyles[0]),
+  }));
   const [activeFilter, setActiveFilter] = useState("all");
 
   const filteredPortfolio =
     activeFilter === "all"
-      ? portfolioData
-      : portfolioData.filter((item) => item.category === activeFilter);
+      ? portfolio
+      : portfolio.filter((item) => item.category === activeFilter);
 
   return (
     <section id="portfolio" className="relative py-20 lg:py-32 bg-bg">
@@ -33,19 +42,19 @@ export default function PortfolioSection() {
             variants={fadeInUp}
             transition={smoothTransition}
             className="inline-block text-accent font-medium mb-4">
-            نمونه کارها
+            {t("badge")}
           </motion.span>
           <motion.h2
             variants={fadeInUp}
             transition={smoothTransition}
             className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-white">
-            پروژه‌های موفق ما
+            {t("heading")}
           </motion.h2>
           <motion.p
             variants={fadeInUp}
             transition={smoothTransition}
             className="text-gray-400 max-w-2xl mx-auto text-lg">
-            برخی از پروژه‌هایی که افتخار همکاری در آن‌ها را داشته‌ایم
+            {t("description")}
           </motion.p>
         </motion.div>
 
@@ -77,7 +86,7 @@ export default function PortfolioSection() {
           <AnimatePresence mode="popLayout">
             {filteredPortfolio.map((item, index) => (
               <motion.div
-                key={item.id}
+                key={item.title}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -109,7 +118,7 @@ export default function PortfolioSection() {
                       border: "1px solid rgba(37, 42, 54, 0.7)",
                     }}>
                     <span className="text-accent text-sm font-medium mb-2 block">
-                      {categoryNames[item.category]}
+                      {categories[item.category]}
                     </span>
                     <h3 className="text-lg font-bold text-white mb-1">
                       {item.title}
@@ -151,7 +160,7 @@ export default function PortfolioSection() {
                   d="M14 5l7 7-7 7"
                 />
               </motion.svg>
-              <span className="relative z-10 text-white">مشاهده بیشتر</span>
+              <span className="relative z-10 text-white">{t("viewMore")}</span>
               <motion.div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{

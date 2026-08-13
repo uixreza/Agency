@@ -3,18 +3,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Cookies from "js-cookie";
-import { useTheme } from "next-themes";
-
-const languages = [
-  { code: "fa", label: "فارسی", flag: "🇮🇷", direction: "rtl" },
-  { code: "en", label: "English", flag: "🇬🇧", direction: "ltr" },
-  { code: "tr", label: "Türkçe", flag: "🇹🇷", direction: "ltr" },
-];
+import { useTheme } from "@/components/ThemeProvider";
+import { useRouter } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { routing } from "@/i18n/routing";
 
 const themeOptions = [
   {
     id: "dark",
-    label: "تیره",
     icon: (
       <svg
         className="w-8 h-8"
@@ -34,7 +30,6 @@ const themeOptions = [
   },
   {
     id: "light",
-    label: "روشن",
     icon: (
       <svg
         className="w-8 h-8"
@@ -57,8 +52,6 @@ const themeOptions = [
 const cookieOptions = [
   {
     value: "yes",
-    label: "بله، موافقم",
-    description: "با ذخیره کوکی برای تجربه بهتر موافقم",
     color: "border-accent bg-accent/10 text-accent",
     icon: (
       <svg
@@ -77,8 +70,6 @@ const cookieOptions = [
   },
   {
     value: "no",
-    label: "خیر، رد می‌کنم",
-    description: "فقط کوکی‌های ضروری ذخیره می‌شوند",
     color: "border-warm bg-warm/10 text-warm",
     icon: (
       <svg
@@ -100,11 +91,27 @@ const cookieOptions = [
 export default function OnboardingModal() {
   const [isVisible, setIsVisible] = useState(false);
   const [step, setStep] = useState(1);
-  const [selectedLang, setSelectedLang] = useState(languages[1]);
   const [cookieConsent, setCookieConsent] = useState<string | null>(null);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
+  const t = useTranslations("onboarding");
+  const locale = useLocale();
+
+  const languages = [
+    { code: "fa", label: t("langFa") || "فارسی", flag: "🇮🇷" },
+    { code: "en", label: t("langEn") || "English", flag: "🇬🇧" },
+    { code: "tr", label: t("langTr") || "Türkçe", flag: "🇹🇷" },
+  ];
+
+  const [selectedLang, setSelectedLang] = useState(
+    locale === "en"
+      ? languages[1]
+      : locale === "tr"
+        ? languages[2]
+        : languages[0],
+  );
 
   useEffect(() => {
     setMounted(true);
@@ -117,6 +124,16 @@ export default function OnboardingModal() {
       return () => clearTimeout(timer);
     }
   }, [mounted]);
+
+  useEffect(() => {
+    setSelectedLang(
+      locale === "en"
+        ? languages[1]
+        : locale === "tr"
+          ? languages[2]
+          : languages[0],
+    );
+  }, [locale]);
 
   const handleComplete = () => {
     Cookies.set("preferred_language", selectedLang.code, { expires: 365 });
@@ -134,10 +151,19 @@ export default function OnboardingModal() {
     }
   };
 
-  const stepTitles = {
-    1: "زبان مورد نظر خود را انتخاب کنید",
-    2: "تم مورد علاقه خود را انتخاب کنید",
-    3: "تنظیمات کوکی",
+  const switchLanguage = (lang: (typeof languages)[0]) => {
+    setSelectedLang(lang);
+    setIsLangOpen(false);
+
+    router.push(
+      lang.code === routing.defaultLocale ? "/" : `/${lang.code}`,
+    );
+  };
+
+  const stepTitles: Record<number, string> = {
+    1: t("langTitle") || "زبان مورد نظر خود را انتخاب کنید",
+    2: t("themeTitle") || "تم مورد علاقه خود را انتخاب کنید",
+    3: t("cookieTitle") || "تنظیمات کوکی",
   };
 
   const overlayVariants = {
@@ -224,10 +250,10 @@ export default function OnboardingModal() {
             exit="exit"
             className="relative w-full max-w-lg z-10">
             <div
-              className="relative rounded-3xl overflow-hidden bg-card/80 backdrop-blur-[40px] border border-border/60"
+              className="relative rounded-3xl  bg-card/80 backdrop-blur-[40px] border border-border/60"
               style={{
                 boxShadow:
-                  "0 25px 60px rgba(0, 0, 0, 0.25), 0 0 40px var(--color-accent)",
+                  "0 25px 60px rgba(0, 0, 0, 0.35), 0 0 60px var(--color-accent)",
               }}>
               <div
                 className="absolute inset-0 rounded-3xl opacity-30 pointer-events-none"
@@ -241,9 +267,7 @@ export default function OnboardingModal() {
                 <div className="flex items-center mb-8">
                   <div className="flex flex-col items-center">
                     <motion.div
-                      animate={{
-                        scale: step === 1 ? [1, 1.1, 1] : 1,
-                      }}
+                      animate={{ scale: step === 1 ? [1, 1.1, 1] : 1 }}
                       transition={{ repeat: Infinity, duration: 2 }}
                       className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold transition-all duration-500 ${
                         step > 1
@@ -270,10 +294,8 @@ export default function OnboardingModal() {
                       )}
                     </motion.div>
                     <span
-                      className={`text-xs mt-2 transition-colors duration-500 ${
-                        step >= 1 ? "text-foreground/70" : "text-muted"
-                      }`}>
-                      زبان
+                      className={`text-xs mt-2 transition-colors duration-500 ${step >= 1 ? "text-foreground/70" : "text-muted"}`}>
+                      {t("step1")}
                     </span>
                   </div>
 
@@ -294,9 +316,7 @@ export default function OnboardingModal() {
 
                   <div className="flex flex-col items-center">
                     <motion.div
-                      animate={{
-                        scale: step === 2 ? [1, 1.1, 1] : 1,
-                      }}
+                      animate={{ scale: step === 2 ? [1, 1.1, 1] : 1 }}
                       transition={{ repeat: Infinity, duration: 2 }}
                       className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold transition-all duration-500 ${
                         step > 2
@@ -323,10 +343,8 @@ export default function OnboardingModal() {
                       )}
                     </motion.div>
                     <span
-                      className={`text-xs mt-2 transition-colors duration-500 ${
-                        step >= 2 ? "text-foreground/70" : "text-muted"
-                      }`}>
-                      تم
+                      className={`text-xs mt-2 transition-colors duration-500 ${step >= 2 ? "text-foreground/70" : "text-muted"}`}>
+                      {t("step2")}
                     </span>
                   </div>
 
@@ -347,9 +365,7 @@ export default function OnboardingModal() {
 
                   <div className="flex flex-col items-center">
                     <motion.div
-                      animate={{
-                        scale: step === 3 ? [1, 1.1, 1] : 1,
-                      }}
+                      animate={{ scale: step === 3 ? [1, 1.1, 1] : 1 }}
                       transition={{ repeat: Infinity, duration: 2 }}
                       className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold transition-all duration-500 ${
                         step === 3
@@ -359,22 +375,25 @@ export default function OnboardingModal() {
                       3
                     </motion.div>
                     <span
-                      className={`text-xs mt-2 transition-colors duration-500 ${
-                        step >= 3 ? "text-foreground/70" : "text-muted"
-                      }`}>
-                      کوکی
+                      className={`text-xs mt-2 transition-colors duration-500 ${step >= 3 ? "text-foreground/70" : "text-muted"}`}>
+                      {t("step3")}
                     </span>
                   </div>
                 </div>
 
                 <h2 className="text-2xl font-bold text-foreground text-center mb-2">
-                  {stepTitles[step as keyof typeof stepTitles]}
+                  {stepTitles[step]}
                 </h2>
                 <p className="text-muted text-sm text-center mb-8">
                   {step === 1 &&
-                    "برای تجربه بهتر، زبان مورد نظر خود را انتخاب کنید"}
-                  {step === 2 && "حالت نمایشی مورد علاقه خود را انتخاب کنید"}
-                  {step === 3 && "تنظیمات حریم خصوصی و ذخیره کوکی را مشخص کنید"}
+                    (t("langDesc") ||
+                      "برای تجربه بهتر، زبان مورد نظر خود را انتخاب کنید")}
+                  {step === 2 &&
+                    (t("themeDesc") ||
+                      "حالت نمایشی مورد علاقه خود را انتخاب کنید")}
+                  {step === 3 &&
+                    (t("cookieDesc") ||
+                      "تنظیمات حریم خصوصی و ذخیره کوکی را مشخص کنید")}
                 </p>
               </div>
 
@@ -431,10 +450,7 @@ export default function OnboardingModal() {
                               {languages.map((lang) => (
                                 <button
                                   key={lang.code}
-                                  onClick={() => {
-                                    setSelectedLang(lang);
-                                    setIsLangOpen(false);
-                                  }}
+                                  onClick={() => switchLanguage(lang)}
                                   className={`w-full flex items-center gap-4 px-5 py-4 transition-all duration-200 hover:bg-white/5 ${
                                     selectedLang.code === lang.code
                                       ? "bg-accent/10 border-l-2 border-accent"
@@ -443,11 +459,7 @@ export default function OnboardingModal() {
                                   <span className="text-3xl">{lang.flag}</span>
                                   <div className="text-right">
                                     <div
-                                      className={`font-medium ${
-                                        selectedLang.code === lang.code
-                                          ? "text-accent"
-                                          : "text-foreground"
-                                      }`}>
+                                      className={`font-medium ${selectedLang.code === lang.code ? "text-accent" : "text-foreground"}`}>
                                       {lang.label}
                                     </div>
                                     <div className="text-xs text-muted">
@@ -492,28 +504,18 @@ export default function OnboardingModal() {
                               <div className="w-8 h-1.5 rounded-full bg-border/30" />
                             </div>
                           </div>
-
                           <div className="flex items-center justify-between">
-                            <div>
-                              <div
-                                className={`font-bold text-lg mb-1 ${
-                                  theme === themeOption.id
-                                    ? "text-accent"
-                                    : "text-foreground"
-                                }`}>
-                                {themeOption.label}
-                              </div>
+                            <div
+                              className={`font-bold text-lg mb-1 ${theme === themeOption.id ? "text-accent" : "text-foreground"}`}>
+                              {themeOption.id === "dark"
+                                ? t("dark") || "تیره"
+                                : t("light") || "روشن"}
                             </div>
                             <div
-                              className={`transition-all duration-300 ${
-                                theme === themeOption.id
-                                  ? "text-accent"
-                                  : "text-muted"
-                              }`}>
+                              className={`transition-all duration-300 ${theme === themeOption.id ? "text-accent" : "text-muted"}`}>
                               {themeOption.icon}
                             </div>
                           </div>
-
                           {theme === themeOption.id && (
                             <motion.div
                               initial={{ scale: 0 }}
@@ -569,10 +571,16 @@ export default function OnboardingModal() {
                           </div>
                           <div className="text-right flex-1">
                             <div className="font-bold text-base mb-1">
-                              {option.label}
+                              {option.value === "yes"
+                                ? t("yes") || "بله، موافقم"
+                                : t("no") || "خیر، رد می‌کنم"}
                             </div>
                             <div className="text-xs opacity-70">
-                              {option.description}
+                              {option.value === "yes"
+                                ? t("yesDesc") ||
+                                  "با ذخیره کوکی برای تجربه بهتر موافقم"
+                                : t("noDesc") ||
+                                  "فقط کوکی‌های ضروری ذخیره می‌شوند"}
                             </div>
                           </div>
                           <motion.div
@@ -589,9 +597,7 @@ export default function OnboardingModal() {
                               animate={{
                                 scale: cookieConsent === option.value ? 1 : 0,
                               }}
-                              className={`w-3 h-3 rounded-full ${
-                                option.value === "yes" ? "bg-accent" : "bg-warm"
-                              }`}
+                              className={`w-3 h-3 rounded-full ${option.value === "yes" ? "bg-accent" : "bg-warm"}`}
                             />
                           </motion.div>
                         </motion.button>
@@ -607,7 +613,7 @@ export default function OnboardingModal() {
                       whileTap={{ scale: 0.98 }}
                       onClick={() => setStep(step - 1)}
                       className="px-6 py-3 rounded-xl border border-border/60 text-muted hover:text-foreground hover:border-border transition-all duration-300">
-                      بازگشت
+                      {t("back")}
                     </motion.button>
                   )}
                   <motion.button
@@ -632,7 +638,9 @@ export default function OnboardingModal() {
                           ? "text-muted"
                           : "text-black"
                       }>
-                      {step === 3 ? "شروع کنید" : "بعدی"}
+                      {step === 3
+                        ? t("start") || "شروع کنید"
+                        : t("next") || "بعدی"}
                     </span>
                   </motion.button>
                 </div>
@@ -641,7 +649,7 @@ export default function OnboardingModal() {
                   <button
                     onClick={handleComplete}
                     className="w-full mt-3 text-sm text-muted hover:text-foreground transition-colors duration-300">
-                    رد کردن و ادامه
+                    {t("skip")}
                   </button>
                 )}
               </div>

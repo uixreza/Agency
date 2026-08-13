@@ -1,15 +1,12 @@
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { toLocalDigits } from "@/lib/data";
 
-const services = [
+const serviceIconMeta = [
   {
-    number: "۰۱",
-    title: "طراحی گرافیک و هویت بصری",
-    description:
-      "طراحی لوگو، کیت برند، محتوای شبکه‌های اجتماعی، کاتالوگ، بنر و دارایی‌های بصری هماهنگ با شخصیت برند.",
-    tags: ["Logo", "Brand Book", "Social Kit"],
     icon: (
       <svg
         className="w-7 h-7"
@@ -30,11 +27,6 @@ const services = [
     textColor: "text-accent",
   },
   {
-    number: "۰۲",
-    title: "توسعه اپلیکیشن موبایل",
-    description:
-      "طراحی تجربه کاربری، توسعه Android و iOS، اتصال به API، پرداخت، پنل مدیریت و انتشار نسخه نهایی.",
-    tags: ["Android", "iOS", "UI/UX"],
     icon: (
       <svg
         className="w-7 h-7"
@@ -55,11 +47,6 @@ const services = [
     textColor: "text-warm",
   },
   {
-    number: "۰۳",
-    title: "طراحی و توسعه وب‌سایت",
-    description:
-      "وب‌سایت شرکتی، فروشگاه آنلاین، لندینگ پیج، داشبورد و وب‌اپلیکیشن سریع، امن و بهینه برای تبدیل.",
-    tags: ["Corporate", "E-commerce", "Dashboard"],
     icon: (
       <svg
         className="w-7 h-7"
@@ -80,11 +67,6 @@ const services = [
     textColor: "text-accent",
   },
   {
-    number: "۰۴",
-    title: "سئو و بهینه‌سازی سایت",
-    description:
-      "تحقیق کلمات کلیدی، سئو تکنیکال، تولید محتوا، لینک‌سازی و بهبود ساختار سایت برای رشد ترافیک ارگانیک.",
-    tags: ["Technical SEO", "Content", "Growth"],
     icon: (
       <svg
         className="w-7 h-7"
@@ -105,11 +87,6 @@ const services = [
     textColor: "text-warm",
   },
   {
-    number: "۰۵",
-    title: "تبلیغات دیجیتال",
-    description:
-      "راه‌اندازی و مدیریت کمپین‌های تبلیغاتی، ریمارکتینگ، بهینه‌سازی بودجه و گزارش بازگشت سرمایه.",
-    tags: ["Google Ads", "Retargeting", "ROAS"],
     icon: (
       <svg
         className="w-7 h-7"
@@ -136,11 +113,6 @@ const services = [
     textColor: "text-accent",
   },
   {
-    number: "۰۶",
-    title: "مدیریت شبکه‌های اجتماعی",
-    description:
-      "استراتژی محتوا، تقویم انتشار، طراحی پست و استوری، کپشن‌نویسی، گزارش تعامل و رشد جامعه مخاطبان.",
-    tags: ["Content Plan", "Instagram", "LinkedIn"],
     icon: (
       <svg
         className="w-7 h-7"
@@ -167,11 +139,6 @@ const services = [
     textColor: "text-warm",
   },
   {
-    number: "۰۷",
-    title: "ایمیل و اتوماسیون بازاریابی",
-    description:
-      "طراحی مسیرهای ایمیلی، سگمنت‌بندی مشتریان، خبرنامه، پیام‌های بازگشتی و کمپین‌های فروش مجدد.",
-    tags: ["Automation", "Newsletter", "CRM"],
     icon: (
       <svg
         className="w-7 h-7"
@@ -192,11 +159,6 @@ const services = [
     textColor: "text-accent",
   },
   {
-    number: "۰۸",
-    title: "تحلیل داده و گزارش عملکرد",
-    description:
-      "پیاده‌سازی ابزارهای تحلیلی، داشبورد اختصاصی، تعریف KPI و ارائه گزارش‌های کاربردی برای تصمیم‌گیری دقیق.",
-    tags: ["Analytics", "Dashboard", "KPI"],
     icon: (
       <svg
         className="w-7 h-7"
@@ -217,11 +179,6 @@ const services = [
     textColor: "text-warm",
   },
   {
-    number: "۰۹",
-    title: "مشاوره محصول و استراتژی دیجیتال",
-    description:
-      "تحلیل بازار، طراحی نقشه راه، اولویت‌بندی امکانات، تعریف قیف فروش و برنامه اجرایی برای رشد مرحله‌به‌مرحله.",
-    tags: ["Roadmap", "Strategy", "Conversion"],
     icon: (
       <svg
         className="w-7 h-7"
@@ -249,38 +206,36 @@ const services = [
   },
 ];
 
-const deliverables = [
-  {
-    number: "۱",
-    title: "تحلیل و برنامه‌ریزی",
-    description:
-      "نیاز، مخاطب، رقبا، امکانات، بودجه و شاخص‌های موفقیت قبل از شروع کار روشن می‌شوند.",
-    color: "accent",
-  },
-  {
-    number: "۲",
-    title: "طراحی و نمونه اولیه",
-    description:
-      "وایرفریم، مسیر کاربر، هویت بصری و نمونه قابل بررسی پیش از اجرای نهایی آماده می‌شود.",
-    color: "warm",
-  },
-  {
-    number: "۳",
-    title: "توسعه و انتشار",
-    description:
-      "خروجی نهایی با تست، بهینه‌سازی، مستندات و پشتیبانی اولیه تحویل داده می‌شود.",
-    color: "accent",
-  },
-  {
-    number: "۴",
-    title: "گزارش و بهبود مستمر",
-    description:
-      "داده‌ها بررسی می‌شوند و نسخه‌های بعدی بر اساس عملکرد واقعی و بازخورد کاربران ساخته می‌شوند.",
-    color: "warm",
-  },
-];
+const deliverableColors = ["accent", "warm", "accent", "warm"];
 
 export default function ServicesPage() {
+  const t = useTranslations("servicesPage");
+  const locale = useLocale();
+  const rawT = t as unknown as { raw: (key: string) => any };
+  const services = (
+    rawT.raw("services") as {
+      title: string;
+      description: string;
+      tags: string[];
+    }[]
+  ).map((service, i) => ({
+    ...service,
+    ...(serviceIconMeta[i % serviceIconMeta.length] ?? serviceIconMeta[0]),
+    number:
+      i + 1 < 10
+        ? locale === "fa"
+          ? "۰" + toLocalDigits(i + 1, locale)
+          : "0" + toLocalDigits(i + 1, locale)
+        : toLocalDigits(i + 1, locale),
+  }));
+  const pathSteps = rawT.raw("pathSteps") as string[];
+  const deliverables = (
+    rawT.raw("deliverables") as { title: string; description: string }[]
+  ).map((item, i) => ({
+    ...item,
+    color: deliverableColors[i % deliverableColors.length],
+    number: toLocalDigits(i + 1, locale),
+  }));
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -351,7 +306,7 @@ export default function ServicesPage() {
                 className="inline-flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2 mb-6">
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                 <span className="text-sm text-muted">
-                  راهکارهای کامل برای رشد دیجیتال
+                  {t("badge")}
                 </span>
               </motion.div>
 
@@ -360,8 +315,8 @@ export default function ServicesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
                 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-foreground">
-                خدمات تخصصی
-                <span className="gradient-text"> نوین دیجیتال</span>
+                {t("title")}
+                <span className="gradient-text"> {t("highlight")}</span>
               </motion.h1>
 
               <motion.p
@@ -369,9 +324,7 @@ export default function ServicesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-lg sm:text-xl text-muted max-w-2xl">
-                از طراحی گرافیک و هویت بصری تا توسعه وب‌سایت، اپلیکیشن موبایل،
-                سئو، تبلیغات و تحلیل داده؛ تیم ما مسیر کامل تبدیل ایده به محصول
-                و رشد پایدار را کنار شما اجرا می‌کند.
+                {t("description")}
               </motion.p>
 
               <motion.div
@@ -382,12 +335,12 @@ export default function ServicesPage() {
                 <Link
                   href="/contact"
                   className="bg-accent text-bg px-8 py-4 rounded-xl font-bold text-lg hover:bg-accentDark transition-colors text-center shadow-[0_0_30px_rgba(0,229,204,0.3)]">
-                  دریافت مشاوره
+                  {t("ctaPrimary")}
                 </Link>
                 <Link
                   href="#services-list"
                   className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border hover:border-accent transition-colors text-foreground">
-                  مشاهده خدمات
+                  {t("ctaSecondary")}
                 </Link>
               </motion.div>
             </div>
@@ -405,34 +358,33 @@ export default function ServicesPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-bg border border-border rounded-2xl p-5">
                   <div className="text-4xl font-black gradient-text mb-2">
-                    ۱۲+
+                    {toLocalDigits(12, locale)}+
                   </div>
-                  <div className="text-sm text-muted">حوزه تخصصی</div>
+                  <div className="text-sm text-muted">{t("statFieldsLabel")}</div>
                 </div>
                 <div className="bg-bg border border-border rounded-2xl p-5">
-                  <div className="text-4xl font-black text-warm mb-2">۵۰۰+</div>
-                  <div className="text-sm text-muted">پروژه اجرا شده</div>
+                  <div className="text-4xl font-black text-warm mb-2">
+                    {toLocalDigits(500, locale)}+
+                  </div>
+                  <div className="text-sm text-muted">
+                    {t("statProjectsLabel")}
+                  </div>
                 </div>
                 <div className="col-span-2 bg-bg border border-border rounded-2xl p-5">
                   <div className="flex items-center justify-between gap-4 mb-5">
-                    <span className="text-muted">مسیر همکاری</span>
+                    <span className="text-muted">{t("pathLabel")}</span>
                     <span className="text-accent font-bold">
-                      از تحلیل تا رشد
+                      {t("pathValue")}
                     </span>
                   </div>
                   <div className="grid grid-cols-4 gap-2 text-center text-xs text-muted">
-                    <span className="rounded-lg bg-card border border-border py-2">
-                      کشف
-                    </span>
-                    <span className="rounded-lg bg-card border border-border py-2">
-                      طراحی
-                    </span>
-                    <span className="rounded-lg bg-card border border-border py-2">
-                      اجرا
-                    </span>
-                    <span className="rounded-lg bg-card border border-border py-2">
-                      بهبود
-                    </span>
+                    {pathSteps.map((step, i) => (
+                      <span
+                        key={i}
+                        className="rounded-lg bg-card border border-border py-2">
+                        {step}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -453,14 +405,13 @@ export default function ServicesPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16">
             <span className="inline-block text-accent font-medium mb-4">
-              فهرست خدمات
+              {t("listBadge")}
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-              همه نیازهای دیجیتال در یک تیم
+              {t("listTitle")}
             </h2>
             <p className="text-muted max-w-2xl mx-auto text-lg">
-              هر خدمت می‌تواند مستقل اجرا شود یا به‌عنوان بخشی از یک مسیر کامل
-              رشد برای کسب‌وکار شما کنار هم قرار گیرد.
+              {t("listDescription")}
             </p>
           </motion.div>
 
@@ -540,15 +491,13 @@ export default function ServicesPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}>
               <span className="inline-block text-accent font-medium mb-4">
-                خروجی همکاری
+                {t("deliverablesBadge")}
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-                فقط اجرا نمی‌کنیم؛ مسیر رشد را قابل پیگیری می‌سازیم
+                {t("deliverablesTitle")}
               </h2>
               <p className="text-muted text-lg">
-                برای هر پروژه، خروجی‌ها، زمان‌بندی، شاخص‌های موفقیت و گزارش‌های
-                قابل اندازه‌گیری مشخص می‌شود تا بدانید هر قدم چه اثری روی
-                کسب‌وکار شما دارد.
+                {t("deliverablesDescription")}
               </p>
             </motion.div>
 
@@ -614,22 +563,21 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-              برای انتخاب خدمت مناسب آماده‌اید؟
+              {t("ctaTitle")}
             </h2>
             <p className="text-muted text-lg mb-10 max-w-2xl mx-auto">
-              اگر دقیق نمی‌دانید از کدام خدمت شروع کنید، brief اولیه را برای ما
-              بفرستید تا مسیر مناسب پروژه مشخص شود.
+              {t("ctaDescription")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
                 className="bg-accent text-bg px-8 py-4 rounded-xl font-bold text-lg hover:bg-accentDark transition-colors shadow-[0_0_30px_rgba(0,229,204,0.3)]">
-                شروع همکاری
+                {t("ctaPrimary")}
               </Link>
               <Link
                 href="/our-works"
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border hover:border-accent transition-colors text-foreground">
-                مشاهده نمونه کارها
+                {t("ctaSecondary")}
               </Link>
             </div>
           </motion.div>

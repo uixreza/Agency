@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const commands = [
   {
@@ -71,105 +72,86 @@ const commands = [
   },
 ];
 
-const processSteps = [
-  {
-    title: "تحلیل و برنامه‌ریزی",
-    description:
-      "نیازهای پروژه شما را تحلیل کرده و استراتژی مناسب را تدوین می‌کنیم. از انتخاب تکنولوژی تا طراحی معماری، همه چیز برنامه‌ریزی می‌شود.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "طراحی UI/UX",
-    description:
-      "رابط کاربری زیبا و تجربه کاربری روان با آخرین استانداردهای طراحی. نمونه‌های اولیه تعاملی برای بازخورد شما آماده می‌شود.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "توسعه و کدنویسی",
-    description:
-      "توسعه با بهترین فریم‌ورک‌ها و رعایت اصول کدنویسی تمیز. کدهای ما بهینه، امن و مقیاس‌پذیر هستند.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "تست و بهینه‌سازی",
-    description:
-      "تست کامل عملکرد، امنیت و سرعت. بهینه‌سازی برای موتورهای جستجو و عملکرد عالی در تمام دستگاه‌ها.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M13 10V3L4 14h7v7l9-11h-7z"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "استقرار و پشتیبانی",
-    description:
-      "راه‌اندازی روی سرورهای قدرتمند با CDN جهانی. پشتیبانی ۲۴/۷ و بروزرسانی‌های منظم برای عملکرد بی‌وقفه.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-        />
-      </svg>
-    ),
-  },
+const stepIcons = [
+  (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+      />
+    </svg>
+  ),
+  (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+      />
+    </svg>
+  ),
+  (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+      />
+    </svg>
+  ),
+  (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M13 10V3L4 14h7v7l9-11h-7z"
+      />
+    </svg>
+  ),
+  (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+      />
+    </svg>
+  ),
 ];
 
 export default function ProcessSection() {
+  const t = useTranslations("process");
+  const rawT = t as unknown as { raw: (key: string) => any };
+  const processSteps = Array.from({ length: 5 }, (_, i) => ({
+    ...(rawT.raw(`step${i + 1}`) as { title: string; description: string }),
+    icon: stepIcons[i],
+  }));
   const [currentCommandIndex, setCurrentCommandIndex] = useState(0);
   const [displayedCommands, setDisplayedCommands] = useState<
     Array<{ text: string; type: string }>
@@ -327,16 +309,15 @@ export default function ProcessSection() {
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
             className="inline-flex items-center gap-2 bg-accent border border-accent rounded-full px-4 py-1.5 mb-6">
             <motion.span className="text-lg">⚡</motion.span>
-            <span className="text-bg text-sm font-medium">فرآیند توسعه</span>
+            <span className="text-bg text-sm font-medium">{t("badge")}</span>
           </motion.div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-            چطور یک پروژه را از <span className="gradient-text">صفر تا صد</span>{" "}
-            می‌سازیم؟
+            {t("title")} <span className="gradient-text">{t("highlight")}</span>{" "}
+            {t("suffix")}
           </h2>
           <p className="text-muted max-w-2xl mx-auto text-lg">
-            مسیر شفاف و قدم به قدم ما برای تبدیل ایده شما به یک محصول دیجیتال
-            کامل
+            {t("description")}
           </p>
         </motion.div>
 

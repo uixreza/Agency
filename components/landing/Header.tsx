@@ -1,5 +1,5 @@
 "use client";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/ThemeProvider";
 import { useState, useEffect, useRef } from "react";
 import {
   motion,
@@ -7,15 +7,11 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
-
-const navItems = [
-  { label: "خدمات", href: "/services" },
-  { label: "نمونه کارها", href: "/projects" },
-  { label: "درباره ما", href: "/about" },
-  { label: "تماس با ما", href: "/contact" },
-];
+import { routing } from "@/i18n/routing";
+import AuthModal from "@/components/auth/AuthModal";
 
 const languages = [
   { code: "fa", label: "فارسی", flag: "🇮🇷" },
@@ -66,27 +62,25 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [isThemeOpen, setIsThemeOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
   const headerRef = useRef(null);
   const pathname = usePathname();
   const router = useRouter();
+  const t = useTranslations("nav");
+  const themeT = useTranslations("theme");
+  const locale = useLocale();
 
-  // Get current language from pathname
-  const getCurrentLang = () => {
-    const segments = pathname.split("/").filter(Boolean);
-    if (segments[0] === "en") return languages[1];
-    if (segments[0] === "tr") return languages[2];
-    return languages[0]; // default fa
-  };
+  const navItems = [
+    { label: t("services"), href: "/services" },
+    { label: t("portfolio"), href: "/projects" },
+    { label: t("about"), href: "/about" },
+    { label: t("contact"), href: "/contact" },
+  ];
 
-  const [currentLang, setCurrentLang] = useState(getCurrentLang());
-
-  // Update currentLang when pathname changes
-  useEffect(() => {
-    setCurrentLang(getCurrentLang());
-  }, [pathname]);
+  const currentLang =
+    languages.find((lang) => lang.code === locale) || languages[0];
 
   const { scrollY } = useScroll();
 
@@ -126,35 +120,26 @@ export default function Header() {
 
   const getCurrentThemeIcon = () => {
     if (!mounted) return themes[0].icon;
-    return themes.find((t) => t.id === theme)?.icon || themes[0].icon;
+    return themes.find((t) => t.id === resolvedTheme)?.icon || themes[0].icon;
   };
 
   const switchLanguage = (lang: (typeof languages)[0]) => {
-    setCurrentLang(lang);
     setIsLangOpen(false);
 
     const segments = pathname.split("/").filter(Boolean);
-    const currentLocale =
-      segments[0] === "en" || segments[0] === "tr" ? segments[0] : "fa";
-
-    let newPath;
-    if (lang.code === "fa") {
-      // Remove locale prefix for Farsi
-      if (currentLocale === "fa") {
-        newPath = pathname;
-      } else {
-        newPath = pathname.replace(`/${currentLocale}`, "") || "/";
-      }
-    } else {
-      // Add locale prefix for English/Turkish
-      if (currentLocale === "fa") {
-        newPath = `/${lang.code}${pathname}`;
-      } else {
-        newPath = pathname.replace(`/${currentLocale}`, `/${lang.code}`);
-      }
+    if ((routing.locales as readonly string[]).includes(segments[0] || "")) {
+      segments.shift();
     }
+    const cleanPath = `/${segments.join("/")}`;
 
-    router.push(newPath);
+    const target =
+      lang.code === routing.defaultLocale
+        ? cleanPath
+        : cleanPath === "/"
+          ? `/${lang.code}`
+          : `/${lang.code}${cleanPath}`;
+
+    router.replace(target);
   };
 
   if (!mounted) return null;
@@ -163,6 +148,12 @@ export default function Header() {
     backgroundColor: `rgba(18, 18, 24, ${headerBgOpacity.get()})`,
     borderColor: `rgba(255, 255, 255, ${borderOpacity.get()})`,
   };
+
+  // Translate theme labels based on locale
+  const translatedThemes = themes.map((themeOption) => ({
+    ...themeOption,
+    label: themeT(themeOption.id as "dark" | "light"),
+  }));
 
   return (
     <>
@@ -214,7 +205,7 @@ export default function Header() {
                   </div>
                   <div className="hidden sm:block">
                     <div className="font-bold text-lg leading-tight text-foreground">
-                      نوین دیجیتال
+                      {t("brand")}
                     </div>
                     <div className="text-[10px] tracking-wider text-muted">
                       DIGITAL AGENCY
@@ -230,7 +221,7 @@ export default function Header() {
                   <motion.div key={item.label} style={{ scale: navScale }}>
                     <Link
                       href={item.href}
-                      className="relative px-4 py-2 text-sm text-foreground transition-colors duration-300">
+                      className="relative px-4 py-2 text-sm text-muted hover:text-foreground transition-colors duration-300">
                       {item.label}
                     </Link>
                   </motion.div>
@@ -241,60 +232,28 @@ export default function Header() {
                 style={{ scale: navScale }}
                 className="flex items-center gap-2">
                 {/* Theme Switcher */}
-                <div className="relative">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      setIsThemeOpen(!isThemeOpen);
-                      setIsLangOpen(false);
-                    }}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm bg-card/50 backdrop-blur-sm border border-border/50 hover:border-border transition-all duration-300">
-                    <span className="text-accent">{getCurrentThemeIcon()}</span>
-                  </motion.button>
-
-                  <AnimatePresence>
-                    {isThemeOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full mt-2 left-0 w-36 rounded-xl overflow-hidden bg-card/95 backdrop-blur-xl border border-border/60 shadow-xl shadow-black/20">
-                        {themes.map((themeOption) => (
-                          <button
-                            key={themeOption.id}
-                            onClick={() => {
-                              setTheme(themeOption.id);
-                              setIsThemeOpen(false);
-                            }}
-                            className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition-all duration-200 hover:bg-white/5 ${
-                              theme === themeOption.id
-                                ? "text-accent bg-accent/5"
-                                : "text-muted"
-                            }`}>
-                            <span>{themeOption.icon}</span>
-                            <span>{themeOption.label}</span>
-                            {theme === themeOption.id && (
-                              <motion.svg
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                className="w-4 h-4 mr-auto"
-                                fill="currentColor"
-                                viewBox="0 0 20 20">
-                                <path
-                                  fillRule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clipRule="evenodd"
-                                />
-                              </motion.svg>
-                            )}
-                          </button>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+                    setIsLangOpen(false);
+                  }}
+                  aria-label={
+                    resolvedTheme === "dark"
+                      ? themeT("light")
+                      : themeT("dark")
+                  }
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm bg-card/50 backdrop-blur-sm border border-border/50 hover:border-border transition-all duration-300">
+                  <motion.span
+                    key={resolvedTheme}
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-accent flex items-center justify-center">
+                    {getCurrentThemeIcon()}
+                  </motion.span>
+                </motion.button>
 
                 {/* Language Switcher */}
                 <div className="relative">
@@ -303,7 +262,6 @@ export default function Header() {
                     whileTap={{ scale: 0.95 }}
                     onClick={() => {
                       setIsLangOpen(!isLangOpen);
-                      setIsThemeOpen(false);
                     }}
                     className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm bg-card/50 backdrop-blur-sm border border-border/50 hover:border-border transition-all duration-300">
                     <span className="text-lg">{currentLang.flag}</span>
@@ -371,11 +329,12 @@ export default function Header() {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   className="hidden sm:block">
-                  <Link
-                    href="/login"
-                    className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm overflow-hidden group bg-accent/10 border border-accent/20">
+                  <button
+                    type="button"
+                    onClick={() => setIsAuthOpen(true)}
+                    className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm overflow-hidden group bg-accent/10 border border-accent/20 cursor-pointer">
                     <span className="relative z-10 text-accent group-hover:text-white transition-colors duration-300">
-                      ورود
+                      {t("login")}
                     </span>
                     <svg
                       className="w-4 h-4 text-accent group-hover:text-white transition-colors duration-300 relative z-10"
@@ -390,7 +349,7 @@ export default function Header() {
                       />
                     </svg>
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl bg-gradient-to-r from-accent to-accentDark" />
-                  </Link>
+                  </button>
                 </motion.div>
 
                 {/* Mobile Menu Button */}
@@ -398,7 +357,7 @@ export default function Header() {
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   className="lg:hidden relative w-10 h-10 rounded-xl flex items-center justify-center bg-card/50 backdrop-blur-sm border border-border/50"
-                  aria-label="منو">
+                  aria-label={t("menu")}>
                   <div className="w-5 h-4 relative flex flex-col justify-between">
                     {[0, 1, 2].map((i) => (
                       <motion.span
@@ -424,7 +383,7 @@ export default function Header() {
         </div>
       </motion.header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Bottom Sheet */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
@@ -437,66 +396,22 @@ export default function Header() {
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
             />
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 bottom-0 w-80 z-50 lg:hidden bg-surface/95 backdrop-blur-2xl border-l border-border/40">
-              <div className="flex flex-col h-full p-6">
-                <div className="flex items-center justify-between mb-8">
-                  <Link
-                    href="/"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accentDark flex items-center justify-center">
-                      <svg
-                        className="w-6 h-6 text-black"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 10V3L4 14h7v7l9-11h-7z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="font-bold text-foreground">
-                        نوین دیجیتال
-                      </div>
-                      <div className="text-[10px] text-muted">
-                        DIGITAL AGENCY
-                      </div>
-                    </div>
-                  </Link>
-                  <motion.button
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-10 h-10 rounded-xl flex items-center justify-center border border-border/50">
-                    <svg
-                      className="w-5 h-5 text-muted"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </motion.button>
-                </div>
-
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", stiffness: 320, damping: 34 }}
+              className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-surface/95 backdrop-blur-2xl border-t border-border/40 rounded-t-3xl max-h-[85vh] overflow-y-auto">
+              <div className="sticky top-0 bg-surface/95 backdrop-blur-2xl pt-3 pb-1 rounded-t-3xl">
+                <div className="w-12 h-1.5 rounded-full bg-border/70 mx-auto" />
+              </div>
+              <div className="p-6 pt-4">
                 <nav className="flex flex-col gap-2 mb-8">
                   {navItems.map((item, index) => (
                     <motion.div
                       key={item.label}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}>
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.05 + index * 0.05 }}>
                       <Link
                         href={item.href}
                         onClick={() => setIsMobileMenuOpen(false)}
@@ -508,9 +423,9 @@ export default function Header() {
                   ))}
                 </nav>
 
-                <div className="mt-auto space-y-4">
+                <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-2">
-                    {themes.map((themeOption) => (
+                    {translatedThemes.map((themeOption) => (
                       <button
                         key={themeOption.id}
                         onClick={() => setTheme(themeOption.id)}
@@ -544,11 +459,16 @@ export default function Header() {
                   </div>
 
                   <motion.div whileTap={{ scale: 0.97 }}>
-                    <Link
-                      href="/login"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setIsAuthOpen(true);
+                      }}
                       className="flex items-center justify-center gap-2 w-full px-6 py-3 rounded-xl font-medium text-sm bg-accent/10 border border-accent/20 text-accent">
-                      <span>ورود / ثبت نام</span>
+                      <span>
+                        {t("login")} / {t("register")}
+                      </span>
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -561,7 +481,7 @@ export default function Header() {
                           d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
                         />
                       </svg>
-                    </Link>
+                    </button>
                   </motion.div>
                 </div>
               </div>
@@ -569,6 +489,8 @@ export default function Header() {
           </>
         )}
       </AnimatePresence>
+
+      <AuthModal open={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
     </>
   );
 }

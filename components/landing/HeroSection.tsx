@@ -1,65 +1,47 @@
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { toLocalDigits } from "@/lib/data";
 
 export default function HeroSection() {
   const sectionRef = useRef(null);
+  const t = useTranslations("hero");
+  const locale = useLocale();
+  const isRTL = locale === "fa";
 
-  // Scroll-based animations
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
 
-  // Content moves up and scales UP
   const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -150]);
   const contentScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.15]);
-
-  // Badge animations - scales up and moves up
   const badgeY = useTransform(scrollYProgress, [0, 0.3], [0, -200]);
   const badgeScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.3]);
-
-  // Heading animations - scales up significantly
   const headingY = useTransform(scrollYProgress, [0, 0.4], [0, -120]);
   const headingScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.2]);
   const headingLetterSpacing = useTransform(scrollYProgress, [0, 0.5], [0, 3]);
-
-  // Description animations
   const descY = useTransform(scrollYProgress, [0, 0.4], [0, -100]);
   const descScale = useTransform(scrollYProgress, [0, 0.4], [1, 1.1]);
-
-  // Buttons animations
   const buttonsY = useTransform(scrollYProgress, [0, 0.4], [0, -80]);
   const buttonsScale = useTransform(scrollYProgress, [0, 0.4], [1, 1.15]);
-
-  // Trust badges animations
   const trustY = useTransform(scrollYProgress, [0, 0.3], [0, -60]);
   const trustScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.08]);
-
-  // Visual element animations - expands outward
   const visualScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.25]);
   const visualY = useTransform(scrollYProgress, [0, 0.5], [0, -80]);
-
-  // Floating cards - spread outward
   const card1Y = useTransform(scrollYProgress, [0, 0.5], [0, -120]);
-  const card1X = useTransform(scrollYProgress, [0, 0.5], [0, 60]);
+  const card1X = useTransform(scrollYProgress, [0, 0.5], [0, isRTL ? 60 : -60]);
   const card1Scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.2]);
-
   const card2Y = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
-  const card2X = useTransform(scrollYProgress, [0, 0.5], [0, -60]);
+  const card2X = useTransform(scrollYProgress, [0, 0.5], [0, isRTL ? -60 : 60]);
   const card2Scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.2]);
-
-  // Center card animation
   const centerCardY = useTransform(scrollYProgress, [0, 0.5], [0, -60]);
   const centerCardScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.3]);
-
-  // Concentric circles - expand
   const circle1Scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.5]);
   const circle2Scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.4]);
   const circle3Scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.3]);
-
-  // Scroll indicator
   const scrollIndicatorOpacity = useTransform(
     scrollYProgress,
     [0, 0.1],
@@ -71,33 +53,24 @@ export default function HeroSection() {
     [1, 1.5],
   );
 
+  const trustBrands = t.raw("brands") as string[];
+
   return (
     <section
       ref={sectionRef}
       className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-bg">
-      {/* Background grid pattern - stays fixed size */}
+      {/* Background dot pattern */}
       <div className="absolute inset-0 transition-all duration-1000 ease-out">
         <div
           className="absolute inset-0 transition-all duration-1000 ease-out"
           style={{
-            backgroundImage: `linear-gradient(rgba(37, 42, 54, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 42, 54, 0.3) 1px, transparent 1px)`,
-            backgroundSize: "50px 50px",
+            backgroundImage: `radial-gradient(color-mix(in srgb, var(--color-foreground) 14%, transparent) 1px, transparent 1px)`,
+            backgroundSize: "28px 28px",
           }}
         />
       </div>
 
-      {/* Subtle secondary grid for depth - stays fixed size */}
-      <div className="absolute inset-0 opacity-[0.03] transition-all duration-1000 ease-out">
-        <div
-          className="absolute inset-0 transition-all duration-1000 ease-out"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0, 229, 204, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 204, 0.15) 1px, transparent 1px)`,
-            backgroundSize: "120px 120px",
-          }}
-        />
-      </div>
-
-      {/* Animated background blobs - keep original animations */}
+      {/* Animated background blobs */}
       <motion.div
         animate={{
           x: [0, 30, -20, 0],
@@ -138,10 +111,7 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div
-        animate={{
-          x: [0, 15, -15, 0],
-          y: [0, -20, 10, 0],
-        }}
+        animate={{ x: [0, 15, -15, 0], y: [0, -20, 10, 0] }}
         transition={{
           duration: 18,
           repeat: Infinity,
@@ -155,7 +125,7 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Noise overlay - stays fixed */}
+      {/* Noise overlay */}
       <div
         className="absolute inset-0 opacity-[0.02] pointer-events-none transition-all duration-1000 ease-out"
         style={{
@@ -164,7 +134,7 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Content - this is what expands */}
+      {/* Content */}
       <motion.div
         className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 z-10"
         style={{
@@ -173,15 +143,13 @@ export default function HeroSection() {
           transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
         }}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Right side - Text content (RTL) */}
+          {/* Text content - order changes based on RTL/LTR */}
           <motion.div
             initial="hidden"
             animate="visible"
-            className="text-center lg:text-right"
-            style={{
-              transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}>
-            {/* Badge with green glow */}
+            className={`text-center ${isRTL ? "lg:text-right lg:order-1" : "lg:text-left lg:order-2"}`}
+            style={{ transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)" }}>
+            {/* Badge */}
             <motion.div
               style={{
                 y: badgeY,
@@ -212,7 +180,7 @@ export default function HeroSection() {
                   style={{ boxShadow: "0 0 18px rgba(0, 229, 204, 0.8)" }}
                 />
                 <span className="text-sm text-accent/90 font-medium transition-colors duration-500 ease-out">
-                  بیش از ۵۰۰ پروژه موفق
+                  {t("badge")}
                 </span>
               </div>
             </motion.div>
@@ -225,19 +193,14 @@ export default function HeroSection() {
                 letterSpacing: headingLetterSpacing,
                 transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.3] mb-6 transition-all duration-700 ease-out">
-              رشد کسب‌وکار شما در
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.3] mb-6 text-foreground transition-all duration-700 ease-out">
+              {t("title")}{" "}
               <span
-                className="relative inline-block mt-2 transition-all duration-700 ease-out"
+                className="relative inline-block mt-2 transition-all duration-700 ease-out gradient-text"
                 style={{
-                  background:
-                    "linear-gradient(135deg, #00e5cc 0%, #00ffdd 25%, #00b8a3 50%, #ff6b4a 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
                   filter: "drop-shadow(0 0 20px rgba(0, 229, 204, 0.3))",
                 }}>
-                دنیای دیجیتال
+                {t("highlight")}
               </span>
             </motion.h1>
 
@@ -248,79 +211,149 @@ export default function HeroSection() {
                 scale: descScale,
                 transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
-              className="text-lg sm:text-xl text-gray-400/90 mb-10 max-w-xl mx-auto lg:mx-0 lg:mr-0 leading-relaxed transition-all duration-600 ease-out">
-              با استراتژی‌های هوشمند دیجیتال مارکتینگ، برند خود را به سطح
-              بالاتری ببرید. تیم متخصص ما آماده همراهی شماست.
+              className="text-lg sm:text-xl text-muted mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed transition-all duration-600 ease-out">
+              {t("description")}
             </motion.p>
 
-            {/* Buttons - Enhanced with prettier hover effects */}
+            {/* Buttons - order reversed for LTR */}
             <motion.div
               style={{
                 y: buttonsY,
                 scale: buttonsScale,
                 transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              {/* Primary CTA */}
-              <motion.div
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}>
-                <Link
-                  href="#contact"
-                  className="relative inline-flex items-center justify-center px-8 py-4 rounded-2xl font-bold text-lg overflow-hidden group transition-all duration-500 ease-out"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",
-                    boxShadow:
-                      "0 0 30px rgba(0, 229, 204, 0.4), 0 4px 15px rgba(0, 229, 204, 0.25)",
-                  }}>
-                  <span className="relative z-10 text-black transition-all duration-500 ease-out">
-                    شروع پروژه
-                  </span>
+              className={`flex flex-col sm:flex-row gap-4 ${isRTL ? "justify-center lg:justify-start" : "justify-center lg:justify-start"}`}>
+              {isRTL ? (
+                <>
+                  {/* Primary CTA (RTL: right side first) */}
                   <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 60%)",
-                    }}
-                  />
-                </Link>
-              </motion.div>
-
-              {/* Secondary CTA */}
-              <motion.div
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}>
-                <Link
-                  href="#portfolio"
-                  className="relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg group transition-all duration-500 ease-out"
-                  style={{
-                    background: "rgba(22, 25, 34, 1)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(37, 42, 54, 0.4)",
-                    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)",
-                  }}>
-                  <span className="text-gray-200 group-hover:text-white transition-colors duration-500 ease-out">
-                    نمونه کارها
-                  </span>
-                  <motion.svg
-                    className="w-5 h-5 text-gray-400 group-hover:text-accent transition-all duration-500 ease-out"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    animate={{ x: 0 }}
-                    whileHover={{ x: -5 }}>
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </motion.svg>
-                </Link>
-              </motion.div>
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 17,
+                    }}>
+                    <Link
+                      href="#contact"
+                      className="relative inline-flex items-center justify-center px-8 py-4 rounded-2xl font-bold text-lg overflow-hidden group transition-all duration-500 ease-out"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",
+                        boxShadow:
+                          "0 0 30px rgba(0, 229, 204, 0.4), 0 4px 15px rgba(0, 229, 204, 0.25)",
+                      }}>
+                      <span className="relative z-10 text-black">
+                        {t("cta")}
+                      </span>
+                      <motion.div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 60%)",
+                        }}
+                      />
+                    </Link>
+                  </motion.div>
+                  {/* Secondary CTA */}
+                  <motion.div
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 17,
+                    }}>
+                    <Link
+                      href="#portfolio"
+                      className="relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg group transition-all duration-500 ease-out bg-card border border-border"
+                      style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)" }}>
+                      <span className="text-muted group-hover:text-foreground transition-colors">
+                        {t("secondary")}
+                      </span>
+                      <motion.svg
+                        className="w-5 h-5 text-muted group-hover:text-accent transition-all"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        animate={{ x: 0 }}
+                        whileHover={{ x: -5 }}>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 19l-7-7 7-7"
+                        />
+                      </motion.svg>
+                    </Link>
+                  </motion.div>
+                </>
+              ) : (
+                <>
+                  {/* Secondary CTA (LTR: left side first) */}
+                  <motion.div
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 17,
+                    }}>
+                    <Link
+                      href="#portfolio"
+                      className="relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg group transition-all duration-500 ease-out bg-card border border-border"
+                      style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)" }}>
+                      <motion.svg
+                        className="w-5 h-5 text-muted group-hover:text-accent transition-all"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        animate={{ x: 0 }}
+                        whileHover={{ x: -5 }}>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </motion.svg>
+                      <span className="text-muted group-hover:text-foreground transition-colors">
+                        {t("secondary")}
+                      </span>
+                    </Link>
+                  </motion.div>
+                  {/* Primary CTA */}
+                  <motion.div
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 17,
+                    }}>
+                    <Link
+                      href="#contact"
+                      className="relative inline-flex items-center justify-center px-8 py-4 rounded-2xl font-bold text-lg overflow-hidden group transition-all duration-500 ease-out"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",
+                        boxShadow:
+                          "0 0 30px rgba(0, 229, 204, 0.4), 0 4px 15px rgba(0, 229, 204, 0.25)",
+                      }}>
+                      <span className="relative z-10 text-black">
+                        {t("cta")}
+                      </span>
+                      <motion.div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 60%)",
+                        }}
+                      />
+                    </Link>
+                  </motion.div>
+                </>
+              )}
             </motion.div>
 
             {/* Trust badges */}
@@ -331,21 +364,15 @@ export default function HeroSection() {
                 transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
               className="mt-16 pt-8">
-              <div
-                className="pt-8 transition-all duration-500 ease-out"
-                style={{ borderTop: "1px solid rgba(37, 42, 54, 0.3)" }}>
-                <p className="text-sm text-gray-500 mb-5 transition-colors duration-500 ease-out">
-                  مورد اعتماد برندهای پیشرو
-                </p>
-                <div className="flex items-center justify-center lg:justify-start gap-10">
-                  {["دیجی‌کالا", "اسنپ", "تپسی"].map((brand, index) => (
+              <div className="pt-8 transition-all duration-500 ease-out border-t border-border">
+                <p className="text-sm text-muted mb-5">{t("trust")}</p>
+                <div
+                  className={`flex items-center gap-10 ${isRTL ? "justify-center lg:justify-start" : "justify-center lg:justify-start"}`}>
+                  {trustBrands.map((brand, index) => (
                     <motion.div
                       key={index}
                       whileHover={{ scale: 1.05 }}
-                      className="text-2xl font-bold text-gray-500 hover:text-gray-300 transition-all duration-500 ease-out cursor-default"
-                      style={{
-                        textShadow: "0 0 10px rgba(255,255,255,0.05)",
-                      }}>
+                      className="text-2xl font-bold text-muted hover:text-foreground transition-all duration-500 ease-out cursor-default">
                       {brand}
                     </motion.div>
                   ))}
@@ -354,16 +381,16 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Left side - Visual element */}
+          {/* Visual element - order changes based on RTL/LTR */}
           <motion.div
             style={{
               scale: visualScale,
               y: visualY,
               transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
-            className="relative hidden lg:flex items-center justify-center">
+            className={`relative hidden lg:flex items-center justify-center ${isRTL ? "lg:order-2" : "lg:order-1"}`}>
             <div className="relative w-full aspect-square max-w-[500px]">
-              {/* Concentric circles - expand and rotate on scroll */}
+              {/* Concentric circles */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.div
                   animate={{ rotate: 360 }}
@@ -422,19 +449,15 @@ export default function HeroSection() {
                   className="absolute w-[400px] h-[400px]">
                   <div
                     className="absolute inset-0 rounded-full transition-all duration-700 ease-out"
-                    style={{
-                      border: "0.5px solid rgba(37, 42, 54, 0.15)",
-                    }}
+                    style={{ border: "0.5px solid rgba(37, 42, 54, 0.15)" }}
                   />
                 </motion.div>
               </div>
 
-              {/* Center floating card - THEME RESPONSIVE */}
+              {/* Center floating card */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.div
-                  animate={{
-                    y: [0, -15, 0],
-                  }}
+                  animate={{ y: [0, -15, 0] }}
                   transition={{
                     duration: 6,
                     repeat: Infinity,
@@ -449,23 +472,17 @@ export default function HeroSection() {
                   <div className="relative p-10 rounded-3xl transition-all duration-700 ease-out bg-card border border-border shadow-[0_0_60px_rgba(0,229,204,0.1)]">
                     <div className="text-center">
                       <div
-                        className="text-6xl font-black mb-2 transition-all duration-700 ease-out"
+                        className="text-6xl font-black mb-2 transition-all duration-700 ease-out gradient-text"
                         style={{
-                          background:
-                            "linear-gradient(135deg, #00e5cc 0%, #00b8a3 50%, #ff6b4a 100%)",
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          backgroundClip: "text",
                           filter:
                             "drop-shadow(0 0 15px rgba(0, 229, 204, 0.3))",
                         }}>
-                        +340%
+                        +{toLocalDigits(340, locale)}%
                       </div>
                       <p className="text-muted text-sm transition-colors duration-500 ease-out">
-                        میانگین رشد مشتریان
+                        {t("centerCard")}
                       </p>
                     </div>
-                    {/* Glow effect behind the card */}
                     <div
                       className="absolute inset-0 rounded-3xl opacity-50 transition-all duration-700 ease-out"
                       style={{
@@ -479,12 +496,9 @@ export default function HeroSection() {
                 </motion.div>
               </div>
 
-              {/* Floating stat card 1 - Top Right - THEME RESPONSIVE */}
+              {/* Floating stat card 1 */}
               <motion.div
-                animate={{
-                  y: [0, -12, 0],
-                  rotate: [-4, 3, -4],
-                }}
+                animate={{ y: [0, -12, 0], rotate: [-4, 3, -4] }}
                 transition={{
                   duration: 14,
                   repeat: Infinity,
@@ -497,17 +511,12 @@ export default function HeroSection() {
                   scale: card1Scale,
                   transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
-                className="absolute top-12 right-4">
+                className={`absolute top-12 ${isRTL ? "right-4" : "left-4"}`}>
                 <div className="p-5 rounded-2xl transition-all duration-500 ease-out bg-card border border-border shadow-[0_15px_30px_rgba(0,0,0,0.2)]">
                   <div className="flex items-center gap-3">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ease-out"
-                      style={{
-                        background: "rgba(0, 229, 204, 0.1)",
-                        boxShadow: "0 0 15px rgba(0, 229, 204, 0.1)",
-                      }}>
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ease-out bg-accent/10 shadow-[0_0_15px_rgba(0,229,204,0.1)]">
                       <svg
-                        className="w-5 h-5 text-accent transition-colors duration-500 ease-out"
+                        className="w-5 h-5 text-accent"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -520,23 +529,20 @@ export default function HeroSection() {
                       </svg>
                     </div>
                     <div>
-                      <div className="text-xs text-muted transition-colors duration-500 ease-out">
-                        تبلیغات
+                      <div className="text-xs text-muted">
+                        {t("card1Title")}
                       </div>
-                      <div className="font-bold text-foreground text-sm transition-colors duration-500 ease-out">
-                        +۲۵۰۰ کمپین
+                      <div className="font-bold text-foreground text-sm">
+                        {t("card1Value")}
                       </div>
                     </div>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Floating stat card 2 - Bottom Left - THEME RESPONSIVE */}
+              {/* Floating stat card 2 */}
               <motion.div
-                animate={{
-                  y: [0, 12, 0],
-                  rotate: [4, -3, 4],
-                }}
+                animate={{ y: [0, 12, 0], rotate: [4, -3, 4] }}
                 transition={{
                   duration: 16,
                   repeat: Infinity,
@@ -549,17 +555,12 @@ export default function HeroSection() {
                   scale: card2Scale,
                   transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
-                className="absolute bottom-16 left-4">
+                className={`absolute bottom-16 ${isRTL ? "left-4" : "right-4"}`}>
                 <div className="p-5 rounded-2xl transition-all duration-500 ease-out bg-card border border-border shadow-[0_15px_30px_rgba(0,0,0,0.2)]">
                   <div className="flex items-center gap-3">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ease-out"
-                      style={{
-                        background: "rgba(255, 107, 74, 0.1)",
-                        boxShadow: "0 0 15px rgba(255, 107, 74, 0.1)",
-                      }}>
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ease-out bg-warm/10 shadow-[0_0_15px_rgba(255,107,74,0.1)]">
                       <svg
-                        className="w-5 h-5 text-warm transition-colors duration-500 ease-out"
+                        className="w-5 h-5 text-warm"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -572,11 +573,11 @@ export default function HeroSection() {
                       </svg>
                     </div>
                     <div>
-                      <div className="text-xs text-muted transition-colors duration-500 ease-out">
-                        تیم متخصص
+                      <div className="text-xs text-muted">
+                        {t("card2Title")}
                       </div>
-                      <div className="font-bold text-foreground text-sm transition-colors duration-500 ease-out">
-                        +۲۵ نفر
+                      <div className="font-bold text-foreground text-sm">
+                        {t("card2Value")}
                       </div>
                     </div>
                   </div>
@@ -587,7 +588,7 @@ export default function HeroSection() {
         </div>
       </motion.div>
 
-      {/* Bottom scroll indicator - expands up */}
+      {/* Scroll indicator */}
       <motion.div
         style={{
           opacity: scrollIndicatorOpacity,
@@ -595,22 +596,14 @@ export default function HeroSection() {
           transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10">
-        <span className="text-xs text-gray-600 tracking-wider transition-colors duration-500 ease-out">
-          اسکرول کنید
+        <span className="text-xs text-muted tracking-wider">
+          {t("scroll")}
         </span>
-        <div
-          className="w-6 h-10 rounded-full flex justify-center transition-all duration-500 ease-out"
-          style={{
-            border: "2px solid rgba(37, 42, 54, 0.4)",
-          }}>
+        <div className="w-6 h-10 rounded-full flex justify-center transition-all duration-500 ease-out border-2 border-border/40">
           <motion.div
             animate={{ y: [2, 16, 2] }}
             transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-            className="w-1.5 h-3 rounded-full mt-2 transition-all duration-500 ease-out"
-            style={{
-              background: "linear-gradient(to bottom, #00e5cc, #00b8a3)",
-              boxShadow: "0 0 10px rgba(0, 229, 204, 0.5)",
-            }}
+            className="w-1.5 h-3 rounded-full mt-2 transition-all duration-500 ease-out bg-gradient-to-b from-accent to-accentDark shadow-[0_0_10px_rgba(0,229,204,0.5)]"
           />
         </div>
       </motion.div>

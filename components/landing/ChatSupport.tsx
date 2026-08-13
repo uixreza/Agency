@@ -1,37 +1,21 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations, useLocale } from "next-intl";
 
-const supportTeam = [
-  {
-    name: "سارا محمدی",
-    role: "پشتیبان فنی",
-    avatar: "SM",
-    online: true,
-    color: "#00e5cc",
-  },
-  {
-    name: "علی رضایی",
-    role: "مشاور فروش",
-    avatar: "AR",
-    online: true,
-    color: "#667eea",
-  },
-  {
-    name: "مریم حسینی",
-    role: "مدیر پروژه",
-    avatar: "MH",
-    online: false,
-    color: "#ff6b4a",
-  },
+const teamMeta = [
+  { online: true, color: "#00e5cc" },
+  { online: true, color: "#667eea" },
+  { online: false, color: "#ff6b4a" },
 ];
 
-const quickMessages = [
-  "هزینه پروژه چقدر میشه؟",
-  "چقدر زمان میبره؟",
-  "نمونه کارها رو میخوام ببینم",
-  "مشاوره رایگان دارید؟",
-];
+const avatarInitials = (name: string) =>
+  name
+    .split(" ")
+    .slice(0, 2)
+    .map((word) => word.charAt(0))
+    .join("")
+    .toUpperCase();
 
 interface Message {
   id: number;
@@ -41,14 +25,26 @@ interface Message {
 }
 
 export default function ChatSupport() {
+  const t = useTranslations("chat");
+  const locale = useLocale();
+  const rawT = t as unknown as { raw: (key: string) => any };
+  const team = rawT.raw("team") as { name: string; role: string }[];
+  const supportTeam = team.map((member, i) => ({
+    name: member.name,
+    role: member.role,
+    avatar: avatarInitials(member.name),
+    ...(teamMeta[i] ?? { online: false, color: "#00e5cc" }),
+  }));
+  const quickMessages = rawT.raw("quickReplies") as string[];
+  const responses = rawT.raw("responses") as string[];
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "سلام! 👋 چطور میتونم کمکت کنم؟",
+      text: t("welcome"),
       sender: "support",
-      time: "الان",
+      time: t("now"),
     },
   ]);
   const [isTyping, setIsTyping] = useState(false);
@@ -77,7 +73,7 @@ export default function ChatSupport() {
       id: Date.now(),
       text: text,
       sender: "user",
-      time: "الان",
+      time: t("now"),
     };
     setMessages((prev) => [...prev, userMessage]);
     setMessage("");
@@ -86,17 +82,11 @@ export default function ChatSupport() {
     setIsTyping(true);
     setTimeout(() => {
       setIsTyping(false);
-      const responses = [
-        "حتما! بذارید بررسی کنم و بهتون اطلاع بدم ✨",
-        "سوال خوبی پرسیدید! اطلاعات بیشتری میخواید؟",
-        "میتونم راهنماییتون کنم، لطفا بیشتر توضیح بدید",
-        "چشم، همین الان پیگیری میکنم 🚀",
-      ];
       const supportMessage: Message = {
         id: Date.now() + 1,
         text: responses[Math.floor(Math.random() * responses.length)],
         sender: "support",
-        time: "الان",
+        time: t("now"),
       };
       setMessages((prev) => [...prev, supportMessage]);
     }, 2000);
@@ -105,7 +95,7 @@ export default function ChatSupport() {
   const onlineCount = supportTeam.filter((member) => member.online).length;
 
   return (
-    <div className="fixed bottom-0 left-0 z-50">
+    <div className="fixed bottom-0 left-0 z-30">
       <div className="relative m-4 sm:m-6 lg:m-8">
         {/* Chat Window */}
         <AnimatePresence>
@@ -129,10 +119,10 @@ export default function ChatSupport() {
                 style={{ borderColor: "rgba(37, 42, 54, 0.4)" }}>
                 <div>
                   <h3 className="text-foreground font-bold text-sm">
-                    پشتیبانی آنلاین
+                    {t("title")}
                   </h3>
                   <p className="text-xs text-gray-500 mt-0.5">
-                    {onlineCount} نفر آنلاین
+                    {t("onlineCount", { count: onlineCount })}
                   </p>
                 </div>
 
@@ -240,9 +230,9 @@ export default function ChatSupport() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-                  placeholder="پیام خود را بنویسید..."
+                  placeholder={t("placeholder")}
                   className="flex-1 bg-[#1a1d28] border border-[#252a36] rounded-xl px-4 py-2.5 text-sm text-foreground placeholder-gray-500 focus:outline-none focus:border-accent/30 transition-all duration-300"
-                  dir="rtl"
+                  dir={locale === "fa" ? "rtl" : "ltr"}
                 />
                 <motion.button
                   whileHover={{ scale: 1.05 }}

@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode } from "react";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "@/components/ThemeProvider";
 export default function Wrapper({ children }: { children: ReactNode }) {
   return (
     <div>

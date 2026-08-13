@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import {
   fadeInUp,
   fadeInRight,
@@ -8,8 +8,12 @@ import {
   staggerContainer,
   smoothTransition,
 } from "@/lib/animations";
+import { useTranslations, useLocale } from "next-intl";
+import { toLocalDigits } from "@/lib/data";
 
 export default function AboutSection() {
+  const t = useTranslations("about");
+  const locale = useLocale();
   return (
     <section
       id="about"
@@ -31,27 +35,25 @@ export default function AboutSection() {
               variants={fadeInUp}
               transition={smoothTransition}
               className="inline-block text-accent font-medium mb-4">
-              درباره ما
+              {t("title")}
             </motion.span>
             <motion.h2
               variants={fadeInUp}
               transition={smoothTransition}
               className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-              تیمی متعهد به موفقیت کسب‌وکار شما
+              {t("heading")}
             </motion.h2>
             <motion.p
               variants={fadeInUp}
               transition={smoothTransition}
               className="text-muted text-lg mb-6">
-              نوین دیجیتال از سال ۱۳۹۵ با تیمی متشکل از ۲۵ متخصص، به کسب‌وکارهای
-              ایرانی کمک می‌کند تا در دنیای دیجیتال دیده شوند و رشد کنند.
+              {t("description1")}
             </motion.p>
             <motion.p
               variants={fadeInUp}
               transition={smoothTransition}
               className="text-muted mb-8">
-              ما معتقدیم هر برندی داستان منحصربه‌فردی دارد. وظیفه ما این است که
-              این داستان را به بهترین شکل به مخاطبان هدف شما برسانیم.
+              {t("description2")}
             </motion.p>
 
             {/* Stats Cards */}
@@ -66,18 +68,18 @@ export default function AboutSection() {
                 transition={smoothTransition}
                 className="relative p-6 rounded-3xl bg-card border border-border">
                 <div className="text-4xl font-black gradient-text mb-2">
-                  ۳۴۰%
+                  {toLocalDigits(340, locale)}%
                 </div>
-                <div className="text-muted">میانگین رشد ترافیک</div>
+                <div className="text-muted">{t("stat1")}</div>
               </motion.div>
               <motion.div
                 variants={fadeInUp}
                 transition={smoothTransition}
                 className="relative p-6 rounded-3xl bg-card border border-border">
                 <div className="text-4xl font-black gradient-text mb-2">
-                  ۲.۵x
+                  {toLocalDigits(2.5, locale)}x
                 </div>
-                <div className="text-muted">افزایش نرخ تبدیل</div>
+                <div className="text-muted">{t("stat2")}</div>
               </motion.div>
             </motion.div>
 
@@ -90,7 +92,7 @@ export default function AboutSection() {
               <Link
                 href="#contact"
                 className="relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg overflow-hidden group transition-all duration-300 bg-gradient-to-r from-accent to-accentDark shadow-[0_0_30px_var(--color-accent)]">
-                <span className="relative z-10 text-black">همکاری با ما</span>
+                <span className="relative z-10 text-black">{t("cta")}</span>
                 <motion.svg
                   className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform"
                   fill="none"
@@ -132,7 +134,7 @@ export default function AboutSection() {
                         d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                       />
                     </svg>
-                    <div className="font-bold text-foreground">قابل اعتماد</div>
+                    <div className="font-bold text-foreground">{t("trust")}</div>
                   </div>
                 </motion.div>
 
@@ -140,8 +142,10 @@ export default function AboutSection() {
                   variants={fadeInRight}
                   transition={{ ...smoothTransition, delay: 0.2 }}
                   className="relative p-6 rounded-3xl bg-gradient-to-r from-accent to-accentDark border border-accent shadow-[0_0_40px_var(--color-accent)]">
-                  <div className="text-4xl font-black text-white mb-1">۸+</div>
-                  <div className="text-white/80">سال تجربه</div>
+                  <div className="text-4xl font-black text-white mb-1">
+                    {toLocalDigits(8, locale)}+
+                  </div>
+                  <div className="text-white/80">{t("experience")}</div>
                 </motion.div>
               </div>
 
@@ -151,9 +155,9 @@ export default function AboutSection() {
                   transition={{ ...smoothTransition, delay: 0.3 }}
                   className="relative p-6 rounded-3xl bg-gradient-to-r from-warm to-[#ff4757] border border-warm shadow-[0_0_40px_var(--color-warm)]">
                   <div className="text-4xl font-black text-white mb-1">
-                    ۵۰۰+
+                    {toLocalDigits(500, locale)}+
                   </div>
-                  <div className="text-white/80">پروژه موفق</div>
+                  <div className="text-white/80">{t("projects")}</div>
                 </motion.div>
 
                 <motion.div
@@ -173,7 +177,7 @@ export default function AboutSection() {
                         d="M13 10V3L4 14h7v7l9-11h-7z"
                       />
                     </svg>
-                    <div className="font-bold text-foreground">سریع و چابک</div>
+                    <div className="font-bold text-foreground">{t("agile")}</div>
                   </div>
                 </motion.div>
               </div>

@@ -1,0 +1,709 @@
+{
+  "metadata": {
+    "title": "Novin Digital | Digital Marketing Agency",
+    "description": "With smart digital marketing strategies, take your brand to the next level."
+  },
+  "nav": {
+    "brand": "Novin Digital",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "about": "About Us",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Register",
+    "menu": "Menu"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "auth": {
+    "login": "Welcome Back",
+    "loginSubtitle": "Sign in to access your account",
+    "signup": "Create Account",
+    "signupSubtitle": "Start your journey with us",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "John Doe",
+    "email": "Email Address",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "At least 8 characters",
+    "loginSubmit": "Sign in",
+    "signupSubmit": "Create Account",
+    "googleLogin": "Continue with Google",
+    "googleSignup": "Sign up with Google",
+    "or": "or continue with",
+    "otpTitle": "Verify Your Email",
+    "otpDescription": "We sent a 6-digit code to {email}",
+    "verifyCode": "Verify Code",
+    "resend": "Resend code",
+    "changeEmail": "Change email",
+    "forgotPassword": "Forgot password?",
+    "alreadyAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "switchLogin": "Sign in",
+    "switchSignup": "Sign up",
+    "close": "Close"
+  },
+  "hero": {
+    "badge": "Over 500 Successful Projects",
+    "title": "Grow Your Business in",
+    "highlight": "The Digital World",
+    "description": "With smart digital marketing strategies, take your brand to the next level. Our expert team is ready to support you.",
+    "cta": "Start Project",
+    "secondary": "Portfolio",
+    "trust": "Trusted by Leading Brands",
+    "scroll": "Scroll Down",
+    "centerCard": "Average Customer Growth",
+    "card1Title": "Advertising",
+    "card1Value": "+2,500 Campaigns",
+    "card2Title": "Expert Team",
+    "card2Value": "+25 People",
+    "brands": ["Digikala", "Snapp", "Tapsi"]
+  },
+  "stats": {
+    "items": [
+      { "label": "Successful Projects", "suffix": "" },
+      { "label": "Client Satisfaction", "suffix": "%" },
+      { "label": "Years of Experience", "suffix": " years" },
+      { "label": "Professional Experts", "suffix": "+" }
+    ]
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive Digital Solutions",
+    "description": "From strategy to execution, we cover all your business digital needs",
+    "viewMore": "View More",
+    "seo": {
+      "title": "SEO & Optimization",
+      "description": "With advanced SEO techniques, we bring your site to the first page of Google and multiply organic traffic.",
+      "items": ["Technical SEO", "Keyword Research", "Link Building"]
+    },
+    "ads": {
+      "title": "PPC Advertising",
+      "description": "Professional management of Google Ads campaigns with the highest conversion rates and lowest costs.",
+      "items": ["Google Ads", "Remarketing", "CRO"]
+    },
+    "social": {
+      "title": "Social Media",
+      "description": "Creative content production and professional management of your brand presence across all social platforms.",
+      "items": ["Instagram Marketing", "LinkedIn Business", "Content Creation"]
+    },
+    "web": {
+      "title": "Web Design",
+      "description": "Modern, fast, and optimized website design and development to convert visitors into customers.",
+      "items": ["UI/UX Design", "Online Store", "Landing Page"]
+    },
+    "email": {
+      "title": "Email Marketing",
+      "description": "Design and execution of targeted email campaigns to increase customer loyalty and repeat sales.",
+      "items": ["Email Automation", "Newsletter", "Customer Segmentation"]
+    },
+    "analytics": {
+      "title": "Analytics & Reports",
+      "description": "Precise data analysis and regular reporting to identify growth opportunities.",
+      "items": ["Google Analytics", "Custom Dashboard", "Monthly Reports"]
+    }
+  },
+  "process": {
+    "badge": "Development Process",
+    "title": "How We Build a Project from",
+    "highlight": "Zero to Hero",
+    "suffix": "",
+    "description": "Our clear, step-by-step path to transform your idea into a complete digital product",
+    "step1": {
+      "title": "Analysis & Planning",
+      "description": "We analyze your project needs and develop the right strategy. From technology selection to architecture design, everything is planned."
+    },
+    "step2": {
+      "title": "UI/UX Design",
+      "description": "Beautiful user interface and smooth user experience with the latest design standards. Interactive prototypes are prepared for your feedback."
+    },
+    "step3": {
+      "title": "Development",
+      "description": "Development with the best frameworks and clean coding principles. Our code is optimized, secure, and scalable."
+    },
+    "step4": {
+      "title": "Testing & Optimization",
+      "description": "Complete performance, security, and speed testing. SEO optimization and excellent performance across all devices."
+    },
+    "step5": {
+      "title": "Deployment & Support",
+      "description": "Launch on powerful servers with global CDN. 24/7 support and regular updates for uninterrupted performance."
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "heading": "A Team Committed to Your Business Success",
+    "description1": "Since 2016, Novin Digital has been helping Iranian businesses get seen and grow in the digital world with a team of 25 specialists.",
+    "description2": "We believe every brand has a unique story. Our job is to tell that story to your target audience in the best way possible.",
+    "stat1": "Average Traffic Growth",
+    "stat2": "Conversion Rate Increase",
+    "cta": "Work With Us",
+    "trust": "Trustworthy",
+    "experience": "Years Experience",
+    "projects": "Successful Projects",
+    "agile": "Fast & Agile"
+  },
+  "portfolio": {
+    "badge": "Portfolio",
+    "heading": "Our Successful Projects",
+    "description": "A selection of projects we're proud to have collaborated on",
+    "viewMore": "View More",
+    "filters": [
+      { "value": "all", "label": "All" },
+      { "value": "seo", "label": "SEO" },
+      { "value": "ads", "label": "Ads" },
+      { "value": "social", "label": "Social Media" },
+      { "value": "web", "label": "Web Design" }
+    ],
+    "categories": {
+      "seo": "SEO",
+      "ads": "Ads",
+      "social": "Social Media",
+      "web": "Web Design"
+    },
+    "items": [
+      { "title": "Madis Online Store", "result": "+280% sales" },
+      { "title": "Technoland SEO Campaign", "result": "#1 on Google" },
+      { "title": "Fin Startup Ads", "result": "ROAS 4.5x" },
+      { "title": "Novin Cafe Instagram", "result": "+50K followers" },
+      { "title": "Hospital Website Design", "result": "+150% bookings" },
+      { "title": "News Site SEO", "result": "+500% traffic" }
+    ]
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "heading": "What Our Clients Say",
+    "prev": "Previous",
+    "next": "Next",
+    "slide": "Slide {n}",
+    "items": [
+      {
+        "name": "Ali Rezaei",
+        "role": "CEO, Technoland",
+        "text": "Working with Novin Digital was one of our best decisions. Within 6 months, our site traffic multiplied 5x and sales grew dramatically."
+      },
+      {
+        "name": "Maryam Hosseini",
+        "role": "Founder, Madis Store",
+        "text": "A professional and committed team. The SEO strategy they developed for us was outstanding. We're now on Google's first page."
+      },
+      {
+        "name": "Mohammad Karimi",
+        "role": "Marketing Manager, Fin Startup",
+        "text": "Our ad campaign ROI tripled under Novin Digital's management. Truly professional work."
+      },
+      {
+        "name": "Sara Ahmadi",
+        "role": "Brand Manager, Novin Cafe",
+        "text": "Our Instagram content is produced by the Novin team. Follower engagement has quadrupled."
+      }
+    ]
+  },
+  "cta": {
+    "heading": "Ready to Grow Your Business?",
+    "description": "Contact our team today and get a free consultation. Our experts are ready to answer your questions.",
+    "button": "Request Free Consultation",
+    "phone": "021-12345678"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "heading": "Let's Talk",
+    "description": "Fill out the form or contact us using the information below. Our team will get back to you as soon as possible.",
+    "address": "Office Address",
+    "addressValue": "Tehran, Valiasr St., Aseman Tower, 12th Floor",
+    "email": "Email",
+    "emailValue": "info@novindigital.ir",
+    "phone": "Phone",
+    "phoneValue": "021-12345678",
+    "name": "Full Name",
+    "namePlaceholder": "Ali Mohammadi",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "09121234567",
+    "emailLabel": "Email",
+    "service": "Required Service",
+    "servicePlaceholder": "Select...",
+    "serviceOptions": [
+      { "value": "", "label": "Select..." },
+      { "value": "seo", "label": "SEO & Optimization" },
+      { "value": "ads", "label": "PPC Advertising" },
+      { "value": "social", "label": "Social Media" },
+      { "value": "web", "label": "Website Design" },
+      { "value": "email", "label": "Email Marketing" },
+      { "value": "other", "label": "Other Services" }
+    ],
+    "message": "Your Message",
+    "messagePlaceholder": "Describe your project...",
+    "submit": "Submit Request",
+    "sending": "Sending...",
+    "success": "✓ Sent",
+    "privacy": "Privacy Policy",
+    "privacyText": "By submitting, you agree to our"
+  },
+  "footer": {
+    "description": "Novin Digital Marketing Agency with over 8 years of experience, supporting businesses on their growth journey in the digital world.",
+    "brand": "Novin Digital",
+    "addressValue": "Tehran, Valiasr St., Aseman Tower, 12th Floor",
+    "emailValue": "info@novindigital.ir",
+    "phoneValue": "021-12345678",
+    "services": "Services",
+    "company": "Company",
+    "support": "Support",
+    "trusted": "Trusted by",
+    "brands": ["Digikala", "Snapp", "Tapsi"],
+    "copyright": "All rights reserved.",
+    "links": {
+      "services": [
+        { "label": "SEO & Optimization" },
+        { "label": "PPC Advertising" },
+        { "label": "Social Media" },
+        { "label": "Web Design" },
+        { "label": "Email Marketing" }
+      ],
+      "company": [
+        { "label": "About Us" },
+        { "label": "Portfolio" },
+        { "label": "Blog" },
+        { "label": "Careers" }
+      ],
+      "support": [
+        { "label": "Contact Us" },
+        { "label": "FAQ" },
+        { "label": "Terms" },
+        { "label": "Privacy" }
+      ]
+    },
+    "socials": [
+      { "label": "Instagram" },
+      { "label": "LinkedIn" },
+      { "label": "Twitter" },
+      { "label": "Telegram" }
+    ]
+  },
+  "chat": {
+    "title": "Online Support",
+    "online": "online",
+    "placeholder": "Type your message...",
+    "onlineCount": "{count} people online",
+    "now": "now",
+    "welcome": "Hi! 👋 How can I help you?",
+    "team": [
+      { "name": "Sara Mohammadi", "role": "Technical Support" },
+      { "name": "Ali Rezaei", "role": "Sales Consultant" },
+      { "name": "Maryam Hosseini", "role": "Project Manager" }
+    ],
+    "quickReplies": [
+      "How much does a project cost?",
+      "How long will it take?",
+      "I'd like to see the portfolio",
+      "Do you offer free consultation?"
+    ],
+    "responses": [
+      "Sure! Let me check and get back to you ✨",
+      "Great question! Would you like more details?",
+      "I can guide you — please explain a bit more",
+      "Got it, I'll follow up right away 🚀"
+    ]
+  },
+  "onboarding": {
+    "step1": "Language",
+    "step2": "Theme",
+    "step3": "Cookies",
+    "langTitle": "Choose Your Language",
+    "langDesc": "Select your preferred language for a better experience",
+    "themeTitle": "Choose Your Theme",
+    "themeDesc": "Select your preferred display mode",
+    "cookieTitle": "Cookie Settings",
+    "cookieDesc": "Specify your privacy and cookie storage preferences",
+    "yes": "Yes, I Agree",
+    "yesDesc": "I agree to cookie storage for a better experience",
+    "no": "No, I Decline",
+    "noDesc": "Only essential cookies will be stored",
+    "back": "Back",
+    "next": "Next",
+    "start": "Get Started",
+    "skip": "Skip & Continue",
+    "dark": "Dark",
+    "light": "Light",
+    "langFa": "فارسی",
+    "langEn": "English",
+    "langTr": "Türkçe"
+  },
+  "notfound": {
+    "title": "Page Not Found",
+    "description": "It seems this page has moved elsewhere. Let's get you back on track.",
+    "home": "Back to Home",
+    "report": "Report Issue",
+    "brand": "Novin Digital"
+  },
+  "loading": {
+    "title": "Loading",
+    "subtitle": "Please wait a moment"
+  },
+  "ui": {
+    "backToTop": "Back to Top"
+  },
+  "contactPage": {
+    "badge": "We're online — responding in under 2 hours",
+    "title": "Get in",
+    "highlight": "Touch",
+    "description": "Have a question? A project in mind? Or just want to learn more? However you prefer, we're here.",
+    "quickPhoneTitle": "Call Us",
+    "quickPhoneValue": "021-12345678",
+    "quickEmailTitle": "Email",
+    "quickEmailValue": "info@novindigital.ir",
+    "quickAddressTitle": "Office Address",
+    "quickAddressValue": "Tehran, Valiasr St., Aseman Tower",
+    "quickHoursTitle": "Working Hours",
+    "quickHoursValue": "Sat–Thu 9–18",
+    "socials": ["Telegram", "WhatsApp", "Instagram"],
+    "formBadge": "Send a Message",
+    "formTitle": "Let's Talk",
+    "formDescription": "Fill out the form and we'll get back to you as soon as possible. For faster responses, reach us on WhatsApp or Telegram.",
+    "infoAddressTitle": "Head Office",
+    "infoAddressValue": "Tehran, Valiasr St., Aseman Tower, 12th Floor, Unit 1205",
+    "infoPhonesTitle": "Phone Numbers",
+    "infoPhoneOffice": "021-12345678 (Head Office)",
+    "infoPhoneSupport": "0912-1234567 (Support)",
+    "infoEmailTitle": "Email",
+    "infoEmailInfo": "info@novindigital.ir",
+    "infoEmailSupport": "support@novindigital.ir",
+    "socialsLabel": "Connect with us on social media",
+    "formTitle2": "Free Consultation Request",
+    "nameLabel": "Full Name",
+    "namePlaceholder": "Ali Mohammadi",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "09121234567",
+    "emailLabel": "Email",
+    "emailPlaceholder": "example@email.com",
+    "companyLabel": "Company / Business Name",
+    "companyPlaceholder": "Sample Company",
+    "serviceLabel": "Required Service",
+    "serviceOptions": [
+      { "value": "", "label": "Select..." },
+      { "value": "seo", "label": "SEO & Search Engine Optimization" },
+      { "value": "ads", "label": "PPC Advertising (Google Ads)" },
+      { "value": "social", "label": "Social Media Management" },
+      { "value": "web", "label": "Website Design & Development" },
+      { "value": "email", "label": "Email Marketing" },
+      { "value": "content", "label": "Content Creation" },
+      { "value": "consulting", "label": "Digital Strategy Consulting" },
+      { "value": "other", "label": "Other Services" }
+    ],
+    "budgetLabel": "Approximate Monthly Budget",
+    "budget": [
+      { "label": "Less than", "sublabel": "5 million" },
+      { "label": "5–20", "sublabel": "million Toman" },
+      { "label": "More than", "sublabel": "20 million" }
+    ],
+    "messageLabel": "Project Details",
+    "messagePlaceholder": "Write your project goals, current challenges, and expectations...",
+    "submit": "Submit Request",
+    "sending": "Sending...",
+    "success": "Request Sent!",
+    "privacyText": "By submitting this form, you agree to our",
+    "privacyLink": "rules and privacy policy",
+    "mapBadge": "Location",
+    "mapTitle": "Find Our Office",
+    "mapName": "Novin Digital",
+    "mapAddress": "Tehran, Valiasr St., Aseman Tower, 12th Floor",
+    "mapLink": "View on Map",
+    "faqBadge": "FAQ",
+    "faqTitle": "Answers to Your Questions",
+    "faqDescription": "If you can't find your answer here, contact us directly",
+    "faq": [
+      {
+        "question": "How long until I see results from digital marketing?",
+        "answer": "Results vary by service. PPC ads usually show initial results within 2–4 weeks, while SEO typically takes 3–6 months to produce tangible results. We give you a clear timeline from the start."
+      },
+      {
+        "question": "Is a long-term contract required?",
+        "answer": "We offer monthly, 3-month, and 6-month contracts. Most of our services perform best within 3–6 months, but long-term commitments are never required."
+      },
+      {
+        "question": "How will I know how my project is progressing?",
+        "answer": "Every client has a dedicated project manager. Weekly and monthly reports with all key performance indicators (KPIs) are provided, plus access to a dedicated online dashboard."
+      },
+      {
+        "question": "Do you work with small businesses?",
+        "answer": "Yes! A significant share of our clients are small and medium businesses. We have cost-effective packages for any budget, and we scale services as your business grows."
+      },
+      {
+        "question": "Is the initial consultation free?",
+        "answer": "Yes, the initial consultation is completely free. In this 30–45 minute session, we review your current situation and suggest the right solutions. There's no obligation to continue."
+      }
+    ]
+  },
+  "servicesPage": {
+    "badge": "Complete solutions for digital growth",
+    "title": "Specialized Services of",
+    "highlight": "Novin Digital",
+    "description": "From graphic design and visual identity to website and mobile app development, SEO, advertising, and data analytics — our team executes the full journey from idea to product and sustainable growth alongside you.",
+    "ctaPrimary": "Get Consultation",
+    "ctaSecondary": "View Services",
+    "statFieldsLabel": "Specialized Fields",
+    "statProjectsLabel": "Completed Projects",
+    "pathLabel": "Collaboration Path",
+    "pathValue": "From Analysis to Growth",
+    "pathSteps": ["Discover", "Design", "Execute", "Improve"],
+    "listBadge": "Services List",
+    "listTitle": "All Digital Needs in One Team",
+    "listDescription": "Every service can run independently or come together as part of a complete growth path for your business.",
+    "services": [
+      {
+        "title": "Graphic Design & Visual Identity",
+        "description": "Logo design, brand kit, social media content, catalogs, banners, and visual assets aligned with the brand's personality.",
+        "tags": ["Logo", "Brand Book", "Social Kit"]
+      },
+      {
+        "title": "Mobile App Development",
+        "description": "UX design, Android and iOS development, API integration, payments, admin panel, and final release.",
+        "tags": ["Android", "iOS", "UI/UX"]
+      },
+      {
+        "title": "Website Design & Development",
+        "description": "Corporate sites, online stores, landing pages, dashboards, and web apps that are fast, secure, and optimized for conversion.",
+        "tags": ["Corporate", "E-commerce", "Dashboard"]
+      },
+      {
+        "title": "SEO & Site Optimization",
+        "description": "Keyword research, technical SEO, content production, link building, and site structure improvement for organic traffic growth.",
+        "tags": ["Technical SEO", "Content", "Growth"]
+      },
+      {
+        "title": "Digital Advertising",
+        "description": "Launching and managing ad campaigns, remarketing, budget optimization, and ROI reporting.",
+        "tags": ["Google Ads", "Retargeting", "ROAS"]
+      },
+      {
+        "title": "Social Media Management",
+        "description": "Content strategy, publishing calendar, post and story design, captions, engagement reporting, and audience growth.",
+        "tags": ["Content Plan", "Instagram", "LinkedIn"]
+      },
+      {
+        "title": "Email & Marketing Automation",
+        "description": "Email journey design, customer segmentation, newsletters, re-engagement messages, and repeat-sale campaigns.",
+        "tags": ["Automation", "Newsletter", "CRM"]
+      },
+      {
+        "title": "Data Analytics & Performance Reporting",
+        "description": "Analytics tool implementation, custom dashboards, KPI definition, and actionable reports for precise decisions.",
+        "tags": ["Analytics", "Dashboard", "KPI"]
+      },
+      {
+        "title": "Product & Digital Strategy Consulting",
+        "description": "Market analysis, roadmap design, feature prioritization, sales funnel definition, and a step-by-step growth plan.",
+        "tags": ["Roadmap", "Strategy", "Conversion"]
+      }
+    ],
+    "deliverablesBadge": "Collaboration Deliverables",
+    "deliverablesTitle": "We Don't Just Execute; We Make Growth Trackable",
+    "deliverablesDescription": "For every project, deliverables, timelines, success metrics, and measurable reports are defined so you know exactly what impact each step has on your business.",
+    "deliverables": [
+      {
+        "title": "Analysis & Planning",
+        "description": "Needs, audience, competitors, features, budget, and success metrics are all clarified before work begins."
+      },
+      {
+        "title": "Design & Prototype",
+        "description": "Wireframes, user flows, visual identity, and a reviewable prototype are prepared before final execution."
+      },
+      {
+        "title": "Development & Launch",
+        "description": "The final output is delivered with testing, optimization, documentation, and initial support."
+      },
+      {
+        "title": "Reporting & Continuous Improvement",
+        "description": "Data is reviewed, and next iterations are built based on real performance and user feedback."
+      }
+    ],
+    "ctaTitle": "Ready to Choose the Right Service?",
+    "ctaDescription": "If you're not sure where to start, send us an initial brief and we'll map out the right path for your project.",
+    "ctaPrimary": "Start Collaboration",
+    "ctaSecondary": "View Portfolio"
+  },
+  "aboutPage": {
+    "badge": "Serving you since 2016",
+    "title": "The Story of",
+    "highlight": "Novin Digital",
+    "description": "We are a team of passionate specialists united to help businesses grow in the digital world.",
+    "stats": [
+      { "value": "523+", "label": "Successful Projects" },
+      { "value": "98%", "label": "Client Satisfaction" },
+      { "value": "8", "label": "Years of Experience" },
+      { "value": "25+", "label": "Professional Experts" }
+    ],
+    "storyBadge": "Our Story",
+    "storyTitle": "From an Idea to a Leading Agency",
+    "story1": "Novin Digital began in 2016 with a small three-person team and a dream: to transform Iran's digital marketing landscape.",
+    "story2": "Today, with over 25 specialists in SEO, digital advertising, social media, and web design, we're proud to have helped hundreds of Iranian businesses shine online.",
+    "story3": "We believe our clients' success is our success. That's why we bring our full energy and knowledge to every project.",
+    "timeline": [
+      { "year": "1395", "title": "Novin Digital Founded", "description": "Started with a three-person team and the first clients" },
+      { "year": "1397", "title": "Team & Services Expansion", "description": "Grew to 10 specialists and added web design services" },
+      { "year": "1399", "title": "Dedicated Office", "description": "Opened a dedicated office in Tehran and partnered with major brands" },
+      { "year": "1403", "title": "500+ Successful Projects", "description": "Reached 25 specialists and over 500 completed projects" }
+    ],
+    "valuesBadge": "Our Values",
+    "valuesTitle": "What We Believe In",
+    "valuesDescription": "The principles guiding every decision and every project",
+    "values": [
+      {
+        "title": "Honesty & Transparency",
+        "description": "We're completely honest with our clients. We provide accurate, real reports — even when results fall short of expectations."
+      },
+      {
+        "title": "Results-Driven",
+        "description": "Our goal isn't just doing the work — it's achieving tangible, measurable results for your business."
+      },
+      {
+        "title": "Continuous Innovation",
+        "description": "The digital world changes every day. We're always learning and updating our strategies."
+      },
+      {
+        "title": "Partnership",
+        "description": "We're partners with our clients, not just service providers. Your success is our success."
+      },
+      {
+        "title": "Data-Driven",
+        "description": "Every decision we make is based on data and analysis, not guesses. Numbers don't lie."
+      },
+      {
+        "title": "Passion & Commitment",
+        "description": "Our work isn't just a job. We love digital marketing, and that passion shows in our results."
+      }
+    ],
+    "teamBadge": "Our Team",
+    "teamTitle": "The People Behind Your Success",
+    "teamDescription": "Our team is made up of experienced, passionate specialists across different areas of digital marketing",
+    "team": [
+      { "name": "Amir Mohammadi", "role": "CEO & Founder", "bio": "12 years of experience in digital marketing and launching online businesses" },
+      { "name": "Sara Hosseini", "role": "Head of SEO & Content", "bio": "SEO specialist with 8+ years of experience ranking websites" },
+      { "name": "Reza Karimi", "role": "Head of Digital Ads", "bio": "Google Ads expert with international certifications and 6 years of experience" },
+      { "name": "Nazanin Ahmadi", "role": "Head of Social Media", "bio": "Content and organic growth specialist with 50+ managed accounts" }
+    ],
+    "awardsBadge": "Achievements",
+    "awardsTitle": "Awards & Certifications",
+    "awards": [
+      { "title": "Google Partner", "subtitle": "Official Google Partner" },
+      { "title": "Best Agency 1402", "subtitle": "Digital Marketing Award" },
+      { "title": "ISO 9001", "subtitle": "Quality Management Certification" },
+      { "title": "National Association", "subtitle": "Member of Digital Business Association" }
+    ],
+    "ctaTitle": "Let's Work Together",
+    "ctaDescription": "If you want to grow your business in the digital world, our team is ready to support you.",
+    "ctaPrimary": "Contact Us",
+    "ctaSecondary": "View Services"
+  },
+  "teamPage": {
+    "badge": "25+ Professional Specialists",
+    "title": "Meet",
+    "highlight": "Our Team",
+    "description": "Energetic specialists working every day to make your business shine in the digital world. Real people, real results.",
+    "stats": [
+      { "value": "25+", "label": "Active Specialists" },
+      { "value": "6", "label": "Specialized Teams" },
+      { "value": "12+", "label": "Years of Combined Experience" },
+      { "value": "18", "label": "International Certifications" }
+    ],
+    "gridBadge": "Team Members",
+    "gridTitle": "The People Behind Your Success",
+    "gridDescription": "Each person is an expert in their field — together we make a complete team",
+    "departments": [
+      { "id": "all", "label": "All" },
+      { "id": "leadership", "label": "Management" },
+      { "id": "seo", "label": "SEO & Content" },
+      { "id": "ads", "label": "Advertising" },
+      { "id": "social", "label": "Social Media" },
+      { "id": "dev", "label": "Web Development" },
+      { "id": "design", "label": "Design" }
+    ],
+    "members": [
+      { "name": "Amir Mohammadi", "role": "CEO & Founder", "deptLabel": "Management", "bio": "12 years of experience in digital marketing and launching successful startups", "skills": ["Strategy", "Leadership", "Growth"] },
+      { "name": "Sara Hosseini", "role": "Head of SEO & Content", "deptLabel": "SEO", "bio": "8 years of experience ranking Persian and international websites", "skills": ["On-Page SEO", "Content Creation", "Link Building"] },
+      { "name": "Reza Karimi", "role": "Head of Digital Ads", "deptLabel": "Ads", "bio": "Google Ads expert with 6 international certifications", "skills": ["Google Ads", "Meta Ads", "PPC"] },
+      { "name": "Nazanin Ahmadi", "role": "Head of Social Media", "deptLabel": "Social", "bio": "Organic growth specialist with 50+ managed accounts", "skills": ["Instagram", "TikTok", "Reels"] },
+      { "name": "Mehdi Rahimi", "role": "Lead Web Developer", "deptLabel": "Development", "bio": "Full-stack with 7 years of experience building high-converting websites", "skills": ["React", "Laravel", "WordPress"] },
+      { "name": "Leila Sadeghi", "role": "Lead UI/UX Designer", "deptLabel": "Design", "bio": "Product designer with experience on major Iranian and international brands", "skills": ["Figma", "UI/UX", "Branding"] },
+      { "name": "Hossein Moradi", "role": "Technical SEO Specialist", "deptLabel": "SEO", "bio": "5 years of experience in technical optimization and site speed", "skills": ["Core Web Vitals", "Schema", "GSC"] },
+      { "name": "Farideh Naseri", "role": "Content Specialist", "deptLabel": "Social", "bio": "Writer and video content producer with 30+ brand collaborations", "skills": ["Video Marketing", "Copywriting", "Canva"] }
+    ],
+    "cultureBadge": "Work Culture",
+    "cultureTitle": "Why We Love Our Work?",
+    "cultureDescription": "An environment where we grow, learn, and succeed together",
+    "culture": [
+      { "title": "Continuous Learning", "description": "Annual education budget for every team member. Access to online courses, conferences, and specialized books." },
+      { "title": "Flexible Remote Work", "description": "Remote work 3 days a week. Results matter, not where you sit. Transparent project management for everyone." },
+      { "title": "Performance-Based Rewards", "description": "Monthly and quarterly bonuses based on project results. When the client wins, we win." },
+      { "title": "Team Building & Fun", "description": "Monthly team events, annual company trips, and casual coffee chats." },
+      { "title": "Clear Growth Path", "description": "Transparent career advancement program. Monthly one-on-ones with your manager to review progress and align goals." },
+      { "title": "Health & Wellness", "description": "Complementary insurance, gym membership, and mental well-being programs for all members." }
+    ],
+    "jobsBadge": "Open Positions",
+    "jobsTitle": "Join Our Team",
+    "jobsDescription": "We're looking for energetic specialists to build Iran's digital future with us",
+    "jobs": [
+      { "title": "SEO Specialist", "description": "At least 2 years of experience with Persian-language SEO. Familiarity with Google Search Console and analytics tools.", "type": "Full-time", "location": "Tehran / Remote" },
+      { "title": "Video Content Producer", "description": "Skilled in video editing, motion graphics, and content production for Instagram and YouTube.", "type": "Part-time", "location": "Remote" },
+      { "title": "Front-End Developer", "description": "Familiar with React and Tailwind. Experience building Persian RTL websites is a plus.", "type": "Full-time", "location": "Hybrid" }
+    ],
+    "jobOpen": "Open",
+    "jobSoon": "Coming Soon",
+    "jobApply": "Send Resume",
+    "jobInterest": "Register Interest",
+    "ctaTitle": "Grow with This Team",
+    "ctaDescription": "Ready to work with Iran's best digital marketing specialists? The first consultation is free.",
+    "ctaPrimary": "Free Consultation",
+    "ctaSecondary": "Learn More About Us"
+  },
+  "works": {
+    "badge": "A complete view of delivered projects",
+    "title": "Portfolio of",
+    "highlight": "Novin Digital",
+    "description": "From graphic design and visual identity to mobile app development, web design, SEO, and digital campaigns — this page shows projects we've built to grow brands.",
+    "statProjects": "Successful Projects",
+    "statFields": "Specialized Fields",
+    "statCustom": "Custom Design",
+    "statSatisfaction": "Client Satisfaction",
+    "gridBadge": "Project Archive",
+    "gridTitle": "Projects by Expertise",
+    "gridDescription": "Filter and explore examples of our design, development, marketing, and product teams' output.",
+    "filters": [
+      { "id": "all", "label": "All" },
+      { "id": "graphic", "label": "Graphic Design" },
+      { "id": "mobile", "label": "Mobile Apps" },
+      { "id": "web", "label": "Web Development" },
+      { "id": "marketing", "label": "Digital Marketing" },
+      { "id": "branding", "label": "Branding" }
+    ],
+    "items": [
+      { "title": "Baran Restaurant Visual Identity", "label": "Graphic Design", "result": "Complete brand kit", "tags": ["Logo", "Menu", "Social"] },
+      { "title": "Madis Online Ordering App", "label": "Mobile App", "result": "+42% order rate", "tags": ["UI/UX", "Android", "iOS"] },
+      { "title": "Artan Online Store", "label": "Web Development", "result": "+280% sales", "tags": ["E-commerce", "Dashboard", "SEO"] },
+      { "title": "Fintech Launch Campaign", "label": "Digital Marketing", "result": "ROAS 4.5x", "tags": ["Ads", "Landing", "Analytics"] },
+      { "title": "Avin Clinic Brand Refresh", "label": "Branding", "result": "+35% new visits", "tags": ["Brand book", "Tone", "Identity"] },
+      { "title": "Logistics Management Dashboard", "label": "Web Development", "result": "50% less ops time", "tags": ["SaaS", "Admin", "Reports"] },
+      { "title": "Health Appointment Booking App", "label": "Mobile App", "result": "+150% bookings", "tags": ["Booking", "Profile", "Payment"] },
+      { "title": "Novin Cafe Content Package", "label": "Graphic Design", "result": "+50K followers", "tags": ["Post", "Story", "Motion"] },
+      { "title": "Eghtesad-e Rouz News SEO", "label": "Digital Marketing", "result": "+500% traffic", "tags": ["SEO", "Content", "Growth"] },
+      { "title": "Nikan Engineering Corporate Site", "label": "Web Development", "result": "+70% incoming leads", "tags": ["Corporate", "RTL", "Forms"] },
+      { "title": "Educational Product Design System", "label": "Branding", "result": "Product unification", "tags": ["Design system", "UI kit", "Guide"] },
+      { "title": "Narin Apparel Ad Campaign", "label": "Digital Marketing", "result": "+190% seasonal sales", "tags": ["PPC", "Social", "Retarget"] }
+    ],
+    "resultLabel": "Project Result",
+    "processBadge": "How We Collaborate",
+    "processTitle": "From Idea to Measurable Delivery",
+    "processDescription": "Every project starts with understanding the business goal and continues with design, development, testing, and performance reporting.",
+    "processSteps": [
+      { "title": "Needs Analysis", "description": "Goals, audience, competitors, and success metrics are defined before design." },
+      { "title": "Path Design", "description": "User experience structure, visual identity, and technical roadmap are prepared." },
+      { "title": "Production & Development", "description": "Designs become products, campaigns, or ready-to-publish assets." },
+      { "title": "Continuous Improvement", "description": "Performance is reviewed and next iterations are built on data and feedback." }
+    ],
+    "ctaTitle": "Start Your Next Project?",
+    "ctaDescription": "For graphic design, mobile apps, websites, or digital campaigns, send us your initial brief.",
+    "ctaPrimary": "Start Collaboration",
+    "ctaSecondary": "Back to Home"
+  }
+}

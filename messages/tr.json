@@ -1,0 +1,679 @@
+{
+  "metadata": {
+    "title": "Novin Dijital | Dijital Pazarlama Ajansı",
+    "description": "Akıllı dijital pazarlama stratejileriyle markanızı bir üst seviyeye taşıyın."
+  },
+  "nav": {
+    "brand": "Novin Dijital",
+    "services": "Hizmetler",
+    "portfolio": "Portföy",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "login": "Giriş",
+    "register": "Kayıt",
+    "menu": "Menü"
+  },
+  "theme": {
+    "dark": "Koyu",
+    "light": "Açık"
+  },
+  "auth": {
+    "login": "Tekrar Hoş Geldiniz",
+    "loginSubtitle": "Hesabınıza erişmek için giriş yapın",
+    "signup": "Hesap Oluştur",
+    "signupSubtitle": "Yolculuğunuza bizimle başlayın",
+    "fullName": "Ad Soyad",
+    "fullNamePlaceholder": "John Doe",
+    "email": "E-posta",
+    "emailPlaceholder": "you@example.com",
+    "password": "Şifre",
+    "passwordPlaceholder": "En az 8 karakter",
+    "loginSubmit": "Giriş Yap",
+    "signupSubmit": "Hesap Oluştur",
+    "googleLogin": "Google ile Devam Et",
+    "googleSignup": "Google ile Kaydol",
+    "or": "veya devam et",
+    "otpTitle": "E-postanızı Doğrulayın",
+    "otpDescription": "{email} adresine 6 haneli kod gönderdik",
+    "verifyCode": "Kodu Doğrula",
+    "resend": "Kodu yeniden gönder",
+    "changeEmail": "E-postayı değiştir",
+    "forgotPassword": "Şifrenizi mi unuttunuz?",
+    "alreadyAccount": "Zaten hesabınız var mı?",
+    "noAccount": "Hesabınız yok mu?",
+    "switchLogin": "Giriş Yap",
+    "switchSignup": "Kaydol",
+    "close": "Kapat"
+  },
+  "hero": {
+    "badge": "500'den Fazla Başarılı Proje",
+    "title": "İşinizi Büyütün",
+    "highlight": "Dijital Dünyada",
+    "description": "Akıllı dijital pazarlama stratejileriyle markanızı bir üst seviyeye taşıyın. Uzman ekibimiz size destek olmaya hazır.",
+    "cta": "Projeye Başla",
+    "secondary": "Portföy",
+    "trust": "Önde Gelen Markaların Güveni",
+    "scroll": "Aşağı Kaydır",
+    "centerCard": "Ortalama Müşteri Büyümesi",
+    "card1Title": "Reklamcılık",
+    "card1Value": "+2.500 Kampanya",
+    "card2Title": "Uzman Ekip",
+    "card2Value": "+25 Kişi",
+    "brands": ["Digikala", "Snapp", "Tapsi"]
+  },
+  "stats": {
+    "items": [
+      { "label": "Başarılı Proje", "suffix": "" },
+      { "label": "Müşteri Memnuniyeti", "suffix": "%" },
+      { "label": "Yıl Deneyim", "suffix": "" },
+      { "label": "Profesyonel Uzman", "suffix": "+" }
+    ]
+  },
+  "services": {
+    "title": "Hizmetlerimiz",
+    "subtitle": "Kapsamlı Dijital Çözümler",
+    "description": "Stratejiden uygulamaya, işletmenizin tüm dijital ihtiyaçlarını karşılıyoruz",
+    "viewMore": "Daha Fazla",
+    "seo": {
+      "title": "SEO & Optimizasyon",
+      "description": "Gelişmiş SEO teknikleriyle sitenizi Google'ın ilk sayfasına taşıyor ve organik trafiği katlıyoruz.",
+      "items": ["Teknik SEO", "Anahtar Kelime Araştırması", "Link İnşası"]
+    },
+    "ads": {
+      "title": "Tıklama Reklamları",
+      "description": "En yüksek dönüşüm oranları ve en düşük maliyetlerle Google Ads kampanyalarının profesyonel yönetimi.",
+      "items": ["Google Ads", "Remarketing", "Dönüşüm Optimizasyonu"]
+    },
+    "social": {
+      "title": "Sosyal Medya",
+      "description": "Tüm sosyal platformlarda marka varlığınızın yaratıcı içerik üretimi ve profesyonel yönetimi.",
+      "items": ["Instagram Pazarlama", "LinkedIn İş", "İçerik Üretimi"]
+    },
+    "web": {
+      "title": "Web Tasarım",
+      "description": "Ziyaretçileri müşteriye dönüştürmek için modern, hızlı ve optimize edilmiş web sitesi tasarımı ve geliştirme.",
+      "items": ["UI/UX Tasarım", "Online Mağaza", "Açılış Sayfası"]
+    },
+    "email": {
+      "title": "E-posta Pazarlama",
+      "description": "Müşteri sadakatini ve tekrar satışları artırmak için hedefli e-posta kampanyalarının tasarımı ve yürütülmesi.",
+      "items": ["E-posta Otomasyonu", "Bülten", "Müşteri Segmentasyonu"]
+    },
+    "analytics": {
+      "title": "Analiz & Raporlar",
+      "description": "Büyüme fırsatlarını belirlemek için hassas veri analizi ve düzenli raporlama.",
+      "items": ["Google Analytics", "Özel Dashboard", "Aylık Raporlar"]
+    }
+  },
+  "process": {
+    "badge": "Geliştirme Süreci",
+    "title": "Bir Projeyi Nasıl",
+    "highlight": "Sıfırdan Zirveye",
+    "suffix": "İnşa Ediyoruz?",
+    "description": "Fikrinizi eksiksiz bir dijital ürüne dönüştürmek için net, adım adım yol haritamız",
+    "step1": {
+      "title": "Analiz & Planlama",
+      "description": "Proje ihtiyaçlarınızı analiz ediyor ve doğru stratejiyi geliştiriyoruz. Teknoloji seçiminden mimari tasarıma kadar her şey planlanır."
+    },
+    "step2": {
+      "title": "UI/UX Tasarım",
+      "description": "En son tasarım standartlarıyla güzel kullanıcı arayüzü ve akıcı kullanıcı deneyimi. Geri bildiriminiz için etkileşimli prototipler hazırlanır."
+    },
+    "step3": {
+      "title": "Geliştirme",
+      "description": "En iyi framework'ler ve temiz kod prensipleriyle geliştirme. Kodumuz optimize, güvenli ve ölçeklenebilir."
+    },
+    "step4": {
+      "title": "Test & Optimizasyon",
+      "description": "Tam performans, güvenlik ve hız testi. SEO optimizasyonu ve tüm cihazlarda mükemmel performans."
+    },
+    "step5": {
+      "title": "Dağıtım & Destek",
+      "description": "Küresel CDN ile güçlü sunucularda lansman. Kesintisiz performans için 7/24 destek ve düzenli güncellemeler."
+    }
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "heading": "İşletmenizin Başarısına Adanmış Bir Ekip",
+    "description1": "2016'dan beri Novin Digital, 25 uzmandan oluşan ekibiyle İranlı işletmelerin dijital dünyada görünmesine ve büyümesine yardımcı oluyor.",
+    "description2": "Her markanın benzersiz bir hikayesi olduğuna inanıyoruz. Görevimiz, bu hikayeyi hedef kitlenize en iyi şekilde anlatmak.",
+    "stat1": "Ortalama Trafik Artışı",
+    "stat2": "Dönüşüm Oranı Artışı",
+    "cta": "Bizimle Çalışın",
+    "trust": "Güvenilir",
+    "experience": "Yıl Deneyim",
+    "projects": "Başarılı Proje",
+    "agile": "Hızlı & Çevik"
+  },
+  "portfolio": {
+    "badge": "Portföy",
+    "heading": "Başarılı Projelerimiz",
+    "description": "Gururla iş birliği yaptığımız projelerden bir seçki",
+    "viewMore": "Daha Fazla",
+    "filters": [
+      { "value": "all", "label": "Tümü" },
+      { "value": "seo", "label": "SEO" },
+      { "value": "ads", "label": "Reklam" },
+      { "value": "social", "label": "Sosyal Medya" },
+      { "value": "web", "label": "Web Tasarım" }
+    ],
+    "categories": {
+      "seo": "SEO",
+      "ads": "Reklam",
+      "social": "Sosyal Medya",
+      "web": "Web Tasarım"
+    },
+    "items": [
+      { "title": "Madis Online Mağazası", "result": "+%280 satış" },
+      { "title": "Teknoland SEO Kampanyası", "result": "Google'da 1. Sıra" },
+      { "title": "Fin Startup Reklamları", "result": "ROAS 4.5x" },
+      { "title": "Novin Kafe Instagram", "result": "+50K takipçi" },
+      { "title": "Hastane Web Sitesi Tasarımı", "result": "+%150 randevu" },
+      { "title": "Haber Sitesi SEO", "result": "+%500 trafik" }
+    ]
+  },
+  "testimonials": {
+    "title": "Referanslar",
+    "heading": "Müşterilerimiz Ne Diyor",
+    "prev": "Önceki",
+    "next": "Sonraki",
+    "slide": "Slayt {n}",
+    "items": [
+      {
+        "name": "Ali Rezaei",
+        "role": "Teknoland CEO'su",
+        "text": "Novin Digital ile çalışmak en iyi kararlarımızdan biriydi. 6 ay içinde site trafiğimiz 5 kat arttı ve satışlar gözle görülür şekilde yükseldi."
+      },
+      {
+        "name": "Maryam Hosseini",
+        "role": "Madis Mağazası Kurucusu",
+        "text": "Profesyonel ve kararlı bir ekip. Bizim için hazırladıkları SEO stratejisi mükemmeldi. Artık Google'ın ilk sayfasındayız."
+      },
+      {
+        "name": "Mohammad Karimi",
+        "role": "Fin Startup Pazarlama Müdürü",
+        "text": "Novin Digital yönetiminde reklam kampanyalarımızın ROI'si 3 katına çıktı. Gerçekten profesyonel iş çıkarıyorlar."
+      },
+      {
+        "name": "Sara Ahmadi",
+        "role": "Novin Kafe Marka Müdürü",
+        "text": "Instagram içeriğimizi Novin ekibi üretiyor. Takipçi etkileşimimiz 4 katına çıktı."
+      }
+    ]
+  },
+  "cta": {
+    "heading": "İşletmenizi Büyütmeye Hazır mısınız?",
+    "description": "Bugün ekibimizle iletişime geçin ve ücretsiz danışmanlık alın. Uzmanlarımız sorularınızı yanıtlamaya hazır.",
+    "button": "Ücretsiz Danışmanlık Talep Et",
+    "phone": "021-12345678"
+  },
+  "contact": {
+    "title": "İletişim",
+    "heading": "Hadi Konuşalım",
+    "description": "Formu doldurun veya aşağıdaki bilgileri kullanarak bizimle iletişime geçin. Ekibimiz en kısa sürede size dönüş yapacaktır.",
+    "address": "Ofis Adresi",
+    "addressValue": "Tahran, Valiasr Cd., Aseman Kulesi, 12. Kat",
+    "email": "E-posta",
+    "emailValue": "info@novindigital.ir",
+    "phone": "Telefon",
+    "phoneValue": "021-12345678",
+    "name": "Ad Soyad",
+    "namePlaceholder": "Ali Mohammadi",
+    "phoneLabel": "Telefon Numarası",
+    "phonePlaceholder": "09121234567",
+    "emailLabel": "E-posta",
+    "service": "Gerekli Hizmet",
+    "servicePlaceholder": "Seçin...",
+    "serviceOptions": [
+      { "value": "", "label": "Seçin..." },
+      { "value": "seo", "label": "SEO & Optimizasyon" },
+      { "value": "ads", "label": "Tıklama Reklamları" },
+      { "value": "social", "label": "Sosyal Medya" },
+      { "value": "web", "label": "Web Tasarım" },
+      { "value": "email", "label": "E-posta Pazarlama" },
+      { "value": "other", "label": "Diğer Hizmetler" }
+    ],
+    "message": "Mesajınız",
+    "messagePlaceholder": "Projenizi açıklayın...",
+    "submit": "Talep Gönder",
+    "sending": "Gönderiliyor...",
+    "success": "✓ Gönderildi",
+    "privacy": "Gizlilik Politikası",
+    "privacyText": "Göndererek, kabul etmiş olursunuz"
+  },
+  "footer": {
+    "description": "8 yılı aşkın deneyimiyle Novin Dijital Pazarlama Ajansı, dijital dünyada büyüme yolculuğunda işletmeleri destekliyor.",
+    "brand": "Novin Dijital",
+    "addressValue": "Tahran, Valiasr Cd., Aseman Kulesi, 12. Kat",
+    "emailValue": "info@novindigital.ir",
+    "phoneValue": "021-12345678",
+    "services": "Hizmetler",
+    "company": "Şirket",
+    "support": "Destek",
+    "trusted": "Güvenenler",
+    "brands": ["Digikala", "Snapp", "Tapsi"],
+    "copyright": "Tüm hakları saklıdır.",
+    "links": {
+      "services": [
+        { "label": "SEO & Optimizasyon" },
+        { "label": "Tıklama Reklamları" },
+        { "label": "Sosyal Medya" },
+        { "label": "Web Tasarım" },
+        { "label": "E-posta Pazarlama" }
+      ],
+      "company": [
+        { "label": "Hakkımızda" },
+        { "label": "Portföy" },
+        { "label": "Blog" },
+        { "label": "Kariyer" }
+      ],
+      "support": [
+        { "label": "İletişim" },
+        { "label": "Sık Sorulan Sorular" },
+        { "label": "Kullanım Koşulları" },
+        { "label": "Gizlilik" }
+      ]
+    },
+    "socials": [
+      { "label": "Instagram" },
+      { "label": "LinkedIn" },
+      { "label": "Twitter" },
+      { "label": "Telegram" }
+    ]
+  },
+  "chat": {
+    "title": "Çevrimiçi Destek",
+    "online": "çevrimiçi",
+    "placeholder": "Mesajınızı yazın...",
+    "onlineCount": "{count} kişi çevrimiçi",
+    "now": "şimdi",
+    "welcome": "Merhaba! 👋 Size nasıl yardımcı olabilirim?",
+    "team": [
+      { "name": "Sara Mohammadi", "role": "Teknik Destek" },
+      { "name": "Ali Rezaei", "role": "Satış Danışmanı" },
+      { "name": "Maryam Hosseini", "role": "Proje Yöneticisi" }
+    ],
+    "quickReplies": [
+      "Bir projenin maliyeti ne kadar?",
+      "Ne kadar sürer?",
+      "Portföyü görmek istiyorum",
+      "Ücretsiz danışmanlık sunuyor musunuz?"
+    ],
+    "responses": [
+      "Tabii! Kontrol edip size dönüş yapayım ✨",
+      "Harika soru! Daha fazla detay ister misiniz?",
+      "Size yardımcı olabilirim — lütfen biraz daha açıklayın",
+      "Anlaşıldı, hemen takip ediyorum 🚀"
+    ]
+  },
+  "onboarding": {
+    "step1": "Dil",
+    "step2": "Tema",
+    "step3": "Çerezler",
+    "langTitle": "Dilinizi Seçin",
+    "langDesc": "Daha iyi bir deneyim için tercih ettiğiniz dili seçin",
+    "themeTitle": "Temanızı Seçin",
+    "themeDesc": "Tercih ettiğiniz görüntüleme modunu seçin",
+    "cookieTitle": "Çerez Ayarları",
+    "cookieDesc": "Gizlilik ve çerez depolama tercihlerinizi belirleyin",
+    "yes": "Evet, Kabul Ediyorum",
+    "yesDesc": "Daha iyi bir deneyim için çerez depolamayı kabul ediyorum",
+    "no": "Hayır, Reddediyorum",
+    "noDesc": "Yalnızca gerekli çerezler saklanacak",
+    "back": "Geri",
+    "next": "İleri",
+    "start": "Başlayın",
+    "skip": "Atla & Devam Et",
+    "dark": "Koyu",
+    "light": "Açık",
+    "langFa": "فارسی",
+    "langEn": "English",
+    "langTr": "Türkçe"
+  },
+  "notfound": {
+    "title": "Sayfa Bulunamadı",
+    "description": "Bu sayfa başka bir yere taşınmış gibi görünüyor. Sizi doğru yola geri döndürelim.",
+    "home": "Ana Sayfaya Dön",
+    "report": "Sorun Bildir",
+    "brand": "Novin Dijital"
+  },
+  "loading": {
+    "title": "Yükleniyor",
+    "subtitle": "Lütfen bir an bekleyin"
+  },
+  "ui": {
+    "backToTop": "Başa Dön"
+  },
+  "contactPage": {
+    "badge": "Çevrimiçiyiz — 2 saat içinde yanıtlıyoruz",
+    "title": "Bizimle",
+    "highlight": "İletişime Geçin",
+    "description": "Sorunuz mu var? Aklınızda bir proje mi var? Yoksa daha fazla bilgi mi almak istiyorsunuz? Nasıl isterseniz, buradayız.",
+    "quickPhoneTitle": "Bizi Arayın",
+    "quickPhoneValue": "021-12345678",
+    "quickEmailTitle": "E-posta",
+    "quickEmailValue": "info@novindigital.ir",
+    "quickAddressTitle": "Ofis Adresi",
+    "quickAddressValue": "Tahran, Valiasr Cd., Aseman Kulesi",
+    "quickHoursTitle": "Çalışma Saatleri",
+    "quickHoursValue": "Cumartesi–Perşembe 9–18",
+    "socials": ["Telegram", "WhatsApp", "Instagram"],
+    "formBadge": "Mesaj Gönderin",
+    "formTitle": "Hadi Konuşalım",
+    "formDescription": "Formu doldurun, en kısa sürede size dönüş yapalım. Daha hızlı yanıt için WhatsApp veya Telegram üzerinden ulaşın.",
+    "infoAddressTitle": "Merkez Ofis",
+    "infoAddressValue": "Tahran, Valiasr Cd., Aseman Kulesi, 12. Kat, Daire 1205",
+    "infoPhonesTitle": "Telefon Numaraları",
+    "infoPhoneOffice": "021-12345678 (Merkez Ofis)",
+    "infoPhoneSupport": "0912-1234567 (Destek)",
+    "infoEmailTitle": "E-posta",
+    "infoEmailInfo": "info@novindigital.ir",
+    "infoEmailSupport": "support@novindigital.ir",
+    "socialsLabel": "Sosyal medyada bize ulaşın",
+    "formTitle2": "Ücretsiz Danışmanlık Talebi",
+    "nameLabel": "Ad Soyad",
+    "namePlaceholder": "Ali Mohammadi",
+    "phoneLabel": "Telefon Numarası",
+    "phonePlaceholder": "09121234567",
+    "emailLabel": "E-posta",
+    "emailPlaceholder": "example@email.com",
+    "companyLabel": "Şirket / İşletme Adı",
+    "companyPlaceholder": "Örnek Şirket",
+    "serviceLabel": "Gerekli Hizmet",
+    "serviceOptions": [
+      { "value": "", "label": "Seçin..." },
+      { "value": "seo", "label": "SEO & Arama Motoru Optimizasyonu" },
+      { "value": "ads", "label": "Tıklama Reklamları (Google Ads)" },
+      { "value": "social", "label": "Sosyal Medya Yönetimi" },
+      { "value": "web", "label": "Web Sitesi Tasarımı & Geliştirme" },
+      { "value": "email", "label": "E-posta Pazarlama" },
+      { "value": "content", "label": "İçerik Üretimi" },
+      { "value": "consulting", "label": "Dijital Strateji Danışmanlığı" },
+      { "value": "other", "label": "Diğer Hizmetler" }
+    ],
+    "budgetLabel": "Yaklaşık Aylık Bütçe",
+    "budget": [
+      { "label": "5 milyondan", "sublabel": "az" },
+      { "label": "5–20", "sublabel": "milyon Toman" },
+      { "label": "20 milyondan", "sublabel": "fazla" }
+    ],
+    "messageLabel": "Proje Detayları",
+    "messagePlaceholder": "Proje hedeflerinizi, mevcut zorlukları ve beklentilerinizi yazın...",
+    "submit": "Talep Gönder",
+    "sending": "Gönderiliyor...",
+    "success": "Talep Gönderildi!",
+    "privacyText": "Bu formu göndererek",
+    "privacyLink": "kural ve gizlilik politikamızı kabul etmiş olursunuz",
+    "mapBadge": "Konum",
+    "mapTitle": "Ofisimizi Bulun",
+    "mapName": "Novin Dijital",
+    "mapAddress": "Tahran, Valiasr Cd., Aseman Kulesi, 12. Kat",
+    "mapLink": "Haritada Görüntüle",
+    "faqBadge": "SSS",
+    "faqTitle": "Sorularınızın Yanıtları",
+    "faqDescription": "Cevabınızı burada bulamadıysanız doğrudan bizimle iletişime geçin",
+    "faq": [
+      {
+        "question": "Dijital pazarlama sonuçlarını ne zaman görürüm?",
+        "answer": "Sonuçlar hizmete göre değişir. Tıklama reklamları genellikle 2–4 hafta içinde ilk sonuçları verirken, SEO somut sonuçlar için tipik olarak 3–6 ay sürer. En baştan size net bir zaman çizelgesi sunarız."
+      },
+      {
+        "question": "Uzun vadeli sözleşme zorunlu mu?",
+        "answer": "Aylık, 3 aylık ve 6 aylık sözleşmeler sunuyoruz. Hizmetlerimizin çoğu 3–6 aylık dönemde en iyi sonucu verir, ancak uzun vadeli taahhüt asla gerekmez."
+      },
+      {
+        "question": "Projemin ilerleyişini nasıl takip ederim?",
+        "answer": "Her müşterinin özel bir proje yöneticisi vardır. Tüm temel performans göstergelerini (KPI) içeren haftalık ve aylık raporlar sunulur; ayrıca özel bir çevrimiçi panele erişiminiz olur."
+      },
+      {
+        "question": "Küçük işletmelerle çalışıyor musunuz?",
+        "answer": "Evet! Müşterilerimizin önemli bir bölümü küçük ve orta ölçekli işletmelerdir. Her bütçeye uygun uygun fiyatlı paketlerimiz var ve işletmeniz büyüdükçe hizmetleri ölçeklendiriyoruz."
+      },
+      {
+        "question": "İlk danışmanlık ücretsiz mi?",
+        "answer": "Evet, ilk danışmanlık tamamen ücretsizdir. Bu 30–45 dakikalık oturumda mevcut durumunuzu inceler ve uygun çözümleri öneririz. Devam etme zorunluluğu yoktur."
+      }
+    ]
+  },
+  "servicesPage": {
+    "badge": "Dijital büyüme için eksiksiz çözümler",
+    "title": "Uzmanlık Hizmetleri",
+    "highlight": "Novin Dijital",
+    "description": "Grafik tasarım ve görsel kimlikten web sitesi ve mobil uygulama geliştirmeye, SEO, reklamcılık ve veri analitiğine kadar — ekibimiz fikirden ürüne ve sürdürülebilir büyümeye uzanan tüm yolu sizinle birlikte yürür.",
+    "ctaPrimary": "Danışmanlık Alın",
+    "ctaSecondary": "Hizmetleri Görüntüle",
+    "statFieldsLabel": "Uzmanlık Alanı",
+    "statProjectsLabel": "Tamamlanan Proje",
+    "pathLabel": "İş Birliği Yolu",
+    "pathValue": "Analizden Büyümeye",
+    "pathSteps": ["Keşif", "Tasarım", "Uygulama", "İyileştirme"],
+    "listBadge": "Hizmet Listesi",
+    "listTitle": "Tüm Dijital İhtiyaçlar Tek Ekipte",
+    "listDescription": "Her hizmet bağımsız olarak yürütülebilir veya işletmeniz için eksiksiz bir büyüme yolunun parçası olarak bir araya gelebilir.",
+    "services": [
+      {
+        "title": "Grafik Tasarım & Görsel Kimlik",
+        "description": "Logo tasarımı, marka kiti, sosyal medya içerikleri, kataloglar, banner'lar ve marka kişiliğiyle uyumlu görsel varlıklar.",
+        "tags": ["Logo", "Brand Book", "Social Kit"]
+      },
+      {
+        "title": "Mobil Uygulama Geliştirme",
+        "description": "UX tasarımı, Android ve iOS geliştirme, API entegrasyonu, ödemeler, yönetim paneli ve final sürüm yayını.",
+        "tags": ["Android", "iOS", "UI/UX"]
+      },
+      {
+        "title": "Web Sitesi Tasarımı & Geliştirme",
+        "description": "Hızlı, güvenli ve dönüşüme optimize kurumsal siteler, online mağazalar, açılış sayfaları, paneller ve web uygulamaları.",
+        "tags": ["Corporate", "E-commerce", "Dashboard"]
+      },
+      {
+        "title": "SEO & Site Optimizasyonu",
+        "description": "Anahtar kelime araştırması, teknik SEO, içerik üretimi, link inşası ve organik trafik büyümesi için site yapısının iyileştirilmesi.",
+        "tags": ["Technical SEO", "Content", "Growth"]
+      },
+      {
+        "title": "Dijital Reklamcılık",
+        "description": "Reklam kampanyalarının kurulumu ve yönetimi, yeniden pazarlama, bütçe optimizasyonu ve yatırım getirisi raporlaması.",
+        "tags": ["Google Ads", "Retargeting", "ROAS"]
+      },
+      {
+        "title": "Sosyal Medya Yönetimi",
+        "description": "İçerik stratejisi, yayın takvimi, gönderi ve story tasarımı, alt yazılar, etkileşim raporlama ve kitle büyümesi.",
+        "tags": ["Content Plan", "Instagram", "LinkedIn"]
+      },
+      {
+        "title": "E-posta & Pazarlama Otomasyonu",
+        "description": "E-posta yolculuğu tasarımı, müşteri segmentasyonu, bültenler, yeniden etkileşim mesajları ve yeniden satış kampanyaları.",
+        "tags": ["Automation", "Newsletter", "CRM"]
+      },
+      {
+        "title": "Veri Analitiği & Performans Raporlama",
+        "description": "Analitik araç kurulumu, özel paneller, KPI tanımları ve doğru kararlar için uygulanabilir raporlar.",
+        "tags": ["Analytics", "Dashboard", "KPI"]
+      },
+      {
+        "title": "Ürün & Dijital Strateji Danışmanlığı",
+        "description": "Pazar analizi, yol haritası tasarımı, özellik önceliklendirme, satış hunisi tanımı ve adım adım büyüme planı.",
+        "tags": ["Roadmap", "Strategy", "Conversion"]
+      }
+    ],
+    "deliverablesBadge": "İş Birliği Çıktıları",
+    "deliverablesTitle": "Sadece Uygulamıyoruz; Büyümeyi İzlenebilir Kılıyoruz",
+    "deliverablesDescription": "Her proje için çıktılar, zaman çizelgeleri, başarı metrikleri ve ölçülebilir raporlar tanımlanır; böylece her adımın işletmenize etkisini tam olarak bilirsiniz.",
+    "deliverables": [
+      { "title": "Analiz & Planlama", "description": "İhtiyaçlar, hedef kitle, rakipler, özellikler, bütçe ve başarı metrikleri işe başlamadan önce netleştirilir." },
+      { "title": "Tasarım & Prototip", "description": "Wireframe'ler, kullanıcı akışları, görsel kimlik ve incelenebilir bir prototip final uygulamadan önce hazırlanır." },
+      { "title": "Geliştirme & Yayın", "description": "Final çıktı; test, optimizasyon, dokümantasyon ve ilk destekle birlikte teslim edilir." },
+      { "title": "Raporlama & Sürekli İyileştirme", "description": "Veriler incelenir ve sonraki sürümler gerçek performans ve kullanıcı geri bildirimlerine göre oluşturulur." }
+    ],
+    "ctaTitle": "Doğru Hizmeti Seçmeye Hazır mısınız?",
+    "ctaDescription": "Nereden başlayacağınızdan emin değilseniz bize ilk bir özet (brief) gönderin, projeniz için doğru yolu çıkaralım.",
+    "ctaPrimary": "İş Birliğine Başla",
+    "ctaSecondary": "Portföyü Görüntüle"
+  },
+  "aboutPage": {
+    "badge": "2016'dan beri hizmetinizdeyiz",
+    "title": "Hikayemiz",
+    "highlight": "Novin Dijital",
+    "description": "Dijital dünyada işletmelerin büyümesine yardımcı olmak için bir araya gelmiş tutkulu uzmanlardan oluşan bir ekibiz.",
+    "stats": [
+      { "value": "523+", "label": "Başarılı Proje" },
+      { "value": "98%", "label": "Müşteri Memnuniyeti" },
+      { "value": "8", "label": "Yıl Deneyim" },
+      { "value": "25+", "label": "Profesyonel Uzman" }
+    ],
+    "storyBadge": "Hikayemiz",
+    "storyTitle": "Bir Fikirden Lider Bir Ajansa",
+    "story1": "Novin Dijital, 2016 yılında küçük üç kişilik bir ekiple ve bir hayalle yola çıktı: İran'ın dijital pazarlama alanını dönüştürmek.",
+    "story2": "Bugün SEO, dijital reklamcılık, sosyal medya ve web tasarım alanlarında 25'ten fazla uzmanla, yüzlerce İranlı işletmenin çevrimiçi ortamda parlamasına yardımcı olmaktan gurur duyuyoruz.",
+    "story3": "Müşterilerimizin başarısının bizim başarımız olduğuna inanıyoruz. Bu yüzden her projeye tüm enerjimizi ve bilgimizi katarız.",
+    "timeline": [
+      { "year": "1395", "title": "Novin Dijital Kuruldu", "description": "Üç kişilik ekiple ve ilk müşterilerle başladık" },
+      { "year": "1397", "title": "Ekip ve Hizmet Genişlemesi", "description": "10 uzmana ulaştık ve web tasarım hizmetlerini ekledik" },
+      { "year": "1399", "title": "Özel Ofis", "description": "Tahran'da özel bir ofis açtık ve büyük markalarla iş birliği yaptık" },
+      { "year": "1403", "title": "500+ Başarılı Proje", "description": "25 uzmana ve 500'den fazla tamamlanmış projeye ulaştık" }
+    ],
+    "valuesBadge": "Değerlerimiz",
+    "valuesTitle": "İnandıklarımız",
+    "valuesDescription": "Her kararı ve her projeyi yönlendiren ilkeler",
+    "values": [
+      { "title": "Dürüstlük & Şeffaflık", "description": "Müşterilerimize tamamen dürüstüz. Sonuçlar beklentilerin altında kalsa bile doğru ve gerçek raporlar sunarız." },
+      { "title": "Sonuç Odaklılık", "description": "Amacımız sadece işi yapmak değil — işletmeniz için somut, ölçülebilir sonuçlar elde etmek." },
+      { "title": "Sürekli Yenilik", "description": "Dijital dünya her gün değişiyor. Biz de sürekli öğreniyor ve stratejilerimizi güncelliyoruz." },
+      { "title": "Ortaklık", "description": "Müşterilerimizle yalnızca hizmet sağlayıcı değil, ortak olarak çalışıyoruz. Sizin başarınız bizim başarımız." },
+      { "title": "Veri Odaklılık", "description": "Verdiğimiz her karar tahmine değil, veriye ve analize dayanır. Rakamlar yalan söylemez." },
+      { "title": "Tutku & Bağlılık", "description": "İşimiz yalnızca bir iş değil. Dijital pazarlamayı seviyoruz ve bu tutku sonuçlarımıza yansıyor." }
+    ],
+    "teamBadge": "Ekibimiz",
+    "teamTitle": "Başarınızın Arkasındaki İnsanlar",
+    "teamDescription": "Ekibimiz, dijital pazarlamanın farklı alanlarında deneyimli ve tutkulu uzmanlardan oluşur",
+    "team": [
+      { "name": "Amir Mohammadi", "role": "CEO & Kurucu", "bio": "Dijital pazarlama ve çevrimiçi işletme kurma alanında 12 yıl deneyim" },
+      { "name": "Sara Hosseini", "role": "SEO & İçerik Direktörü", "bio": "Web sitesi sıralamalarında 8+ yıl deneyime sahip SEO uzmanı" },
+      { "name": "Reza Karimi", "role": "Dijital Reklam Direktörü", "bio": "Uluslararası sertifikalı Google Ads uzmanı, 6 yıl deneyim" },
+      { "name": "Nazanin Ahmadi", "role": "Sosyal Medya Direktörü", "bio": "50+ yönetilen hesabıyla içerik ve organik büyüme uzmanı" }
+    ],
+    "awardsBadge": "Başarılar",
+    "awardsTitle": "Ödüller ve Sertifikalar",
+    "awards": [
+      { "title": "Google Partner", "subtitle": "Resmi Google Ortağı" },
+      { "title": "En İyi Ajans 1402", "subtitle": "Dijital Pazarlama Ödülü" },
+      { "title": "ISO 9001", "subtitle": "Kalite Yönetim Sertifikası" },
+      { "title": "Ulusal Dernek", "subtitle": "Dijital İşletmeler Derneği Üyesi" }
+    ],
+    "ctaTitle": "Birlikte Çalışalım",
+    "ctaDescription": "İşletmenizi dijital dünyada büyütmek istiyorsanız ekibimiz size destek olmaya hazır.",
+    "ctaPrimary": "İletişime Geçin",
+    "ctaSecondary": "Hizmetleri Görüntüle"
+  },
+  "teamPage": {
+    "badge": "25+ Profesyonel Uzman",
+    "title": "Ekibimizle",
+    "highlight": "Tanışın",
+    "description": "İşletmenizin dijital dünyada parlaması için her gün çalışan enerjik uzmanlar. Gerçek insanlar, gerçek sonuçlar.",
+    "stats": [
+      { "value": "25+", "label": "Aktif Uzman" },
+      { "value": "6", "label": "Uzman Ekip" },
+      { "value": "12+", "label": "Toplam Deneyim Yılı" },
+      { "value": "18", "label": "Uluslararası Sertifika" }
+    ],
+    "gridBadge": "Ekip Üyeleri",
+    "gridTitle": "Başarınızın Arkasındaki İnsanlar",
+    "gridDescription": "Herkes kendi alanında uzmandır — birlikte eksiksiz bir ekip oluşturuyoruz",
+    "departments": [
+      { "id": "all", "label": "Tümü" },
+      { "id": "leadership", "label": "Yönetim" },
+      { "id": "seo", "label": "SEO & İçerik" },
+      { "id": "ads", "label": "Reklamcılık" },
+      { "id": "social", "label": "Sosyal Medya" },
+      { "id": "dev", "label": "Web Geliştirme" },
+      { "id": "design", "label": "Tasarım" }
+    ],
+    "members": [
+      { "name": "Amir Mohammadi", "role": "CEO & Kurucu", "deptLabel": "Yönetim", "bio": "Dijital pazarlama ve başarılı girişim kurma alanında 12 yıl deneyim", "skills": ["Strateji", "Liderlik", "Growth"] },
+      { "name": "Sara Hosseini", "role": "SEO & İçerik Direktörü", "deptLabel": "SEO", "bio": "Farsça ve uluslararası siteleri sıralamada 8 yıl deneyim", "skills": ["On-Page SEO", "İçerik Üretimi", "Link Building"] },
+      { "name": "Reza Karimi", "role": "Dijital Reklam Direktörü", "deptLabel": "Reklam", "bio": "6 uluslararası sertifikaya sahip Google Ads uzmanı", "skills": ["Google Ads", "Meta Ads", "PPC"] },
+      { "name": "Nazanin Ahmadi", "role": "Sosyal Medya Direktörü", "deptLabel": "Sosyal", "bio": "50+ yönetilen hesapla organik büyüme uzmanı", "skills": ["Instagram", "TikTok", "Reels"] },
+      { "name": "Mehdi Rahimi", "role": "Baş Web Geliştirici", "deptLabel": "Geliştirme", "bio": "Yüksek dönüşümlü web siteleri geliştirmede 7 yıl deneyimli full-stack", "skills": ["React", "Laravel", "WordPress"] },
+      { "name": "Leila Sadeghi", "role": "Baş UI/UX Tasarımcı", "deptLabel": "Tasarım", "bio": "Önemli İranlı ve uluslararası markalarda deneyimli ürün tasarımcısı", "skills": ["Figma", "UI/UX", "Branding"] },
+      { "name": "Hossein Moradi", "role": "Teknik SEO Uzmanı", "deptLabel": "SEO", "bio": "Teknik optimizasyon ve site hızında 5 yıl deneyim", "skills": ["Core Web Vitals", "Schema", "GSC"] },
+      { "name": "Farideh Naseri", "role": "İçerik Uzmanı", "deptLabel": "Sosyal", "bio": "30+ marka iş birliğiyle yazar ve video içerik üreticisi", "skills": ["Video Pazarlama", "Copywriting", "Canva"] }
+    ],
+    "cultureBadge": "Çalışma Kültürü",
+    "cultureTitle": "İşimizi Neden Seviyoruz?",
+    "cultureDescription": "Birlikte büyüdüğümüz, öğrendiğimiz ve başardığımız bir ortam",
+    "culture": [
+      { "title": "Sürekli Öğrenme", "description": "Her ekip üyesi için yıllık eğitim bütçesi. Çevrimiçi kurslara, konferanslara ve uzman kitaplara erişim." },
+      { "title": "Esnek Uzaktan Çalışma", "description": "Haftada 3 gün uzaktan çalışma. Önemli olan nerede oturduğunuz değil, sonuçlardır. Herkes için şeffaf proje yönetimi." },
+      { "title": "Performans Bazlı Ödüller", "description": "Proje sonuçlarına göre aylık ve çeyreklik ikramiyeler. Müşteri kazandığında biz de kazanırız." },
+      { "title": "Ekip Etkinlikleri & Eğlence", "description": "Aylık ekip etkinlikleri, yıllık şirket gezileri ve samimi kahve sohbetleri." },
+      { "title": "Net Büyüme Yolu", "description": "Şeffaf kariyer ilerleme programı. Yöneticinizle aylık birebir görüşmelerle ilerlemeyi değerlendirip hedefleri hizalıyoruz." },
+      { "title": "Sağlık & İyi Yaşam", "description": "Tamamlayıcı sigorta, spor salonu üyeliği ve tüm üyeler için zihinsel sağlık programları." }
+    ],
+    "jobsBadge": "Açık Pozisyonlar",
+    "jobsTitle": "Ekibimize Katılın",
+    "jobsDescription": "İran'ın dijital geleceğini birlikte inşa edecek enerjik uzmanlar arıyoruz",
+    "jobs": [
+      { "title": "SEO Uzmanı", "description": "Farsça SEO'da en az 2 yıl deneyim. Google Search Console ve analitik araçlarına hâkimiyet.", "type": "Tam zamanlı", "location": "Tahran / Uzaktan" },
+      { "title": "Video İçerik Üreticisi", "description": "Video edit, motion graphics ve Instagram ile YouTube için içerik üretiminde yetkin.", "type": "Yarı zamanlı", "location": "Uzaktan" },
+      { "title": "Front-End Geliştirici", "description": "React ve Tailwind bilen. Farsça RTL web sitesi deneyimi avantajdır.", "type": "Tam zamanlı", "location": "Hibrit" }
+    ],
+    "jobOpen": "Açık",
+    "jobSoon": "Yakında",
+    "jobApply": "Özgeçmiş Gönder",
+    "jobInterest": "İlgi Kaydet",
+    "ctaTitle": "Bu Ekiplerle Büyüyün",
+    "ctaDescription": "İran'ın en iyi dijital pazarlama uzmanlarıyla çalışmaya hazır mısınız? İlk danışmanlık ücretsizdir.",
+    "ctaPrimary": "Ücretsiz Danışmanlık",
+    "ctaSecondary": "Hakkımızda Daha Fazla Bilgi"
+  },
+  "works": {
+    "badge": "Teslim edilen projelerin tam görünümü",
+    "title": "Novin Dijital'in",
+    "highlight": "Portföyü",
+    "description": "Grafik tasarım ve görsel kimlikten mobil uygulama geliştirmeye, web tasarımı, SEO ve dijital kampanyalara kadar — bu sayfa, markaları büyütmek için inşa ettiğimiz projeleri gösterir.",
+    "statProjects": "Başarılı Proje",
+    "statFields": "Uzmanlık Alanı",
+    "statCustom": "Özel Tasarım",
+    "statSatisfaction": "Müşteri Memnuniyeti",
+    "gridBadge": "Proje Arşivi",
+    "gridTitle": "Uzmanlığa Göre Projeler",
+    "gridDescription": "Tasarım, geliştirme, pazarlama ve ürün ekiplerimizin çıktılarından örnekleri filtreleyip inceleyin.",
+    "filters": [
+      { "id": "all", "label": "Tümü" },
+      { "id": "graphic", "label": "Grafik Tasarım" },
+      { "id": "mobile", "label": "Mobil Uygulamalar" },
+      { "id": "web", "label": "Web Geliştirme" },
+      { "id": "marketing", "label": "Dijital Pazarlama" },
+      { "id": "branding", "label": "Marka Kimliği" }
+    ],
+    "items": [
+      { "title": "Baran Restoran Görsel Kimliği", "label": "Grafik Tasarım", "result": "Eksiksiz marka kiti", "tags": ["Logo", "Menü", "Sosyal"] },
+      { "title": "Madis Online Sipariş Uygulaması", "label": "Mobil Uygulama", "result": "+%42 sipariş oranı", "tags": ["UI/UX", "Android", "iOS"] },
+      { "title": "Artan Online Mağazası", "label": "Web Geliştirme", "result": "+%280 satış", "tags": ["E-commerce", "Dashboard", "SEO"] },
+      { "title": "Fintech Lansman Kampanyası", "label": "Dijital Pazarlama", "result": "ROAS 4.5x", "tags": ["Ads", "Landing", "Analytics"] },
+      { "title": "Avin Kliniği Marka Yenileme", "label": "Marka Kimliği", "result": "+%35 yeni ziyaret", "tags": ["Brand book", "Tone", "Identity"] },
+      { "title": "Lojistik Yönetim Paneli", "label": "Web Geliştirme", "result": "%50 daha az operasyon süresi", "tags": ["SaaS", "Admin", "Reports"] },
+      { "title": "Sağlık Randevu Uygulaması", "label": "Mobil Uygulama", "result": "+%150 randevu", "tags": ["Booking", "Profile", "Payment"] },
+      { "title": "Novin Kafe İçerik Paketi", "label": "Grafik Tasarım", "result": "+50K takipçi", "tags": ["Post", "Story", "Motion"] },
+      { "title": "Eghtesad-e Rouz Haber SEO", "label": "Dijital Pazarlama", "result": "+%500 trafik", "tags": ["SEO", "Content", "Growth"] },
+      { "title": "Nikan Mühendislik Kurumsal Sitesi", "label": "Web Geliştirme", "result": "+%70 gelen lead", "tags": ["Corporate", "RTL", "Forms"] },
+      { "title": "Eğitim Ürünü Tasarım Sistemi", "label": "Marka Kimliği", "result": "Ürün birleştirme", "tags": ["Design system", "UI kit", "Guide"] },
+      { "title": "Narin Giyim Reklam Kampanyası", "label": "Dijital Pazarlama", "result": "+%190 sezonluk satış", "tags": ["PPC", "Social", "Retarget"] }
+    ],
+    "resultLabel": "Proje Sonucu",
+    "processBadge": "İş Birliği Yöntemimiz",
+    "processTitle": "Fikirden Ölçülebilir Teslimata",
+    "processDescription": "Her proje iş hedefini anlamakla başlar; tasarım, geliştirme, test ve performans raporlamasıyla devam eder.",
+    "processSteps": [
+      { "title": "İhtiyaç Analizi", "description": "Hedefler, hedef kitle, rakipler ve başarı metrikleri tasarımdan önce tanımlanır." },
+      { "title": "Yol Tasarımı", "description": "Kullanıcı deneyimi yapısı, görsel kimlik ve teknik yol haritası hazırlanır." },
+      { "title": "Üretim & Geliştirme", "description": "Tasarımlar ürüne, kampanyaya veya yayına hazır varlıklara dönüşür." },
+      { "title": "Sürekli İyileştirme", "description": "Performans incelenir ve sonraki sürümler veri ve geri bildirimlere göre oluşturulur." }
+    ],
+    "ctaTitle": "Sıradaki Projenize Başlayalım?",
+    "ctaDescription": "Grafik tasarım, mobil uygulama, web sitesi veya dijital kampanya için ilk brief'inizi bize gönderin.",
+    "ctaPrimary": "İş Birliğine Başla",
+    "ctaSecondary": "Ana Sayfaya Dön"
+  }
+}

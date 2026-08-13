@@ -7,9 +7,14 @@ import {
   smoothTransition,
   fadeInRight,
 } from "@/lib/animations";
-import { serviceCategories } from "@/lib/data";
+import { useTranslations } from "next-intl";
 
 export default function ContactSection() {
+  const t = useTranslations("contact");
+  const serviceOptions = t.raw("serviceOptions") as {
+    value: string;
+    label: string;
+  }[];
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -38,20 +43,19 @@ export default function ContactSection() {
               variants={fadeInUp}
               transition={smoothTransition}
               className="inline-block text-accent font-medium mb-4">
-              تماس با ما
+              {t("title")}
             </motion.span>
             <motion.h2
               variants={fadeInUp}
               transition={smoothTransition}
               className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-              بیایید با هم صحبت کنیم
+              {t("heading")}
             </motion.h2>
             <motion.p
               variants={fadeInUp}
               transition={smoothTransition}
               className="text-muted text-lg mb-8">
-              فرم را پر کنید یا از طریق اطلاعات زیر با ما در تماس باشید. تیم ما
-              در اسرع وقت پاسخگوی شما خواهد بود.
+              {t("description")}
             </motion.p>
 
             <motion.div
@@ -82,8 +86,8 @@ export default function ContactSection() {
                       />
                     </svg>
                   ),
-                  title: "آدرس دفتر",
-                  content: "تهران، خیابان ولیعصر، برج آسمان، طبقه ۱۲",
+                  title: t("address"),
+                  content: t("addressValue"),
                 },
                 {
                   icon: (
@@ -100,8 +104,8 @@ export default function ContactSection() {
                       />
                     </svg>
                   ),
-                  title: "ایمیل",
-                  content: "info@novindigital.ir",
+                  title: t("email"),
+                  content: t("emailValue"),
                 },
                 {
                   icon: (
@@ -118,8 +122,8 @@ export default function ContactSection() {
                       />
                     </svg>
                   ),
-                  title: "تلفن",
-                  content: "۰۲۱-۱۲۳۴۵۶۷۸",
+                  title: t("phone"),
+                  content: t("phoneValue"),
                 },
               ].map((item, index) => (
                 <motion.div
@@ -156,7 +160,7 @@ export default function ContactSection() {
                   <label
                     htmlFor="name"
                     className="block text-sm font-medium mb-2 text-foreground">
-                    نام و نام خانوادگی
+                    {t("name")}
                   </label>
                   <input
                     type="text"
@@ -164,14 +168,14 @@ export default function ContactSection() {
                     name="name"
                     required
                     className="w-full bg-surface border border-border rounded-2xl px-5 py-3.5 focus:border-accent focus:outline-none transition-colors text-foreground placeholder-muted"
-                    placeholder="علی محمدی"
+                    placeholder={t("namePlaceholder")}
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="phone"
                     className="block text-sm font-medium mb-2 text-foreground">
-                    شماره تماس
+                    {t("phoneLabel")}
                   </label>
                   <input
                     type="tel"
@@ -179,7 +183,7 @@ export default function ContactSection() {
                     name="phone"
                     required
                     className="w-full bg-surface border border-border rounded-2xl px-5 py-3.5 focus:border-accent focus:outline-none transition-colors text-foreground placeholder-muted"
-                    placeholder="۰۹۱۲۱۲۳۴۵۶۷"
+                    placeholder={t("phonePlaceholder")}
                   />
                 </div>
               </div>
@@ -187,7 +191,7 @@ export default function ContactSection() {
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium mb-2 text-foreground">
-                  ایمیل
+                  {t("emailLabel")}
                 </label>
                 <input
                   type="email"
@@ -202,14 +206,14 @@ export default function ContactSection() {
                 <label
                   htmlFor="service"
                   className="block text-sm font-medium mb-2 text-foreground">
-                  خدمت مورد نیاز
+                  {t("service")}
                 </label>
                 <select
                   id="service"
                   name="service"
                   required
                   className="w-full bg-surface border border-border rounded-2xl px-5 py-3.5 focus:border-accent focus:outline-none transition-colors text-foreground">
-                  {serviceCategories.map((cat: any) => (
+                  {serviceOptions.map((cat: any) => (
                     <option key={cat.value} value={cat.value}>
                       {cat.label}
                     </option>
@@ -220,14 +224,14 @@ export default function ContactSection() {
                 <label
                   htmlFor="message"
                   className="block text-sm font-medium mb-2 text-foreground">
-                  پیام شما
+                  {t("message")}
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   rows={5}
                   className="w-full bg-surface border border-border rounded-2xl px-5 py-3.5 focus:border-accent focus:outline-none transition-colors text-foreground placeholder-muted resize-none"
-                  placeholder="توضیحات پروژه خود را بنویسید..."
+                  placeholder={t("messagePlaceholder")}
                 />
               </div>
 
@@ -249,10 +253,10 @@ export default function ContactSection() {
                 />
                 <span className="relative flex items-center justify-center gap-2">
                   {isSubmitting
-                    ? "در حال ارسال..."
+                    ? t("sending")
                     : isSuccess
-                      ? "✓ ارسال شد"
-                      : "ارسال درخواست"}
+                      ? t("success")
+                      : t("submit")}
                 </span>
               </motion.button>
             </motion.form>

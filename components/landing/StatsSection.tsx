@@ -2,14 +2,16 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { staggerContainer, fadeInUp, smoothTransition } from "@/lib/animations";
-import { toPersianNum } from "@/lib/data";
+import { toLocalDigits } from "@/lib/data";
+import { useTranslations, useLocale } from "next-intl";
 
 interface CounterProps {
   target: number;
   suffix?: string;
+  locale: string;
 }
 
-function AnimatedCounter({ target, suffix = "" }: CounterProps) {
+function AnimatedCounter({ target, suffix = "", locale }: CounterProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [count, setCount] = useState(0);
@@ -32,20 +34,22 @@ function AnimatedCounter({ target, suffix = "" }: CounterProps) {
 
   return (
     <span ref={ref} className="counter font-tabular-nums">
-      {toPersianNum(count)}
+      {toLocalDigits(count, locale)}
       {suffix}
     </span>
   );
 }
 
-const stats = [
-  { target: 523, suffix: "", label: "پروژه موفق" },
-  { target: 98, suffix: "%", label: "رضایت مشتری" },
-  { target: 8, suffix: " سال", label: "تجربه فعالیت" },
-  { target: 25, suffix: "+", label: "متخصص حرفه‌ای" },
-];
+const targets = [523, 98, 8, 25];
 
 export default function StatsSection() {
+  const t = useTranslations("stats");
+  const locale = useLocale();
+  const items = t.raw("items") as { label: string; suffix: string }[];
+  const stats = items.map((item, index) => ({
+    ...item,
+    target: targets[index] ?? 0,
+  }));
   return (
     <section className="relative py-20 bg-bg backdrop-blur-sm overflow-hidden">
       {/* Grid Pattern - Matching Hero */}
@@ -83,7 +87,11 @@ export default function StatsSection() {
                 />
 
                 <div className="text-5xl sm:text-6xl font-black mb-4 tracking-tighter gradient-text">
-                  <AnimatedCounter target={stat.target} suffix={stat.suffix} />
+                  <AnimatedCounter
+                    target={stat.target}
+                    suffix={stat.suffix}
+                    locale={locale}
+                  />
                 </div>
 
                 <p className="text-gray-400 text-lg font-medium">

@@ -1,47 +1,13 @@
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
-const stats = [
-  { value: "۵۲۳+", label: "پروژه موفق" },
-  { value: "۹۸٪", label: "رضایت مشتری" },
-  { value: "۸ سال", label: "تجربه فعالیت" },
-  { value: "۲۵+", label: "متخصص حرفه‌ای" },
-];
+const timelineColors = ["accent", "accent", "accent", "warm"];
 
-const timeline = [
+const valueIcons = [
   {
-    year: "۱۳۹۵",
-    title: "تأسیس نوین دیجیتال",
-    description: "شروع فعالیت با تیم سه نفره و اولین مشتریان",
-    color: "accent",
-  },
-  {
-    year: "۱۳۹۷",
-    title: "گسترش تیم و خدمات",
-    description: "رسیدن به ۱۰ متخصص و اضافه شدن خدمات طراحی وب",
-    color: "accent",
-  },
-  {
-    year: "۱۳۹۹",
-    title: "دفتر اختصاصی",
-    description: "افتتاح دفتر اختصاصی در تهران و همکاری با برندهای بزرگ",
-    color: "accent",
-  },
-  {
-    year: "۱۴۰۳",
-    title: "۵۰۰+ پروژه موفق",
-    description: "رسیدن به ۲۵ متخصص و بیش از ۵۰۰ پروژه تکمیل‌شده",
-    color: "warm",
-  },
-];
-
-const values = [
-  {
-    title: "صداقت و شفافیت",
-    description:
-      "با مشتریان خود کاملاً صادق هستیم. گزارش‌های دقیق و واقعی ارائه می‌دهیم، حتی وقتی نتایج انتظارات را برآورده نکرده‌اند.",
     icon: (
       <svg
         className="w-7 h-7"
@@ -59,9 +25,6 @@ const values = [
     color: "accent",
   },
   {
-    title: "نتیجه‌محوری",
-    description:
-      "هدف ما فقط انجام کار نیست، بلکه دستیابی به نتایج ملموس و قابل اندازه‌گیری برای کسب‌وکار شماست.",
     icon: (
       <svg
         className="w-7 h-7"
@@ -79,9 +42,6 @@ const values = [
     color: "warm",
   },
   {
-    title: "نوآوری مستمر",
-    description:
-      "دنیای دیجیتال هر روز تغییر می‌کند. ما همیشه در حال یادگیری و به‌روزرسانی استراتژی‌های خود هستیم.",
     icon: (
       <svg
         className="w-7 h-7"
@@ -99,9 +59,6 @@ const values = [
     color: "accent",
   },
   {
-    title: "مشارکت و همکاری",
-    description:
-      "با مشتریان خود شریک هستیم نه فقط ارائه‌دهنده خدمت. موفقیت شما، موفقیت ماست.",
     icon: (
       <svg
         className="w-7 h-7"
@@ -119,9 +76,6 @@ const values = [
     color: "warm",
   },
   {
-    title: "داده‌محوری",
-    description:
-      "هر تصمیمی که می‌گیریم بر پایه داده و تحلیل است، نه حدس و گمان. اعداد دروغ نمی‌گویند.",
     icon: (
       <svg
         className="w-7 h-7"
@@ -139,9 +93,6 @@ const values = [
     color: "accent",
   },
   {
-    title: "اشتیاق و تعهد",
-    description:
-      "کار ما فقط یک شغل نیست. عاشق دیجیتال مارکتینگ هستیم و این اشتیاق در نتایج ما مشخص است.",
     icon: (
       <svg
         className="w-7 h-7"
@@ -160,45 +111,15 @@ const values = [
   },
 ];
 
-const teamMembers = [
-  {
-    name: "امیر محمدی",
-    role: "مدیرعامل و بنیان‌گذار",
-    avatar: "AM",
-    avatarBg: "from-accent to-accentDark",
-    bio: "۱۲ سال تجربه در دیجیتال مارکتینگ و راه‌اندازی کسب‌وکارهای آنلاین",
-    socials: { linkedin: "#", instagram: "#" },
-  },
-  {
-    name: "سارا حسینی",
-    role: "مدیر سئو و محتوا",
-    avatar: "SH",
-    avatarBg: "from-warm to-red-500",
-    bio: "متخصص سئو با بیش از ۸ سال تجربه در رتبه‌بندی سایت‌های ایرانی",
-    socials: { linkedin: "#", instagram: "#" },
-  },
-  {
-    name: "رضا کریمی",
-    role: "مدیر تبلیغات دیجیتال",
-    avatar: "RK",
-    avatarBg: "from-purple-500 to-indigo-600",
-    bio: "کارشناس گوگل ادز با گواهینامه‌های معتبر بین‌المللی و ۶ سال تجربه",
-    socials: { linkedin: "#", instagram: "#" },
-  },
-  {
-    name: "نازنین احمدی",
-    role: "مدیر شبکه‌های اجتماعی",
-    avatar: "NA",
-    avatarBg: "from-pink-500 to-warm",
-    bio: "متخصص تولید محتوا و رشد ارگانیک با تجربه مدیریت بیش از ۵۰ پیج",
-    socials: { linkedin: "#", instagram: "#" },
-  },
+const teamMeta = [
+  { avatar: "AM", avatarBg: "from-accent to-accentDark" },
+  { avatar: "SH", avatarBg: "from-warm to-red-500" },
+  { avatar: "RK", avatarBg: "from-purple-500 to-indigo-600" },
+  { avatar: "NA", avatarBg: "from-pink-500 to-warm" },
 ];
 
-const awards = [
+const awardIcons = [
   {
-    title: "Google Partner",
-    subtitle: "شریک رسمی گوگل",
     icon: (
       <svg
         className="w-8 h-8"
@@ -216,8 +137,6 @@ const awards = [
     color: "accent",
   },
   {
-    title: "بهترین آژانس ۱۴۰۲",
-    subtitle: "جایزه دیجیتال مارکتینگ",
     icon: (
       <svg
         className="w-8 h-8"
@@ -235,8 +154,6 @@ const awards = [
     color: "warm",
   },
   {
-    title: "ISO 9001",
-    subtitle: "گواهینامه مدیریت کیفیت",
     icon: (
       <svg
         className="w-8 h-8"
@@ -254,8 +171,6 @@ const awards = [
     color: "accent",
   },
   {
-    title: "عضو انجمن ملی",
-    subtitle: "کسب‌وکارهای دیجیتال",
     icon: (
       <svg
         className="w-8 h-8"
@@ -275,6 +190,38 @@ const awards = [
 ];
 
 export default function AboutPage() {
+  const t = useTranslations("aboutPage");
+  const rawT = t as unknown as { raw: (key: string) => any };
+  const stats = rawT.raw("stats") as { value: string; label: string }[];
+  const timeline = (
+    rawT.raw("timeline") as {
+      year: string;
+      title: string;
+      description: string;
+    }[]
+  ).map((item, i) => ({
+    ...item,
+    color: timelineColors[i % timelineColors.length],
+  }));
+  const values = (
+    rawT.raw("values") as { title: string; description: string }[]
+  ).map((item, i) => ({
+    ...item,
+    ...(valueIcons[i % valueIcons.length] ?? valueIcons[0]),
+  }));
+  const teamMembers = (
+    rawT.raw("team") as { name: string; role: string; bio: string }[]
+  ).map((member, i) => ({
+    ...member,
+    ...(teamMeta[i] ?? { avatar: "ND", avatarBg: "from-accent to-accentDark" }),
+    socials: { linkedin: "#", instagram: "#" },
+  }));
+  const awards = (
+    rawT.raw("awards") as { title: string; subtitle: string }[]
+  ).map((award, i) => ({
+    ...award,
+    ...(awardIcons[i % awardIcons.length] ?? awardIcons[0]),
+  }));
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -340,7 +287,7 @@ export default function AboutPage() {
               className="inline-flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2 mb-6">
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
               <span className="text-sm text-muted">
-                از سال ۱۳۹۵ در خدمت شما
+                {t("badge")}
               </span>
             </motion.div>
             <motion.h1
@@ -348,15 +295,14 @@ export default function AboutPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-foreground">
-              داستان <span className="gradient-text">نوین دیجیتال</span>
+              {t("title")} <span className="gradient-text">{t("highlight")}</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-lg sm:text-xl text-muted max-w-2xl">
-              ما یک تیم از متخصصان پرشور هستیم که با هدف کمک به رشد کسب‌وکارهای
-              ایرانی در دنیای دیجیتال گرد هم آمده‌ایم.
+              {t("description")}
             </motion.p>
           </div>
         </motion.div>
@@ -417,24 +363,19 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}>
               <span className="inline-block text-accent font-medium mb-4">
-                داستان ما
+                {t("storyBadge")}
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-                از یک ایده تا یک آژانس پیشرو
+                {t("storyTitle")}
               </h2>
               <p className="text-muted text-lg mb-5">
-                نوین دیجیتال در سال ۱۳۹۵ با یک تیم کوچک سه نفره و یک رویا آغاز
-                به کار کرد؛ رویایی برای ایجاد تحول در فضای دیجیتال مارکتینگ
-                ایران.
+                {t("story1")}
               </p>
               <p className="text-muted mb-5">
-                امروز، با بیش از ۲۵ متخصص در حوزه‌های سئو، تبلیغات دیجیتال،
-                شبکه‌های اجتماعی و طراحی وب، افتخار داریم به صدها کسب‌وکار
-                ایرانی کمک کرده‌ایم تا در دنیای آنلاین درخشان‌تر باشند.
+                {t("story2")}
               </p>
               <p className="text-muted">
-                باور ما این است که موفقیت مشتریان ما، موفقیت ماست. به همین دلیل
-                هر پروژه را با تمام توان و دانش خود پیش می‌بریم.
+                {t("story3")}
               </p>
             </motion.div>
 
@@ -485,13 +426,13 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16">
             <span className="inline-block text-accent font-medium mb-4">
-              ارزش‌های ما
+              {t("valuesBadge")}
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-              آنچه به آن اعتقاد داریم
+              {t("valuesTitle")}
             </h2>
             <p className="text-muted max-w-2xl mx-auto text-lg">
-              اصولی که راهنمای هر تصمیم و هر پروژه ما هستند
+              {t("valuesDescription")}
             </p>
           </motion.div>
 
@@ -552,14 +493,13 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16">
             <span className="inline-block text-accent font-medium mb-4">
-              تیم ما
+              {t("teamBadge")}
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-              افرادی که پشت موفقیت شما هستند
+              {t("teamTitle")}
             </h2>
             <p className="text-muted max-w-2xl mx-auto text-lg">
-              تیم ما متشکل از متخصصانی با تجربه و اشتیاق در حوزه‌های مختلف
-              دیجیتال مارکتینگ است
+              {t("teamDescription")}
             </p>
           </motion.div>
 
@@ -623,10 +563,10 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12">
             <span className="inline-block text-accent font-medium mb-4">
-              افتخارات
+              {t("awardsBadge")}
             </span>
             <h2 className="text-3xl sm:text-4xl font-black mb-4 text-foreground">
-              جوایز و گواهینامه‌ها
+              {t("awardsTitle")}
             </h2>
           </motion.div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -685,22 +625,21 @@ export default function AboutPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-              بیایید با هم کار کنیم
+              {t("ctaTitle")}
             </h2>
             <p className="text-muted text-lg mb-10 max-w-2xl mx-auto">
-              اگر می‌خواهید کسب‌وکارتان را در دنیای دیجیتال رشد دهید، تیم ما
-              آماده همراهی شماست.
+              {t("ctaDescription")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
                 className="bg-accent text-bg px-8 py-4 rounded-xl font-bold text-lg hover:bg-accentDark transition-colors shadow-[0_0_30px_rgba(0,229,204,0.3)]">
-                تماس با ما
+                {t("ctaPrimary")}
               </Link>
               <Link
                 href="/#services"
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border hover:border-accent transition-colors text-foreground">
-                مشاهده خدمات
+                {t("ctaSecondary")}
               </Link>
             </div>
           </motion.div>
