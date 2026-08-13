@@ -9,6 +9,7 @@ import OnboardingModal from "@/components/landing/OnboardingModal";
 import Wrapper from "@/components/Wrapper";
 import ScrollProgressIndicator from "@/components/landing/ScrollProgressIndicator";
 import ChatSupport from "@/components/landing/ChatSupport";
+import SplashScreen from "@/components/SplashScreen";
 import { routing } from "@/i18n/routing";
 
 export function generateStaticParams() {
@@ -68,6 +69,7 @@ export default async function LocaleLayout({
             <OnboardingModal />
             <ScrollProgressIndicator />
             <ChatSupport />
+            <SplashScreen />
           </NextIntlClientProvider>
         </Wrapper>
       </body>

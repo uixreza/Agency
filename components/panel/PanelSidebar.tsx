@@ -5,7 +5,8 @@ import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { routing } from "@/i18n/routing";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import LogoutPrompt from "@/components/panel/LogoutPrompt";
 
 const navItems: { id: string; href: string; icon: ReactNode }[] = [
   {
@@ -160,9 +161,15 @@ export default function PanelSidebar({
   const navT = useTranslations("nav");
   const pathname = usePathname();
   const clean = getCleanPath(pathname);
+  const [logoutOpen, setLogoutOpen] = useState(false);
 
   const isActive = (href: string) =>
     href === "/panel" ? clean === "/panel" : clean.startsWith(href);
+
+  const handleLogoutClick = () => {
+    onClose();
+    setLogoutOpen(true);
+  };
 
   const body = (
     <div className="flex flex-col h-full p-4">
@@ -215,7 +222,7 @@ export default function PanelSidebar({
       <div className="pt-4 border-t border-border/40">
         <button
           type="button"
-          onClick={onClose}
+          onClick={handleLogoutClick}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-muted hover:text-warm hover:bg-warm/5 transition-all duration-300">
           {logoutItem.icon}
           <span>{t("logout")}</span>
@@ -226,6 +233,10 @@ export default function PanelSidebar({
 
   return (
     <>
+      <LogoutPrompt
+        open={logoutOpen}
+        onClose={() => setLogoutOpen(false)}
+      />
       <AnimatePresence>
         {open && (
           <motion.div

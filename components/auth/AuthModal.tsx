@@ -316,7 +316,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
                         onChange={setPassword}
                         placeholder={t("passwordPlaceholder")}
                         icon={LockIcon}
-                        autoComplete="current-password"
+                        autoComplete="new-password"
                       />
                       <div className="flex justify-end">
                         <button
