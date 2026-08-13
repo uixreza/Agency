@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const footerLinkHrefs = {
   services: [
@@ -63,6 +65,8 @@ const itemVariants = {
 };
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isMobile = useMediaQuery("(max-width: 639px)");
   const t = useTranslations("footer");
   const rawT = t as unknown as { raw: (key: string) => any };
   const links = rawT.raw("links") as {
@@ -91,36 +95,45 @@ export default function Footer() {
     icon: socialIcons[i] ?? socialIcons[0],
   }));
   const brands = rawT.raw("brands") as string[];
+  if (pathname.includes("/panel")) return null;
   return (
     <footer className="relative bg-surface border-t border-border/30 overflow-hidden">
       {/* Animated background blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
-          animate={{
-            x: [0, 30, -20, 0],
-            y: [0, -40, 20, 0],
-            scale: [1, 1.1, 0.9, 1],
-          }}
+          animate={
+            isMobile
+              ? undefined
+              : {
+                  x: [0, 30, -20, 0],
+                  y: [0, -40, 20, 0],
+                  scale: [1, 1.1, 0.9, 1],
+                }
+          }
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 -left-32 w-96 h-96 rounded-full blur-[100px] opacity-[0.03]"
+          className="absolute -top-32 -left-32 w-96 h-96 rounded-full blur-[50px] sm:blur-[100px] opacity-[0.03]"
           style={{
             background:
               "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
           }}
         />
         <motion.div
-          animate={{
-            x: [0, -20, 30, 0],
-            y: [0, 30, -30, 0],
-            scale: [1, 0.9, 1.1, 1],
-          }}
+          animate={
+            isMobile
+              ? undefined
+              : {
+                  x: [0, -20, 30, 0],
+                  y: [0, 30, -30, 0],
+                  scale: [1, 0.9, 1.1, 1],
+                }
+          }
           transition={{
             duration: 25,
             repeat: Infinity,
             ease: "easeInOut",
             delay: -7,
           }}
-          className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full blur-[100px] opacity-[0.03]"
+          className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full blur-[50px] sm:blur-[100px] opacity-[0.03]"
           style={{
             background:
               "radial-gradient(circle, var(--color-warm) 0%, transparent 70%)",

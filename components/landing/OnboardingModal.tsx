@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Cookies from "js-cookie";
 import { useTheme } from "@/components/ThemeProvider";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 
@@ -96,6 +96,7 @@ export default function OnboardingModal() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const router = useRouter();
+  const pathname = usePathname();
   const t = useTranslations("onboarding");
   const locale = useLocale();
 
@@ -191,7 +192,7 @@ export default function OnboardingModal() {
     },
   };
 
-  if (!mounted) return null;
+  if (!mounted || pathname.includes("/panel")) return null;
 
   return (
     <AnimatePresence>

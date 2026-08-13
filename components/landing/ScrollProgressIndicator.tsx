@@ -7,8 +7,10 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 
 export default function ScrollProgressIndicator() {
+  const pathname = usePathname();
   const t = useTranslations("ui");
   const [isNearBottom, setIsNearBottom] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -43,8 +45,10 @@ export default function ScrollProgressIndicator() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  if (pathname.includes("/panel")) return null;
+
   return (
-    <div className="fixed right-0 top-0 h-full z-30 pointer-events-none">
+    <div className="fixed right-0 top-0 h-full z-30 pointer-events-none hidden sm:block">
       <div className="relative h-full flex items-center justify-center">
         {/* Main container */}
         <div className="relative h-[70vh] flex flex-col items-center justify-between py-8 mr-3 sm:mr-4 lg:mr-6">

@@ -705,5 +705,35 @@
     "ctaDescription": "For graphic design, mobile apps, websites, or digital campaigns, send us your initial brief.",
     "ctaPrimary": "Start Collaboration",
     "ctaSecondary": "Back to Home"
+  },
+  "panel": {
+    "dashboard": "Dashboard",
+    "analytics": "Analytics",
+    "projects": "Projects",
+    "messages": "Messages",
+    "notifications": "Notifications",
+    "settings": "Settings",
+    "logout": "Logout",
+    "userName": "Sarah Miller",
+    "greeting": "Welcome back, {name}",
+    "subtitle": "Here's what's happening with your projects today.",
+    "comingSoon": "This section is coming soon",
+    "statProjects": "Active Projects",
+    "statRevenue": "Total Revenue",
+    "statClients": "Happy Clients",
+    "statHours": "Hours Tracked",
+    "statValueProjects": "12",
+    "statValueRevenue": "$48k",
+    "statValueClients": "34",
+    "statValueHours": "1,240",
+    "notifTitle": "Notifications",
+    "notifEmpty": "You're all caught up",
+    "notifMarkAll": "Mark all as read",
+    "notif": [
+      { "title": "New project assigned", "description": "You've been assigned to the 'Fintech Launch Campaign' project.", "time": "2 minutes ago" },
+      { "title": "Payment received", "description": "Payment of $1,200 for the 'Artan Online Store' project has been received.", "time": "1 hour ago" },
+      { "title": "Campaign milestone reached", "description": "The 'Madis App' campaign reached 75% of its target.", "time": "Yesterday" },
+      { "title": "New message from team", "description": "Hadi commented on your design review.", "time": "2 days ago" }
+    ]
   }
 }

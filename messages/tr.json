@@ -675,5 +675,35 @@
     "ctaDescription": "Grafik tasarım, mobil uygulama, web sitesi veya dijital kampanya için ilk brief'inizi bize gönderin.",
     "ctaPrimary": "İş Birliğine Başla",
     "ctaSecondary": "Ana Sayfaya Dön"
+  },
+  "panel": {
+    "dashboard": "Kontrol Paneli",
+    "analytics": "Analitik",
+    "projects": "Projeler",
+    "messages": "Mesajlar",
+    "notifications": "Bildirimler",
+    "settings": "Ayarlar",
+    "logout": "Çıkış Yap",
+    "userName": "Selin Yılmaz",
+    "greeting": "Tekrar hoş geldiniz, {name}",
+    "subtitle": "Bugün projelerinizde neler olduğunu burada görebilirsiniz.",
+    "comingSoon": "Bu bölüm yakında eklenecek",
+    "statProjects": "Aktif Projeler",
+    "statRevenue": "Toplam Gelir",
+    "statClients": "Mutlu Müşteriler",
+    "statHours": "Takip Edilen Saat",
+    "statValueProjects": "12",
+    "statValueRevenue": "$48k",
+    "statValueClients": "34",
+    "statValueHours": "1.240",
+    "notifTitle": "Bildirimler",
+    "notifEmpty": "Her şey güncel",
+    "notifMarkAll": "Tümünü okundu işaretle",
+    "notif": [
+      { "title": "Yeni proje atandı", "description": "'Fintech Launch Campaign' projesine atandınız.", "time": "2 dakika önce" },
+      { "title": "Ödeme alındı", "description": "'Artan Online Store' projesi için 1.200$ ödeme alındı.", "time": "1 saat önce" },
+      { "title": "Kampanya hedefine ulaşıldı", "description": "'Madis App' kampanyası hedefinin %75'ine ulaştı.", "time": "Dün" },
+      { "title": "Ekipten yeni mesaj", "description": "Hadi, tasarım değerlendirmenize yorum yaptı.", "time": "2 gün önce" }
+    ]
   }
 }

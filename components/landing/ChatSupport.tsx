@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 
 const teamMeta = [
   { online: true, color: "#00e5cc" },
@@ -25,6 +26,7 @@ interface Message {
 }
 
 export default function ChatSupport() {
+  const pathname = usePathname();
   const t = useTranslations("chat");
   const locale = useLocale();
   const rawT = t as unknown as { raw: (key: string) => any };
@@ -93,6 +95,8 @@ export default function ChatSupport() {
   };
 
   const onlineCount = supportTeam.filter((member) => member.online).length;
+
+  if (pathname.includes("/panel")) return null;
 
   return (
     <div className="fixed bottom-0 left-0 z-30">

@@ -12,6 +12,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import AuthModal from "@/components/auth/AuthModal";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const languages = [
   { code: "fa", label: "فارسی", flag: "🇮🇷" },
@@ -71,6 +72,7 @@ export default function Header() {
   const t = useTranslations("nav");
   const themeT = useTranslations("theme");
   const locale = useLocale();
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   const navItems = [
     { label: t("services"), href: "/services" },
@@ -142,12 +144,17 @@ export default function Header() {
     router.replace(target);
   };
 
-  if (!mounted) return null;
+  if (!mounted || pathname.includes("/panel")) return null;
 
-  const headerBgStyle = {
-    backgroundColor: `rgba(18, 18, 24, ${headerBgOpacity.get()})`,
-    borderColor: `rgba(255, 255, 255, ${borderOpacity.get()})`,
-  };
+  const headerBgStyle = isDesktop
+    ? {
+        backgroundColor: `rgba(18, 18, 24, ${headerBgOpacity.get()})`,
+        borderColor: `rgba(255, 255, 255, ${borderOpacity.get()})`,
+      }
+    : {
+        backgroundColor: "rgba(18, 18, 24, 0.85)",
+        borderColor: "rgba(255, 255, 255, 0.15)",
+      };
 
   // Translate theme labels based on locale
   const translatedThemes = themes.map((themeOption) => ({
@@ -163,14 +170,16 @@ export default function Header() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 right-0 z-50"
-        style={{ y: headerY }}>
+        style={{ y: isDesktop ? headerY : 0 }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             style={{
-              scale: headerScale,
-              width: headerWidth,
-              borderRadius: headerBorderRadius,
-              boxShadow: headerShadow,
+              scale: isDesktop ? headerScale : 1,
+              width: isDesktop ? headerWidth : "100%",
+              borderRadius: isDesktop ? headerBorderRadius : 16,
+              boxShadow: isDesktop
+                ? headerShadow
+                : "0 25px 50px -12px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.05)",
               marginLeft: "auto",
               marginRight: "auto",
             }}
@@ -178,12 +187,14 @@ export default function Header() {
             <motion.div
               className="absolute inset-0 rounded-2xl"
               style={{
-                border: `1px solid rgba(255, 255, 255, ${borderOpacity.get()})`,
+                border: isDesktop
+                  ? `1px solid rgba(255, 255, 255, ${borderOpacity.get()})`
+                  : "1px solid rgba(255, 255, 255, 0.15)",
               }}
             />
             <div className="relative flex items-center justify-between px-4 lg:px-6 py-3">
               <motion.div
-                style={{ scale: navScale }}
+                style={{ scale: isDesktop ? navScale : 1 }}
                 className="flex items-center">
                 <Link href="/" className="flex items-center gap-3 group">
                   <div className="relative">
@@ -215,10 +226,12 @@ export default function Header() {
               </motion.div>
 
               <motion.nav
-                style={{ gap: navGap }}
+                style={{ gap: isDesktop ? navGap : 8 }}
                 className="hidden lg:flex items-center">
                 {navItems.map((item) => (
-                  <motion.div key={item.label} style={{ scale: navScale }}>
+                  <motion.div
+                    key={item.label}
+                    style={{ scale: isDesktop ? navScale : 1 }}>
                     <Link
                       href={item.href}
                       className="relative px-4 py-2 text-sm text-muted hover:text-foreground transition-colors duration-300">
@@ -229,7 +242,7 @@ export default function Header() {
               </motion.nav>
 
               <motion.div
-                style={{ scale: navScale }}
+                style={{ scale: isDesktop ? navScale : 1 }}
                 className="flex items-center gap-2">
                 {/* Theme Switcher */}
                 <motion.button

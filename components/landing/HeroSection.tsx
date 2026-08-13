@@ -4,12 +4,14 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { toLocalDigits } from "@/lib/data";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function HeroSection() {
   const sectionRef = useRef(null);
   const t = useTranslations("hero");
   const locale = useLocale();
   const isRTL = locale === "fa";
+  const isMobile = useMediaQuery("(max-width: 639px)");
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -72,13 +74,17 @@ export default function HeroSection() {
 
       {/* Animated background blobs */}
       <motion.div
-        animate={{
-          x: [0, 30, -20, 0],
-          y: [0, -40, 20, 0],
-          scale: [1, 1.1, 0.9, 1],
-        }}
+        animate={
+          isMobile
+            ? undefined
+            : {
+                x: [0, 30, -20, 0],
+                y: [0, -40, 20, 0],
+                scale: [1, 1.1, 0.9, 1],
+              }
+        }
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-20 right-20 w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 transition-all duration-1000 ease-out">
+        className="absolute top-20 right-20 w-[500px] h-[500px] rounded-full blur-[60px] sm:blur-[120px] opacity-20 transition-all duration-1000 ease-out">
         <div
           className="absolute inset-0 transition-all duration-1000 ease-out"
           style={{
@@ -89,18 +95,22 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div
-        animate={{
-          x: [0, -20, 30, 0],
-          y: [0, 30, -30, 0],
-          scale: [1, 0.9, 1.1, 1],
-        }}
+        animate={
+          isMobile
+            ? undefined
+            : {
+                x: [0, -20, 30, 0],
+                y: [0, 30, -30, 0],
+                scale: [1, 0.9, 1.1, 1],
+              }
+        }
         transition={{
           duration: 25,
           repeat: Infinity,
           ease: "easeInOut",
           delay: -7,
         }}
-        className="absolute bottom-20 left-20 w-[400px] h-[400px] rounded-full blur-[120px] opacity-15 transition-all duration-1000 ease-out">
+        className="absolute bottom-20 left-20 w-[400px] h-[400px] rounded-full blur-[60px] sm:blur-[120px] opacity-15 transition-all duration-1000 ease-out">
         <div
           className="absolute inset-0 transition-all duration-1000 ease-out"
           style={{
@@ -111,14 +121,18 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div
-        animate={{ x: [0, 15, -15, 0], y: [0, -20, 10, 0] }}
+        animate={
+          isMobile
+            ? undefined
+            : { x: [0, 15, -15, 0], y: [0, -20, 10, 0] }
+        }
         transition={{
           duration: 18,
           repeat: Infinity,
           ease: "easeInOut",
           delay: -3,
         }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[100px] opacity-10 transition-all duration-1000 ease-out"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[50px] sm:blur-[100px] opacity-10 transition-all duration-1000 ease-out"
         style={{
           background:
             "radial-gradient(circle, rgba(0,229,204,0.2) 0%, rgba(0,184,163,0.1) 50%, transparent 70%)",
@@ -190,7 +204,7 @@ export default function HeroSection() {
               style={{
                 y: headingY,
                 scale: headingScale,
-                letterSpacing: headingLetterSpacing,
+                letterSpacing: isMobile ? 0 : headingLetterSpacing,
                 transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.3] mb-6 text-foreground transition-all duration-700 ease-out">
