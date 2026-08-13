@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { toLocalDigits } from "@/lib/data";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import SectionBadge from "@/components/landing/SectionBadge";
 
 export default function HeroSection() {
   const sectionRef = useRef(null);
@@ -170,33 +171,13 @@ export default function HeroSection() {
                 scale: badgeScale,
                 transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
-              className="inline-flex items-center gap-3 mb-8">
-              <div
-                className="flex items-center gap-3 px-5 py-2.5 rounded-full transition-all duration-500 ease-out"
-                style={{
-                  background: "rgba(0, 229, 204, 0.08)",
-                  border: "1px solid rgba(0, 229, 204, 0.15)",
-                  boxShadow:
-                    "0 0 20px rgba(0, 229, 204, 0.1), 0 0 40px rgba(0, 229, 204, 0.05)",
-                }}>
-                <motion.span
-                  animate={{
-                    scale: [1, 1.4, 1],
-                    opacity: [1, 0.85, 1],
-                    boxShadow: [
-                      "0 0 12px rgba(0, 229, 204, 0.6)",
-                      "0 0 25px rgba(0, 229, 204, 0.9)",
-                      "0 0 12px rgba(0, 229, 204, 0.6)",
-                    ],
-                  }}
-                  transition={{ repeat: Infinity, duration: 1.8 }}
-                  className="w-2.5 h-2.5 rounded-full bg-[#00e5cc] transition-all duration-500 ease-out"
-                  style={{ boxShadow: "0 0 18px rgba(0, 229, 204, 0.8)" }}
-                />
-                <span className="text-sm text-accent/90 font-medium transition-colors duration-500 ease-out">
-                  {t("badge")}
-                </span>
-              </div>
+              className="inline-flex items-center mb-8">
+              <SectionBadge
+                icon={
+                  <span className="block w-2 h-2 rounded-full bg-[#00e5cc] animate-dot-pulse" />
+                }>
+                {t("badge")}
+              </SectionBadge>
             </motion.div>
 
             {/* Main heading */}
@@ -236,7 +217,7 @@ export default function HeroSection() {
                 scale: buttonsScale,
                 transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
-              className={`flex flex-col sm:flex-row gap-4 ${isRTL ? "justify-center lg:justify-start" : "justify-center lg:justify-start"}`}>
+              className={`flex flex-row gap-2 sm:gap-4 w-full sm:w-auto ${isRTL ? "justify-center lg:justify-start" : "justify-center lg:justify-start"}`}>
               {isRTL ? (
                 <>
                   {/* Primary CTA (RTL: right side first) */}
@@ -247,10 +228,11 @@ export default function HeroSection() {
                       type: "spring",
                       stiffness: 400,
                       damping: 17,
-                    }}>
+                    }}
+                    className="flex-1 sm:flex-none min-w-0">
                     <Link
                       href="#contact"
-                      className="relative inline-flex items-center justify-center px-8 py-4 rounded-2xl font-bold text-lg overflow-hidden group transition-all duration-500 ease-out"
+                      className="relative w-full sm:w-auto inline-flex items-center justify-center px-3 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg overflow-hidden group transition-all duration-500 ease-out"
                       style={{
                         background:
                           "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",
@@ -277,10 +259,11 @@ export default function HeroSection() {
                       type: "spring",
                       stiffness: 400,
                       damping: 17,
-                    }}>
+                    }}
+                    className="flex-1 sm:flex-none min-w-0">
                     <Link
                       href="#portfolio"
-                      className="relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg group transition-all duration-500 ease-out bg-card border border-border"
+                      className="relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-3 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg group transition-all duration-500 ease-out bg-card border border-border"
                       style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)" }}>
                       <span className="text-muted group-hover:text-foreground transition-colors">
                         {t("secondary")}
@@ -312,10 +295,11 @@ export default function HeroSection() {
                       type: "spring",
                       stiffness: 400,
                       damping: 17,
-                    }}>
+                    }}
+                    className="flex-1 sm:flex-none min-w-0">
                     <Link
                       href="#portfolio"
-                      className="relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg group transition-all duration-500 ease-out bg-card border border-border"
+                      className="relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-3 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg group transition-all duration-500 ease-out bg-card border border-border"
                       style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)" }}>
                       <motion.svg
                         className="w-5 h-5 text-muted group-hover:text-accent transition-all"
@@ -344,10 +328,11 @@ export default function HeroSection() {
                       type: "spring",
                       stiffness: 400,
                       damping: 17,
-                    }}>
+                    }}
+                    className="flex-1 sm:flex-none min-w-0">
                     <Link
                       href="#contact"
-                      className="relative inline-flex items-center justify-center px-8 py-4 rounded-2xl font-bold text-lg overflow-hidden group transition-all duration-500 ease-out"
+                      className="relative w-full sm:w-auto inline-flex items-center justify-center px-3 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg overflow-hidden group transition-all duration-500 ease-out"
                       style={{
                         background:
                           "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",

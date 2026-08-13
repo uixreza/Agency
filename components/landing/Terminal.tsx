@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import SectionBadge from "@/components/landing/SectionBadge";
 
 const commands = [
   {
@@ -145,6 +147,45 @@ const stepIcons = [
   ),
 ];
 
+const blobs = [
+  {
+    className: "absolute -top-20 right-0 w-[600px] h-[600px] rounded-full blur-[150px]",
+    background:
+      "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
+    scale: [1, 1.2, 1],
+    opacity: [0.08, 0.12, 0.08],
+    duration: 10,
+    delay: 0,
+  },
+  {
+    className: "absolute -bottom-20 left-0 w-[500px] h-[500px] rounded-full blur-[150px]",
+    background:
+      "radial-gradient(circle, rgba(102,126,234,0.25) 0%, transparent 70%)",
+    scale: [1, 1.15, 1],
+    opacity: [0.06, 0.1, 0.06],
+    duration: 12,
+    delay: -3,
+  },
+  {
+    className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px]",
+    background:
+      "radial-gradient(circle, var(--color-warm) 0%, transparent 70%)",
+    scale: [1, 1.1, 1],
+    opacity: [0.04, 0.07, 0.04],
+    duration: 15,
+    delay: -6,
+  },
+  {
+    className: "absolute -bottom-10 right-10 w-[400px] h-[400px] rounded-full blur-[120px]",
+    background:
+      "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
+    scale: [1, 1.2, 1],
+    opacity: [0.05, 0.08, 0.05],
+    duration: 18,
+    delay: -9,
+  },
+];
+
 export default function ProcessSection() {
   const t = useTranslations("process");
   const rawT = t as unknown as { raw: (key: string) => any };
@@ -152,7 +193,12 @@ export default function ProcessSection() {
     ...(rawT.raw(`step${i + 1}`) as { title: string; description: string }),
     icon: stepIcons[i],
   }));
-  const [currentCommandIndex, setCurrentCommandIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const inViewRef = useRef(true);
+  const commandCountRef = useRef(0);
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const prefersReducedMotion = useReducedMotion();
+  const [isInView, setIsInView] = useState(false);
   const [displayedCommands, setDisplayedCommands] = useState<
     Array<{ text: string; type: string }>
   >([]);
@@ -160,14 +206,55 @@ export default function ProcessSection() {
   const [typedText, setTypedText] = useState("");
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    commandCountRef.current = displayedCommands.length;
+  }, [displayedCommands]);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries[0]?.isIntersecting ?? true;
+        inViewRef.current = visible;
+        setIsInView(visible);
+      },
+      { threshold: 0.05 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplayedCommands(
+        commands.map(({ text, type }) => ({ text, type })),
+      );
+      return;
+    }
+
+    let cancelled = false;
+    let timer: NodeJS.Timeout;
+
+    const wait = (ms: number) =>
+      new Promise<void>((resolve) => {
+        if (cancelled) return resolve();
+        timer = setTimeout(resolve, ms);
+      });
+
+    const waitUntilVisible = async () => {
+      while (!inViewRef.current && !cancelled) {
+        await wait(250);
+      }
+    };
 
     const runCommands = async () => {
       for (let i = 0; i < commands.length; i++) {
+        if (cancelled) return;
+        await waitUntilVisible();
+        if (cancelled) return;
         const command = commands[i];
-        setCurrentCommandIndex(i);
 
-        if (displayedCommands.length > 8) {
+        if (commandCountRef.current > 8) {
           setDisplayedCommands((prev) => prev.slice(-6));
         }
 
@@ -176,9 +263,8 @@ export default function ProcessSection() {
           setTypedText("");
 
           for (let j = 0; j <= command.text.length; j++) {
-            await new Promise((resolve) => {
-              timeout = setTimeout(resolve, 30);
-            });
+            await wait(35);
+            if (cancelled) return;
             setTypedText(command.text.slice(0, j));
           }
 
@@ -195,25 +281,28 @@ export default function ProcessSection() {
           ]);
         }
 
-        await new Promise((resolve) => {
-          timeout = setTimeout(resolve, command.delay);
-        });
+        await wait(command.delay);
+        if (cancelled) return;
       }
 
-      await new Promise((resolve) => {
-        timeout = setTimeout(resolve, 2000);
-      });
+      await wait(3000);
+      if (cancelled) return;
       setDisplayedCommands([]);
       runCommands();
     };
 
     runCommands();
 
-    return () => clearTimeout(timeout);
-  }, []);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [prefersReducedMotion]);
 
   return (
-    <section className="relative py-20 lg:py-32 bg-bg overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative py-20 lg:py-32 bg-bg overflow-hidden">
       {/* Grid Pattern Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div
@@ -230,69 +319,24 @@ export default function ProcessSection() {
 
       {/* Radial Gradient Effects */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.08, 0.12, 0.08],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-20 right-0 w-[600px] h-[600px] rounded-full blur-[150px]"
-          style={{
-            background:
-              "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
-          }}
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.06, 0.1, 0.06],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: -3,
-          }}
-          className="absolute -bottom-20 left-0 w-[500px] h-[500px] rounded-full blur-[150px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(102,126,234,0.25) 0%, transparent 70%)",
-          }}
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.04, 0.07, 0.04],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: -6,
-          }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px]"
-          style={{
-            background:
-              "radial-gradient(circle, var(--color-warm) 0%, transparent 70%)",
-          }}
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.05, 0.08, 0.05],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: -9,
-          }}
-          className="absolute -bottom-10 right-10 w-[400px] h-[400px] rounded-full blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
-          }}
-        />
+        {blobs.map((blob, i) => (
+          <motion.div
+            key={i}
+            animate={
+              isMobile || prefersReducedMotion || !isInView
+                ? undefined
+                : { scale: blob.scale, opacity: blob.opacity }
+            }
+            transition={{
+              duration: blob.duration,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: blob.delay,
+            }}
+            className={blob.className}
+            style={{ background: blob.background, opacity: 0.08 }}
+          />
+        ))}
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
@@ -307,9 +351,24 @@ export default function ProcessSection() {
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="inline-flex items-center gap-2 bg-accent border border-accent rounded-full px-4 py-1.5 mb-6">
-            <motion.span className="text-lg">⚡</motion.span>
-            <span className="text-bg text-sm font-medium">{t("badge")}</span>
+            className="inline-block mb-6">
+            <SectionBadge
+              icon={
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              }>
+              {t("badge")}
+            </SectionBadge>
           </motion.div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
@@ -353,16 +412,11 @@ export default function ProcessSection() {
                         </p>
                       </div>
 
-                      <motion.div
-                        animate={{ x: [0, -5, 0] }}
-                        transition={{
-                          repeat: Infinity,
-                          duration: 2,
-                          delay: index * 0.2,
-                        }}
-                        className="flex-shrink-0 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div
+                        className="flex-shrink-0 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rtl:rotate-180"
+                        style={{ animationDelay: `${index * 0.2}s` }}>
                         <svg
-                          className="w-5 h-5 text-accent"
+                          className="w-5 h-5 text-accent animate-arrow-nudge"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor">
@@ -373,7 +427,7 @@ export default function ProcessSection() {
                             d="M15 19l-7-7 7-7"
                           />
                         </svg>
-                      </motion.div>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -452,22 +506,14 @@ export default function ProcessSection() {
                     <div className="flex items-center gap-2 text-foreground/70">
                       <span className="text-accent">$</span>
                       <span>{typedText}</span>
-                      <motion.span
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ repeat: Infinity, duration: 0.8 }}
-                        className="w-2 h-4 bg-accent inline-block"
-                      />
+                      <span className="w-2 h-4 bg-accent inline-block animate-cursor-blink" />
                     </div>
                   )}
 
                   {!isTyping && (
                     <div className="flex items-center gap-2 text-muted">
                       <span className="text-accent">$</span>
-                      <motion.span
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ repeat: Infinity, duration: 0.8 }}
-                        className="w-2 h-4 bg-muted inline-block"
-                      />
+                      <span className="w-2 h-4 bg-muted inline-block animate-cursor-blink" />
                     </div>
                   )}
                 </div>

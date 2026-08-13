@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { fadeInUp, staggerContainer, smoothTransition } from "@/lib/animations";
 import { useTranslations } from "next-intl";
+import SectionBadge from "@/components/landing/SectionBadge";
 
 const cardStyles = [
   { category: "web", image: "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)" },
@@ -38,12 +39,28 @@ export default function PortfolioSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           className="text-center mb-16">
-          <motion.span
+          <motion.div
             variants={fadeInUp}
             transition={smoothTransition}
-            className="inline-block text-accent font-medium mb-4">
-            {t("badge")}
-          </motion.span>
+            className="mb-5">
+            <SectionBadge
+              icon={
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+                  />
+                </svg>
+              }>
+              {t("badge")}
+            </SectionBadge>
+          </motion.div>
           <motion.h2
             variants={fadeInUp}
             transition={smoothTransition}

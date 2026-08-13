@@ -3,6 +3,11 @@
     "title": "Novin Dijital | Dijital Pazarlama Ajansı",
     "description": "Akıllı dijital pazarlama stratejileriyle markanızı bir üst seviyeye taşıyın."
   },
+  "notFound": {
+    "heading": "Sayfa bulunamadı",
+    "description": "Aradığınız sayfa mevcut değil veya taşınmış olabilir. Sizi tekrar doğru yola döndürelim.",
+    "backHome": "Ana sayfaya dön"
+  },
   "nav": {
     "brand": "Novin Dijital",
     "services": "Hizmetler",

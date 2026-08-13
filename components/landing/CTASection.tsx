@@ -1,11 +1,15 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { fadeInUp, staggerContainer, smoothTransition } from "@/lib/animations";
 import { useTranslations } from "next-intl";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function CTASection() {
   const t = useTranslations("cta");
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const prefersReducedMotion = useReducedMotion();
+  const disableBlobs = isMobile || prefersReducedMotion;
   return (
     <section className="relative py-20 lg:py-32 bg-bg overflow-hidden">
       {/* Radial gradient background effects */}
@@ -23,20 +27,28 @@ export default function CTASection() {
 
       {/* Decorative blobs */}
       <motion.div
-        animate={{
-          x: [0, 30, -20, 0],
-          y: [0, -40, 20, 0],
-          scale: [1, 1.1, 0.9, 1],
-        }}
+        animate={
+          disableBlobs
+            ? undefined
+            : {
+                x: [0, 30, -20, 0],
+                y: [0, -40, 20, 0],
+                scale: [1, 1.1, 0.9, 1],
+              }
+        }
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         className="w-80 h-80 bg-accent/10 top-0 right-1/4 absolute rounded-full blur-[100px] opacity-30"
       />
       <motion.div
-        animate={{
-          x: [0, -20, 30, 0],
-          y: [0, 30, -30, 0],
-          scale: [1, 0.9, 1.1, 1],
-        }}
+        animate={
+          disableBlobs
+            ? undefined
+            : {
+                x: [0, -20, 30, 0],
+                y: [0, 30, -30, 0],
+                scale: [1, 0.9, 1.1, 1],
+              }
+        }
         transition={{
           duration: 25,
           repeat: Infinity,

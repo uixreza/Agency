@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -67,6 +67,7 @@ const itemVariants = {
 export default function Footer() {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 639px)");
+  const prefersReducedMotion = useReducedMotion();
   const t = useTranslations("footer");
   const rawT = t as unknown as { raw: (key: string) => any };
   const links = rawT.raw("links") as {
@@ -102,7 +103,7 @@ export default function Footer() {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={
-            isMobile
+            isMobile || prefersReducedMotion
               ? undefined
               : {
                   x: [0, 30, -20, 0],
@@ -119,7 +120,7 @@ export default function Footer() {
         />
         <motion.div
           animate={
-            isMobile
+            isMobile || prefersReducedMotion
               ? undefined
               : {
                   x: [0, -20, 30, 0],

@@ -3,6 +3,11 @@
     "title": "Novin Digital | Digital Marketing Agency",
     "description": "With smart digital marketing strategies, take your brand to the next level."
   },
+  "notFound": {
+    "heading": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved. Let's get you back on track.",
+    "backHome": "Back to home"
+  },
   "nav": {
     "brand": "Novin Digital",
     "services": "Services",

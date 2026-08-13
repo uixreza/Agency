@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import { usePathname } from "next/navigation";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const teamMeta = [
   { online: true, color: "#00e5cc" },
@@ -29,6 +30,7 @@ export default function ChatSupport() {
   const pathname = usePathname();
   const t = useTranslations("chat");
   const locale = useLocale();
+  const isMobile = useMediaQuery("(max-width: 639px)");
   const rawT = t as unknown as { raw: (key: string) => any };
   const team = rawT.raw("team") as { name: string; role: string }[];
   const supportTeam = team.map((member, i) => ({
@@ -67,6 +69,15 @@ export default function ChatSupport() {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen || !isMobile) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen, isMobile]);
+
   const handleSendMessage = (text = message) => {
     if (!text.trim()) return;
 
@@ -99,27 +110,41 @@ export default function ChatSupport() {
   if (pathname.includes("/panel")) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 z-30">
+    <div
+      className={`fixed bottom-0 left-0 ${isOpen && isMobile ? "z-50" : "z-30"}`}>
       <div className="relative m-4 sm:m-6 lg:m-8">
         {/* Chat Window */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute left-0 bottom-full mb-4 w-[340px] sm:w-[380px] rounded-2xl overflow-hidden"
+              key="chat-window"
+              initial={
+                isMobile
+                  ? { y: "100%" }
+                  : { opacity: 0, y: 20, scale: 0.95 }
+              }
+              animate={isMobile ? { y: 0 } : { opacity: 1, y: 0, scale: 1 }}
+              exit={
+                isMobile
+                  ? { y: "100%" }
+                  : { opacity: 0, y: 20, scale: 0.95 }
+              }
+              transition={
+                isMobile
+                  ? { type: "spring", stiffness: 300, damping: 32 }
+                  : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+              }
+              className="fixed inset-0 flex flex-col overflow-hidden bg-[#161922] sm:absolute sm:inset-auto sm:bottom-full sm:left-0 sm:mb-4 sm:w-[380px] sm:rounded-2xl"
               style={{
                 background: "rgba(22, 25, 34, 0.95)",
-                backdropFilter: "blur(20px)",
-                border: "1px solid rgba(37, 42, 54, 0.4)",
+                backdropFilter: isMobile ? undefined : "blur(20px)",
+                border: isMobile ? undefined : "1px solid rgba(37, 42, 54, 0.4)",
                 boxShadow:
                   "0 25px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 229, 204, 0.05)",
               }}>
               {/* Header */}
               <div
-                className="px-5 py-4 border-b flex items-center justify-between"
+                className="px-5 py-4 border-b flex items-center justify-between shrink-0"
                 style={{ borderColor: "rgba(37, 42, 54, 0.4)" }}>
                 <div>
                   <h3 className="text-foreground font-bold text-sm">
@@ -153,10 +178,29 @@ export default function ChatSupport() {
                   </div>
                   <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-[0_0_8px_rgba(0,229,204,0.6)]" />
                 </div>
+
+                {/* Close (mobile full screen) */}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  aria-label="close"
+                  className="sm:hidden w-8 h-8 rounded-lg bg-[#1a1d28] border border-[#252a36] flex items-center justify-center text-gray-400 active:scale-95 transition-transform">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
 
               {/* Messages */}
-              <div className="h-[320px] overflow-y-auto p-4 space-y-4">
+              <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4 sm:h-[320px] sm:flex-none">
                 {messages.map((msg) => (
                   <motion.div
                     key={msg.id}
@@ -209,7 +253,7 @@ export default function ChatSupport() {
               </div>
 
               {/* Quick Messages */}
-              <div className="px-4 pb-2">
+              <div className="px-4 pb-2 shrink-0">
                 <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                   {quickMessages.map((msg, i) => (
                     <motion.button
@@ -226,7 +270,7 @@ export default function ChatSupport() {
 
               {/* Input */}
               <div
-                className="px-4 py-3 border-t flex items-center gap-2"
+                className="px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] border-t flex items-center gap-2 shrink-0"
                 style={{ borderColor: "rgba(37, 42, 54, 0.4)" }}>
                 <input
                   ref={inputRef}
@@ -266,10 +310,10 @@ export default function ChatSupport() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 group"
+          className={`${isOpen && isMobile ? "hidden" : "flex"} relative w-14 h-14 rounded-2xl items-center justify-center transition-all duration-300 group`}
           style={{
             background: "rgba(22, 25, 34, 0.95)",
-            backdropFilter: "blur(20px)",
+            backdropFilter: isMobile ? undefined : "blur(20px)",
             border: "1px solid rgba(37, 42, 54, 0.4)",
             boxShadow: isOpen
               ? "0 20px 40px rgba(0, 0, 0, 0.3)"
