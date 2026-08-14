@@ -32,14 +32,7 @@ function RotatingHighlight({ words }: { words: string[] }) {
   );
 
   return (
-    <span
-      className="relative block h-[1.25em] overflow-hidden"
-      style={{
-        maskImage:
-          "linear-gradient(to bottom, transparent, black 28%, black 72%, transparent)",
-        WebkitMaskImage:
-          "linear-gradient(to bottom, transparent, black 28%, black 72%, transparent)",
-      }}>
+    <span className="relative block h-[1.25em] overflow-hidden">
       <motion.span
         className="flex flex-col"
         animate={{ y: values.map((v) => `${(v * 1.25).toFixed(2)}em`) }}
