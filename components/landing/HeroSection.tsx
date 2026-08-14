@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
@@ -8,25 +8,55 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import SectionBadge from "@/components/landing/SectionBadge";
 
 function RotatingHighlight({ words }: { words: string[] }) {
-  const [index, setIndex] = useState(0);
+  const n = words.length;
 
-  useEffect(() => {
-    const id = setInterval(
-      () => setIndex((i) => (i + 1) % words.length),
-      2600,
-    );
-    return () => clearInterval(id);
-  }, [words.length]);
+  const values: number[] = [0];
+  for (let i = 1; i <= n; i++) {
+    values.push(-i);
+    values.push(-i);
+  }
+
+  const weights = values.slice(1).map((_, i) => (i % 2 === 0 ? 1 : 3.2));
+  const totalWeight = weights.reduce((a, b) => a + b, 0);
+  let acc = 0;
+  const times: number[] = [0];
+  for (const w of weights) {
+    acc += w / totalWeight;
+    times.push(acc);
+  }
+
+  const easings = weights.map((_, i) =>
+    i % 2 === 0
+      ? ([0.16, 1, 0.3, 1] as [number, number, number, number])
+      : "linear",
+  );
 
   return (
-    <motion.span
-      key={index}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="inline-block">
-      {words[index]}
-    </motion.span>
+    <span
+      className="relative block h-[1.25em] overflow-hidden"
+      style={{
+        maskImage:
+          "linear-gradient(to bottom, transparent, black 28%, black 72%, transparent)",
+        WebkitMaskImage:
+          "linear-gradient(to bottom, transparent, black 28%, black 72%, transparent)",
+      }}>
+      <motion.span
+        className="flex flex-col"
+        animate={{ y: values.map((v) => `${(v * 1.25).toFixed(2)}em`) }}
+        transition={{
+          duration: n * 1.6,
+          repeat: Infinity,
+          ease: easings,
+          times,
+        }}
+        style={{ willChange: "transform" }}>
+        {[...words, words[0]].map((word, i) => (
+          <span key={i} className="h-[1.25em] block leading-none">
+            {word}
+          </span>
+        ))}
+      </motion.span>
+    </span>
   );
 }
 
