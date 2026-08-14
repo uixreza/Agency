@@ -310,7 +310,7 @@ export default function ChatSupport() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
-          className={`${isOpen && isMobile ? "hidden" : "flex"} relative w-14 h-14 rounded-2xl items-center justify-center transition-all duration-300 group`}
+          className={`${isOpen && isMobile ? "hidden" : "flex"} relative w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl items-center justify-center transition-all duration-300 group`}
           style={{
             background: "rgba(22, 25, 34, 0.95)",
             backdropFilter: isMobile ? undefined : "blur(20px)",
@@ -333,7 +333,7 @@ export default function ChatSupport() {
             transition={{ duration: 0.3 }}>
             {isOpen ? (
               <svg
-                className="w-6 h-6 text-accent"
+                className="w-5 h-5 sm:w-6 sm:h-6 text-accent"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -347,7 +347,7 @@ export default function ChatSupport() {
             ) : (
               <div className="relative">
                 <svg
-                  className="w-6 h-6 text-accent"
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-accent"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor">

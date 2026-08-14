@@ -7,12 +7,12 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
-const quickContacts = [
+const quickContactIcons = [
   {
-    title: "تلفن تماس",
-    value: "۰۲۱-۱۲۳۴۵۶۷۸",
     href: "tel:+982112345678",
+    color: "accent",
     icon: (
       <svg
         className="w-6 h-6"
@@ -27,12 +27,10 @@ const quickContacts = [
         />
       </svg>
     ),
-    color: "accent",
   },
   {
-    title: "ایمیل",
-    value: "info@novindigital.ir",
     href: "mailto:info@novindigital.ir",
+    color: "warm",
     icon: (
       <svg
         className="w-6 h-6"
@@ -47,12 +45,10 @@ const quickContacts = [
         />
       </svg>
     ),
-    color: "warm",
   },
   {
-    title: "آدرس دفتر",
-    value: "تهران، ولیعصر، برج آسمان",
     href: null,
+    color: "accent",
     icon: (
       <svg
         className="w-6 h-6"
@@ -73,12 +69,10 @@ const quickContacts = [
         />
       </svg>
     ),
-    color: "accent",
   },
   {
-    title: "ساعت کاری",
-    value: "شنبه تا پنج‌شنبه ۹–۱۸",
     href: null,
+    color: "warm",
     icon: (
       <svg
         className="w-6 h-6"
@@ -93,13 +87,11 @@ const quickContacts = [
         />
       </svg>
     ),
-    color: "warm",
   },
 ];
 
-const socialLinks = [
+const socialIcons = [
   {
-    label: "تلگرام",
     href: "#",
     icon: (
       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -108,7 +100,6 @@ const socialLinks = [
     ),
   },
   {
-    label: "واتساپ",
     href: "#",
     icon: (
       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -117,7 +108,6 @@ const socialLinks = [
     ),
   },
   {
-    label: "اینستاگرام",
     href: "#",
     icon: (
       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -127,59 +117,21 @@ const socialLinks = [
   },
 ];
 
-const faqItems = [
-  {
-    question: "چه مدت طول می‌کشد تا نتایج دیجیتال مارکتینگ را ببینم؟",
-    answer:
-      "نتایج بسته به نوع خدمت متفاوت است. تبلیغات کلیکی معمولاً در ۲–۴ هفته نتایج اولیه دارد، در حالی که سئو معمولاً ۳–۶ ماه زمان می‌برد تا نتایج ملموس نشان دهد. ما از ابتدای کار یک برنامه زمانی مشخص به شما ارائه می‌دهیم.",
-  },
-  {
-    question: "آیا قرارداد بلند مدت لازم است؟",
-    answer:
-      "ما قراردادهای ماهانه، ۳ ماهه و ۶ ماهه ارائه می‌دهیم. بیشتر خدمات ما در بازه ۳–۶ ماهه بهترین نتیجه را می‌دهند، اما اجباری برای قراردادهای طولانی‌مدت وجود ندارد.",
-  },
-  {
-    question: "چگونه از پیشرفت پروژه خود مطلع می‌شوم؟",
-    answer:
-      "هر مشتری یک مدیر پروژه اختصاصی دارد. گزارش هفتگی و ماهانه با تمام شاخص‌های کلیدی (KPI) ارائه می‌شود. همچنین به داشبورد آنلاین اختصاصی دسترسی خواهید داشت.",
-  },
-  {
-    question: "آیا برای کسب‌وکارهای کوچک هم مناسب هستید؟",
-    answer:
-      "بله! بخش قابل توجهی از مشتریان ما کسب‌وکارهای کوچک و متوسط هستند. ما پکیج‌های مقرون‌به‌صرفه‌ای داریم که برای هر بودجه‌ای مناسب باشد و با رشد کسب‌وکار شما، خدمات را ارتقا می‌دهیم.",
-  },
-  {
-    question: "آیا مشاوره اولیه رایگان است؟",
-    answer:
-      "بله، مشاوره اولیه کاملاً رایگان است. در این جلسه ۳۰ تا ۴۵ دقیقه‌ای، وضعیت فعلی کسب‌وکار شما را بررسی کرده و راهکارهای مناسب پیشنهاد می‌دهیم. هیچ تعهدی برای ادامه همکاری وجود ندارد.",
-  },
-];
-
-const budgetOptions = [
-  { value: "low", label: "کمتر از", sublabel: "۵ میلیون" },
-  { value: "mid", label: "۵ تا ۲۰", sublabel: "میلیون تومان" },
-  { value: "high", label: "بیشتر از", sublabel: "۲۰ میلیون" },
-];
-
-const serviceOptions = [
-  { value: "", label: "انتخاب کنید..." },
-  { value: "seo", label: "سئو و بهینه‌سازی موتور جستجو" },
-  { value: "ads", label: "تبلیغات کلیکی (گوگل ادز)" },
-  { value: "social", label: "مدیریت شبکه‌های اجتماعی" },
-  { value: "web", label: "طراحی و توسعه وب‌سایت" },
-  { value: "email", label: "ایمیل مارکتینگ" },
-  { value: "content", label: "تولید محتوا" },
-  { value: "consulting", label: "مشاوره استراتژی دیجیتال" },
-  { value: "other", label: "سایر خدمات" },
-];
-
 export default function ContactPage() {
+  const t = useTranslations("contactPage");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [selectedBudget, setSelectedBudget] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const sectionRef = useRef(null);
   const formRef = useRef<HTMLFormElement>(null);
+
+  const faqItems = t.raw("faq") as { question: string; answer: string }[];
+  const budgetOptions = t.raw("budget") as {
+    label: string;
+    sublabel: string;
+  }[];
+  const socials = t.raw("socials") as string[];
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -262,24 +214,21 @@ export default function ContactPage() {
               transition={{ duration: 0.6 }}
               className="inline-flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2 mb-6">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-sm text-muted">
-                آنلاین هستیم — پاسخ‌دهی در کمتر از ۲ ساعت
-              </span>
+              <span className="text-sm text-muted">{t("badge")}</span>
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-foreground">
-              با ما در <span className="gradient-text">تماس</span> باشید
+              {t("title")} <span className="gradient-text">{t("highlight")}</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-lg sm:text-xl text-muted max-w-2xl mx-auto">
-              سوال دارید؟ پروژه‌ای در ذهن دارید؟ یا فقط می‌خواهید بیشتر بدانید؟
-              هر راهی که راحت‌ترید، ما اینجاییم.
+              {t("description")}
             </motion.p>
           </div>
         </motion.div>
@@ -289,9 +238,15 @@ export default function ContactPage() {
       <section className="relative py-12 bg-surface border-y border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {quickContacts.map((item, index) => {
-              const CardWrapper = item.href ? "a" : "div";
-              const cardProps = item.href ? { href: item.href } : {};
+            {[
+              { title: t("quickPhoneTitle"), value: t("quickPhoneValue") },
+              { title: t("quickEmailTitle"), value: t("quickEmailValue") },
+              { title: t("quickAddressTitle"), value: t("quickAddressValue") },
+              { title: t("quickHoursTitle"), value: t("quickHoursValue") },
+            ].map((item, index) => {
+              const icon = quickContactIcons[index];
+              const CardWrapper = icon.href ? "a" : "div";
+              const cardProps = icon.href ? { href: icon.href } : {};
               return (
                 <motion.div
                   key={index}
@@ -301,10 +256,10 @@ export default function ContactPage() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}>
                   <CardWrapper
                     {...cardProps}
-                    className={`contact-card bg-card border border-border rounded-2xl p-5 flex items-center gap-4 hover:border-${item.color}/40 transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,229,204,0.08)] ${item.href ? "cursor-pointer" : ""} block`}>
+                    className={`contact-card bg-card border border-border rounded-2xl p-5 flex items-center gap-4 hover:border-${icon.color}/40 transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,229,204,0.08)] ${icon.href ? "cursor-pointer" : ""} block`}>
                     <div
-                      className={`w-12 h-12 rounded-xl bg-${item.color}/10 flex items-center justify-center flex-shrink-0 text-${item.color}`}>
-                      {item.icon}
+                      className={`w-12 h-12 rounded-xl bg-${icon.color}/10 flex items-center justify-center flex-shrink-0 text-${icon.color}`}>
+                      {icon.icon}
                     </div>
                     <div>
                       <div className="text-xs text-muted mb-0.5">
@@ -374,14 +329,13 @@ export default function ContactPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}>
               <span className="inline-block text-accent font-medium mb-4">
-                پیام دهید
+                {t("formBadge")}
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 text-foreground">
-                بیایید با هم صحبت کنیم
+                {t("formTitle")}
               </h2>
               <p className="text-muted text-lg mb-10">
-                فرم را پر کنید و در اسرع وقت با شما تماس می‌گیریم. اگر می‌خواهید
-                سریع‌تر پاسخ بگیرید، از طریق واتساپ یا تلگرام پیام دهید.
+                {t("formDescription")}
               </p>
 
               <div className="space-y-6 mb-10">
@@ -408,11 +362,9 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <div className="font-bold mb-1 text-foreground">
-                      آدرس دفتر مرکزی
+                      {t("infoAddressTitle")}
                     </div>
-                    <div className="text-muted">
-                      تهران، خیابان ولیعصر، برج آسمان، طبقه ۱۲، واحد ۱۲۰۵
-                    </div>
+                    <div className="text-muted">{t("infoAddressValue")}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -432,10 +384,10 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <div className="font-bold mb-1 text-foreground">
-                      شماره‌های تماس
+                      {t("infoPhonesTitle")}
                     </div>
-                    <div className="text-muted">۰۲۱-۱۲۳۴۵۶۷۸ (دفتر مرکزی)</div>
-                    <div className="text-muted">۰۹۱۲-۱۲۳۴۵۶۷ (پشتیبانی)</div>
+                    <div className="text-muted">{t("infoPhoneOffice")}</div>
+                    <div className="text-muted">{t("infoPhoneSupport")}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -454,25 +406,25 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-bold mb-1 text-foreground">ایمیل</div>
-                    <div className="text-muted">info@novindigital.ir</div>
-                    <div className="text-muted">support@novindigital.ir</div>
+                    <div className="font-bold mb-1 text-foreground">
+                      {t("infoEmailTitle")}
+                    </div>
+                    <div className="text-muted">{t("infoEmailInfo")}</div>
+                    <div className="text-muted">{t("infoEmailSupport")}</div>
                   </div>
                 </div>
               </div>
 
               <div>
-                <p className="text-sm text-muted mb-4">
-                  ارتباط سریع از طریق شبکه‌های اجتماعی
-                </p>
+                <p className="text-sm text-muted mb-4">{t("socialsLabel")}</p>
                 <div className="flex gap-3">
-                  {socialLinks.map((social, index) => (
+                  {socialIcons.map((social, index) => (
                     <a
                       key={index}
                       href={social.href}
                       className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-card border border-border hover:border-accent hover:text-accent transition-all duration-300 text-sm text-muted">
                       {social.icon}
-                      {social.label}
+                      {socials[index]}
                     </a>
                   ))}
                 </div>
@@ -490,95 +442,99 @@ export default function ContactPage() {
                 onSubmit={handleSubmit}
                 className="bg-card border border-border rounded-2xl p-6 lg:p-8">
                 <h3 className="text-xl font-bold mb-6 text-foreground">
-                  فرم درخواست مشاوره رایگان
+                  {t("formTitle2")}
                 </h3>
 
                 <div className="grid sm:grid-cols-2 gap-5 mb-5">
                   <div>
                     <label className="block text-sm font-medium mb-2 text-foreground">
-                      نام و نام خانوادگی <span className="text-warm">*</span>
+                      {t("nameLabel")} <span className="text-warm">*</span>
                     </label>
                     <input
                       type="text"
                       name="name"
                       required
                       className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-accent focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,229,204,0.1)] transition-all"
-                      placeholder="علی محمدی"
+                      placeholder={t("namePlaceholder")}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-2 text-foreground">
-                      شماره تماس <span className="text-warm">*</span>
+                      {t("phoneLabel")} <span className="text-warm">*</span>
                     </label>
                     <input
                       type="tel"
                       name="phone"
                       required
                       className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-accent focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,229,204,0.1)] transition-all"
-                      placeholder="۰۹۱۲۱۲۳۴۵۶۷"
+                      placeholder={t("phonePlaceholder")}
                     />
                   </div>
                 </div>
 
                 <div className="mb-5">
                   <label className="block text-sm font-medium mb-2 text-foreground">
-                    ایمیل <span className="text-warm">*</span>
+                    {t("emailLabel")} <span className="text-warm">*</span>
                   </label>
                   <input
                     type="email"
                     name="email"
                     required
                     className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-accent focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,229,204,0.1)] transition-all"
-                    placeholder="example@email.com"
+                    placeholder={t("emailPlaceholder")}
                   />
                 </div>
 
                 <div className="mb-5">
                   <label className="block text-sm font-medium mb-2 text-foreground">
-                    نام شرکت / کسب‌وکار
+                    {t("companyLabel")}
                   </label>
                   <input
                     type="text"
                     name="company"
                     className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-accent focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,229,204,0.1)] transition-all"
-                    placeholder="شرکت نمونه"
+                    placeholder={t("companyPlaceholder")}
                   />
                 </div>
 
                 <div className="mb-5">
                   <label className="block text-sm font-medium mb-2 text-foreground">
-                    خدمت مورد نیاز <span className="text-warm">*</span>
+                    {t("serviceLabel")} <span className="text-warm">*</span>
                   </label>
                   <select
                     name="service"
                     required
                     className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-foreground focus:border-accent focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,229,204,0.1)] transition-all">
-                    {serviceOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
+                    {(t.raw("serviceOptions") as { value: string; label: string }[]).map(
+                      (opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ),
+                    )}
                   </select>
                 </div>
 
                 <div className="mb-5">
                   <label className="block text-sm font-medium mb-2 text-foreground">
-                    بودجه تقریبی ماهانه
+                    {t("budgetLabel")}
                   </label>
                   <div className="grid grid-cols-3 gap-3">
-                    {budgetOptions.map((opt) => (
-                      <label key={opt.value} className="cursor-pointer">
+                    {budgetOptions.map((opt, i) => (
+                      <label
+                        key={i}
+                        className="cursor-pointer"
+                        onClick={() => setSelectedBudget(String(i))}>
                         <input
                           type="radio"
                           name="budget"
-                          value={opt.value}
                           className="sr-only"
-                          checked={selectedBudget === opt.value}
-                          onChange={() => setSelectedBudget(opt.value)}
+                          checked={selectedBudget === String(i)}
+                          onChange={() => setSelectedBudget(String(i))}
                         />
                         <div
                           className={`text-center border rounded-xl py-2.5 px-3 text-sm transition-all ${
-                            selectedBudget === opt.value
+                            selectedBudget === String(i)
                               ? "border-accent text-accent bg-accent/5"
                               : "border-border hover:border-accent/50"
                           }`}>
@@ -594,13 +550,13 @@ export default function ContactPage() {
 
                 <div className="mb-6">
                   <label className="block text-sm font-medium mb-2 text-foreground">
-                    توضیحات پروژه
+                    {t("messageLabel")}
                   </label>
                   <textarea
                     name="message"
                     rows={4}
                     className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted focus:border-accent focus:outline-none focus:shadow-[0_0_0_3px_rgba(0,229,204,0.1)] transition-all resize-none"
-                    placeholder="هدف پروژه، چالش‌های فعلی، انتظارات خود را بنویسید..."
+                    placeholder={t("messagePlaceholder")}
                   />
                 </div>
 
@@ -632,7 +588,7 @@ export default function ContactPage() {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         />
                       </svg>
-                      در حال ارسال...
+                      {t("sending")}
                     </>
                   ) : isSuccess ? (
                     <>
@@ -648,7 +604,7 @@ export default function ContactPage() {
                           d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      درخواست ارسال شد!
+                      {t("success")}
                     </>
                   ) : (
                     <>
@@ -664,17 +620,16 @@ export default function ContactPage() {
                           d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                         />
                       </svg>
-                      ارسال درخواست
+                      {t("submit")}
                     </>
                   )}
                 </button>
 
                 <p className="text-center text-muted text-xs mt-4">
-                  با ارسال فرم، با{" "}
+                  {t("privacyText")}{" "}
                   <Link href="/privacy" className="text-accent hover:underline">
-                    قوانین و حریم خصوصی
-                  </Link>{" "}
-                  ما موافقت می‌کنید
+                    {t("privacyLink")}
+                  </Link>
                 </p>
               </form>
             </motion.div>
@@ -692,10 +647,10 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-10">
             <span className="inline-block text-accent font-medium mb-3">
-              موقعیت مکانی
+              {t("mapBadge")}
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-foreground">
-              دفتر ما را پیدا کنید
+              {t("mapTitle")}
             </h2>
           </motion.div>
           <motion.div
@@ -735,11 +690,9 @@ export default function ContactPage() {
                 </svg>
               </div>
               <p className="font-bold text-lg mb-1 text-foreground">
-                نوین دیجیتال
+                {t("mapName")}
               </p>
-              <p className="text-muted text-sm">
-                تهران، خیابان ولیعصر، برج آسمان، طبقه ۱۲
-              </p>
+              <p className="text-muted text-sm">{t("mapAddress")}</p>
               <a
                 href="#"
                 className="inline-flex items-center gap-2 mt-4 text-accent text-sm hover:underline">
@@ -755,7 +708,7 @@ export default function ContactPage() {
                     d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                   />
                 </svg>
-                مشاهده در نقشه
+                {t("mapLink")}
               </a>
             </div>
           </motion.div>
@@ -781,14 +734,12 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-14">
             <span className="inline-block text-accent font-medium mb-4">
-              سوالات متداول
+              {t("faqBadge")}
             </span>
             <h2 className="text-3xl sm:text-4xl font-black mb-4 text-foreground">
-              پاسخ سوالات شما
+              {t("faqTitle")}
             </h2>
-            <p className="text-muted">
-              اگر جواب سوالتان را پیدا نکردید، مستقیم با ما تماس بگیرید
-            </p>
+            <p className="text-muted">{t("faqDescription")}</p>
           </motion.div>
 
           <div className="space-y-4">

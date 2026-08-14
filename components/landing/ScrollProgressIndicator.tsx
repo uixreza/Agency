@@ -17,8 +17,11 @@ export default function ScrollProgressIndicator() {
 
   const { scrollYProgress } = useScroll();
 
-  // Line height that follows scroll progress
+  // Line height that follows scroll progress (desktop)
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  // Line width that follows scroll progress (mobile)
+  const lineWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   // Circle position follows the line
   const circleY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
@@ -48,7 +51,18 @@ export default function ScrollProgressIndicator() {
   if (pathname.includes("/panel")) return null;
 
   return (
-    <div className="fixed right-0 top-0 h-full z-30 pointer-events-none hidden sm:block">
+    <>
+      {/* Mobile horizontal progress bar */}
+      <div className="fixed top-0 left-0 right-0 h-[3px] z-50 pointer-events-none block sm:hidden">
+        <div className="absolute inset-0 w-full bg-white/5" />
+        <motion.div
+          style={{ width: lineWidth }}
+          className="absolute top-0 left-0 h-full bg-gradient-to-r from-accent via-accent to-accentDark shadow-[0_0_8px_rgba(0,229,204,0.5)]"
+        />
+      </div>
+
+      {/* Desktop vertical indicator */}
+      <div className="fixed right-0 top-0 h-full z-30 pointer-events-none hidden sm:block">
       <div className="relative h-full flex items-center justify-center">
         {/* Main container */}
         <div className="relative h-[70vh] flex flex-col items-center justify-between py-8 mr-3 sm:mr-4 lg:mr-6">
@@ -140,5 +154,41 @@ export default function ScrollProgressIndicator() {
         </AnimatePresence>
       </div>
     </div>
+
+      {/* Mobile scroll to top button */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0, y: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            onClick={scrollToTop}
+            className="fixed bottom-24 right-5 sm:hidden pointer-events-auto group z-40"
+            aria-label={t("backToTop")}>
+            <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm transition-all duration-300 group-hover:bg-accent/10 group-hover:border-accent/30 group-hover:shadow-[0_0_20px_rgba(0,229,204,0.3)]">
+              <motion.svg
+                animate={{ y: [0, -3, 0] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="w-4 h-4 text-accent"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 15l7-7 7 7"
+                />
+              </motion.svg>
+            </div>
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

@@ -1,11 +1,40 @@
 "use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { toLocalDigits } from "@/lib/data";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import SectionBadge from "@/components/landing/SectionBadge";
+
+function RotatingHighlight({ words }: { words: string[] }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(
+      () => setIndex((i) => (i + 1) % words.length),
+      2600,
+    );
+    return () => clearInterval(id);
+  }, [words.length]);
+
+  return (
+    <span className="relative inline-block overflow-hidden align-bottom">
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={index}
+          initial={{ y: "100%", opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: "-100%", opacity: 0 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="inline-block"
+          style={{ willChange: "transform" }}>
+          {words[index]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
 
 export default function HeroSection() {
   const sectionRef = useRef(null);
@@ -195,7 +224,9 @@ export default function HeroSection() {
                 style={{
                   filter: "drop-shadow(0 0 20px rgba(0, 229, 204, 0.3))",
                 }}>
-                {t("highlight")}
+                <RotatingHighlight
+                  words={t.raw("words") as string[]}
+                />
               </span>
             </motion.h1>
 
@@ -217,7 +248,7 @@ export default function HeroSection() {
                 scale: buttonsScale,
                 transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
-              className={`flex flex-row gap-2 sm:gap-4 w-full sm:w-auto ${isRTL ? "justify-center lg:justify-start" : "justify-center lg:justify-start"}`}>
+              className={`flex flex-col sm:flex-row gap-3 sm:gap-6 w-full sm:w-auto ${isRTL ? "justify-center lg:justify-start" : "justify-center lg:justify-start"}`}>
               {isRTL ? (
                 <>
                   {/* Primary CTA (RTL: right side first) */}
@@ -287,7 +318,38 @@ export default function HeroSection() {
                 </>
               ) : (
                 <>
-                  {/* Secondary CTA (LTR: left side first) */}
+                  {/* Primary CTA (LTR: left side first) */}
+                  <motion.div
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 17,
+                    }}
+                    className="flex-1 sm:flex-none min-w-0">
+                    <Link
+                      href="#contact"
+                      className="relative w-full sm:w-auto inline-flex items-center justify-center px-3 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg overflow-hidden group transition-all duration-500 ease-out"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",
+                        boxShadow:
+                          "0 0 30px rgba(0, 229, 204, 0.4), 0 4px 15px rgba(0, 229, 204, 0.25)",
+                      }}>
+                      <span className="relative z-10 text-black">
+                        {t("cta")}
+                      </span>
+                      <motion.div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 60%)",
+                        }}
+                      />
+                    </Link>
+                  </motion.div>
+                  {/* Secondary CTA */}
                   <motion.div
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
@@ -318,37 +380,6 @@ export default function HeroSection() {
                       <span className="text-muted group-hover:text-foreground transition-colors">
                         {t("secondary")}
                       </span>
-                    </Link>
-                  </motion.div>
-                  {/* Primary CTA */}
-                  <motion.div
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.97 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 17,
-                    }}
-                    className="flex-1 sm:flex-none min-w-0">
-                    <Link
-                      href="#contact"
-                      className="relative w-full sm:w-auto inline-flex items-center justify-center px-3 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg overflow-hidden group transition-all duration-500 ease-out"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",
-                        boxShadow:
-                          "0 0 30px rgba(0, 229, 204, 0.4), 0 4px 15px rgba(0, 229, 204, 0.25)",
-                      }}>
-                      <span className="relative z-10 text-black">
-                        {t("cta")}
-                      </span>
-                      <motion.div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 60%)",
-                        }}
-                      />
                     </Link>
                   </motion.div>
                 </>

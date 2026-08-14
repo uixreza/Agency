@@ -190,6 +190,17 @@ export default function PanelSidebar({
   const { state } = usePanel();
   const locale = useLocale();
   const locked = !state.company;
+  const activeTaskCount = state.tasks.filter((task) => task.active).length;
+  const unreadMessages = state.messages.filter(
+    (msg) => msg.sender === "team",
+  ).length;
+  const pendingTasks = state.tasks.filter(
+    (task) => task.active && task.status === "pending",
+  ).length;
+  const updatedTasks = state.tasks.filter(
+    (task) => task.active && task.status !== "pending" && task.note,
+  ).length;
+  const notifCount = pendingTasks + updatedTasks;
 
   const isActive = (href: string) =>
     href === "/panel" ? clean === "/panel" : clean.startsWith(href);
@@ -307,8 +318,39 @@ export default function PanelSidebar({
                   ? "bg-accent/10 border border-accent/25 text-accent"
                   : "border border-transparent text-muted hover:text-foreground hover:bg-white/5"
               }`}>
-              <span className={active ? "text-accent" : ""}>{item.icon}</span>
+              {collapsed ? (
+                <span className="relative">
+                  <span className={active ? "text-accent" : ""}>{item.icon}</span>
+                  {(item.id === "messages" && unreadMessages > 0) ||
+                  (item.id === "notifications" && notifCount > 0) ? (
+                    <span className="absolute top-0 end-0 w-2.5 h-2.5 rounded-full bg-warm border-2 border-surface animate-pulse" />
+                  ) : null}
+                </span>
+              ) : (
+                <span className={active ? "text-accent" : ""}>{item.icon}</span>
+              )}
               {!collapsed && <span>{itemLabel}</span>}
+              {!collapsed &&
+                (item.id === "projects"
+                  ? activeTaskCount
+                  : item.id === "messages"
+                    ? unreadMessages
+                    : item.id === "notifications"
+                      ? notifCount
+                      : 0) > 0 && (
+                <span
+                  className={`ms-auto flex items-center justify-center min-w-6 h-6 px-1.5 rounded-full text-[11px] font-bold border transition-all duration-300 ${
+                    active
+                      ? "bg-accent/15 border-accent/30 text-accent"
+                      : "bg-accent/10 border-accent/25 text-accent"
+                  }`}>
+                  {item.id === "projects"
+                    ? activeTaskCount
+                    : item.id === "messages"
+                      ? unreadMessages
+                      : notifCount}
+                </span>
+              )}
             </Link>
           );
         })}
