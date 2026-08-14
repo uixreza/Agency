@@ -164,7 +164,7 @@ export default function ScrollProgressIndicator() {
             exit={{ opacity: 0, scale: 0, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             onClick={scrollToTop}
-            className="fixed bottom-24 right-5 sm:hidden pointer-events-auto group z-40"
+            className="fixed bottom-4 right-4 sm:hidden pointer-events-auto group z-40"
             aria-label={t("backToTop")}>
             <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm transition-all duration-300 group-hover:bg-accent/10 group-hover:border-accent/30 group-hover:shadow-[0_0_20px_rgba(0,229,204,0.3)]">
               <motion.svg

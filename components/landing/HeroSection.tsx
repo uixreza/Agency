@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { toLocalDigits } from "@/lib/data";
@@ -19,20 +19,14 @@ function RotatingHighlight({ words }: { words: string[] }) {
   }, [words.length]);
 
   return (
-    <span className="relative inline-block overflow-hidden align-bottom">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={index}
-          initial={{ y: "100%", opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: "-100%", opacity: 0 }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-block"
-          style={{ willChange: "transform" }}>
-          {words[index]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
+    <motion.span
+      key={index}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="inline-block">
+      {words[index]}
+    </motion.span>
   );
 }
 
@@ -218,9 +212,9 @@ export default function HeroSection() {
                 transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.3] mb-6 text-foreground transition-all duration-700 ease-out">
-              {t("title")}{" "}
+              {t("title")}
               <span
-                className="relative inline-block mt-2 transition-all duration-700 ease-out gradient-text"
+                className="relative block mt-2 transition-all duration-700 ease-out gradient-text"
                 style={{
                   filter: "drop-shadow(0 0 20px rgba(0, 229, 204, 0.3))",
                 }}>
@@ -263,7 +257,7 @@ export default function HeroSection() {
                     className="flex-1 sm:flex-none min-w-0">
                     <Link
                       href="#contact"
-                      className="relative w-full sm:w-auto inline-flex items-center justify-center px-3 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg overflow-hidden group transition-all duration-500 ease-out"
+                      className="relative w-full sm:w-auto inline-flex items-center justify-center px-3 sm:px-8 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg overflow-hidden group transition-all duration-500 ease-out"
                       style={{
                         background:
                           "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",
@@ -294,7 +288,7 @@ export default function HeroSection() {
                     className="flex-1 sm:flex-none min-w-0">
                     <Link
                       href="#portfolio"
-                      className="relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-3 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg group transition-all duration-500 ease-out bg-card border border-border"
+                      className="relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-3 sm:px-8 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg group transition-all duration-500 ease-out bg-card border border-border"
                       style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)" }}>
                       <span className="text-muted group-hover:text-foreground transition-colors">
                         {t("secondary")}
@@ -330,7 +324,7 @@ export default function HeroSection() {
                     className="flex-1 sm:flex-none min-w-0">
                     <Link
                       href="#contact"
-                      className="relative w-full sm:w-auto inline-flex items-center justify-center px-3 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg overflow-hidden group transition-all duration-500 ease-out"
+                      className="relative w-full sm:w-auto inline-flex items-center justify-center px-3 sm:px-8 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg overflow-hidden group transition-all duration-500 ease-out"
                       style={{
                         background:
                           "linear-gradient(135deg, #00e5cc 0%, #00b8a3 100%)",
@@ -361,7 +355,7 @@ export default function HeroSection() {
                     className="flex-1 sm:flex-none min-w-0">
                     <Link
                       href="#portfolio"
-                      className="relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-3 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg group transition-all duration-500 ease-out bg-card border border-border"
+                      className="relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-3 sm:px-8 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg group transition-all duration-500 ease-out bg-card border border-border"
                       style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)" }}>
                       <motion.svg
                         className="w-5 h-5 text-muted group-hover:text-accent transition-all"
