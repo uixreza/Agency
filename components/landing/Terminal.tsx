@@ -226,9 +226,6 @@ export default function ProcessSection() {
 
   useEffect(() => {
     if (prefersReducedMotion) {
-      setDisplayedCommands(
-        commands.map(({ text, type }) => ({ text, type })),
-      );
       return;
     }
 
@@ -510,12 +507,34 @@ export default function ProcessSection() {
                     </div>
                   )}
 
-                  {!isTyping && (
-                    <div className="flex items-center gap-2 text-muted">
-                      <span className="text-accent">$</span>
-                      <span className="w-2 h-4 bg-muted inline-block animate-cursor-blink" />
-                    </div>
-                  )}
+                  {!isTyping &&
+                    (prefersReducedMotion ? (
+                      commands.map((cmd, index) => (
+                        <div
+                          key={`${cmd.text}-${index}`}
+                          className={`${
+                            cmd.type === "input"
+                              ? "text-foreground/70"
+                              : cmd.type === "success"
+                                ? "text-green-400"
+                                : "text-accent font-semibold"
+                          }`}>
+                          {cmd.type === "input" ? (
+                            <div className="flex items-center gap-2">
+                              <span className="text-accent">$</span>
+                              <span>{cmd.text}</span>
+                            </div>
+                          ) : (
+                            <span>{cmd.text}</span>
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="flex items-center gap-2 text-muted">
+                        <span className="text-accent">$</span>
+                        <span className="w-2 h-4 bg-muted inline-block animate-cursor-blink" />
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>

@@ -7,6 +7,9 @@ import { useTranslations, useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { useTheme } from "@/components/ThemeProvider";
+import { usePanel } from "@/components/panel/PanelProvider";
+import CurrencySelect from "@/components/panel/CurrencySelect";
+import { formatBalance } from "@/lib/panel-data";
 
 const languages = [
   { code: "fa", label: "فارسی", flag: "🇮🇷" },
@@ -52,15 +55,17 @@ export default function PanelHeader({
   const t = useTranslations("panel");
   const themeT = useTranslations("theme");
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
   const router = useRouter();
   const locale = useLocale();
 
   const currentLang =
     languages.find((lang) => lang.code === locale) || languages[0];
-  const userName = t("userName");
-  const avatarLetter = userName.charAt(0);
+  const { state } = usePanel();
+  const company = state.company;
+  const userName = company?.ownerName || t("userName");
+  const avatarLetter = userName.charAt(0).toUpperCase();
 
   const switchLanguage = (lang: (typeof languages)[0]) => {
     setIsLangOpen(false);
@@ -104,10 +109,35 @@ export default function PanelHeader({
           <div className="text-sm font-semibold text-foreground">
             {t("greeting", { name: userName })}
           </div>
-          <div className="text-xs text-muted">{t("subtitle")}</div>
+          <div className="text-xs text-muted">
+            {company ? company.name : t("subtitle")}
+          </div>
         </div>
 
         <div className="flex items-center gap-2 ms-auto sm:ms-0">
+          {/* Balance */}
+          <div
+            title={t("balance")}
+            className="hidden sm:flex items-center gap-2 h-10 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 px-3 hover:border-border transition-all duration-300">
+            <svg
+              className="w-4 h-4 text-accent"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 7V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-2M19 12a1 1 0 01-1 1h-2a1 1 0 010-2h2a1 1 0 011 1z"
+              />
+            </svg>
+            <span className="text-sm font-bold text-foreground whitespace-nowrap">
+              {formatBalance(state.balance, state.currency, locale)}
+            </span>
+            <span className="w-px h-5 bg-border/60" />
+            <CurrencySelect />
+          </div>
+
           {/* Theme Toggle */}
           <button
             type="button"
@@ -219,7 +249,7 @@ export default function PanelHeader({
           {/* Profile */}
           <div className="flex items-center gap-3 ps-1">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accentDark flex items-center justify-center shadow-lg shadow-accent/20">
-              <span className="text-white font-bold text-sm">
+              <span className="text-black font-bold text-sm">
                 {avatarLetter}
               </span>
             </div>
@@ -227,7 +257,9 @@ export default function PanelHeader({
               <div className="text-sm font-semibold text-foreground leading-tight">
                 {userName}
               </div>
-              <div className="text-[10px] text-muted">Novin Digital</div>
+              <div className="text-[10px] text-muted">
+                {company ? company.name : "Novin Digital"}
+              </div>
             </div>
           </div>
         </div>

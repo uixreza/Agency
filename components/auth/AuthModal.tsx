@@ -327,7 +327,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
                       </div>
                       <button
                         type="button"
-                        className="w-full py-3 rounded-xl font-medium text-sm text-white bg-gradient-to-r from-accent to-accentDark hover:opacity-90 shadow-lg shadow-accent/25 transition-all duration-300">
+                        className="w-full py-3 rounded-xl font-semibold text-sm btn-primary">
                         {t("loginSubmit")}
                       </button>
 
@@ -381,7 +381,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
                       <button
                         type="button"
                         onClick={() => setSignupStep("otp")}
-                        className="w-full py-3 rounded-xl font-medium text-sm text-white bg-gradient-to-r from-accent to-accentDark hover:opacity-90 shadow-lg shadow-accent/25 transition-all duration-300">
+                        className="w-full py-3 rounded-xl font-semibold text-sm btn-primary">
                         {t("signupSubmit")}
                       </button>
 
@@ -445,7 +445,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
 
                       <button
                         type="button"
-                        className="w-full py-3 rounded-xl font-medium text-sm text-white bg-gradient-to-r from-accent to-accentDark hover:opacity-90 shadow-lg shadow-accent/25 transition-all duration-300">
+                        className="w-full py-3 rounded-xl font-semibold text-sm btn-primary">
                         {t("verifyCode")}
                       </button>
 

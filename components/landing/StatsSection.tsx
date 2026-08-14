@@ -69,14 +69,14 @@ export default function StatsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
               variants={fadeInUp}
               transition={smoothTransition}
               className="group relative">
-              <div className="relative p-8 rounded-3xl shadow bg-card text-center h-full transition-all duration-300 group-hover:scale-[1.03]">
+              <div className="relative p-6 sm:p-8 rounded-3xl shadow bg-card text-center h-full transition-all duration-300 group-hover:scale-[1.03]">
                 {/* Subtle glow accent */}
                 <div
                   className="absolute inset-0 rounded-3xl opacity-30 -z-10"
@@ -86,7 +86,7 @@ export default function StatsSection() {
                   }}
                 />
 
-                <div className="text-5xl sm:text-6xl font-black mb-4 tracking-tighter gradient-text">
+                <div className="text-3xl sm:text-5xl lg:text-6xl font-black mb-2 sm:mb-4 tracking-tighter gradient-text">
                   <AnimatedCounter
                     target={stat.target}
                     suffix={stat.suffix}
@@ -94,7 +94,7 @@ export default function StatsSection() {
                   />
                 </div>
 
-                <p className="text-gray-400 text-lg font-medium">
+                <p className="text-gray-400 text-sm sm:text-base lg:text-lg font-medium leading-snug">
                   {stat.label}
                 </p>
               </div>

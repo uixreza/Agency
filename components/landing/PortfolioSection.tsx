@@ -122,14 +122,10 @@ export default function PortfolioSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                 </div>
 
-                {/* Info Overlay - Now triggered on whole card */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.25 }} // Faster transition
-                  className="absolute inset-0 flex flex-col justify-end p-6">
+                {/* Info Overlay - always visible on small screens, hover on sm+ */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:transition-opacity sm:duration-300">
                   <div
-                    className="rounded-2xl p-5 backdrop-blur-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+                    className="rounded-2xl p-5 backdrop-blur-xl translate-y-0 sm:translate-y-4 sm:group-hover:translate-y-0 transition-transform duration-300"
                     style={{
                       background: "rgba(22, 25, 34, 0.92)",
                       border: "1px solid rgba(37, 42, 54, 0.7)",
@@ -142,7 +138,7 @@ export default function PortfolioSection() {
                     </h3>
                     <p className="text-gray-400 text-sm">{item.result}</p>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>

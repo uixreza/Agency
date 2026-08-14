@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { usePanel } from "@/components/panel/PanelProvider";
+import { timeAgo } from "@/lib/panel-data";
 
 const bellIcon = (
   <svg
@@ -33,22 +35,88 @@ const checkIcon = (
   </svg>
 );
 
+interface NotificationItem {
+  id: string;
+  title: string;
+  desc: string;
+  time: string;
+}
+
 export default function PanelNotificationsPage() {
   const t = useTranslations("panel");
-  const items = t.raw("notif") as {
-    title: string;
-    description: string;
-    time: string;
-  }[];
-  const [read, setRead] = useState<boolean[]>(() =>
-    items.map((_, i) => i >= 2),
-  );
+  const locale = useLocale();
+  const { state } = usePanel();
+  const [readIds, setReadIds] = useState<Set<string>>(() => new Set());
 
-  const unreadCount = read.filter((r) => !r).length;
+  const items: NotificationItem[] = useMemo(() => {
+    const list: NotificationItem[] = [];
 
-  const markAll = () => setRead(items.map(() => true));
-  const toggle = (i: number) =>
-    setRead((prev) => prev.map((r, j) => (j === i ? !r : r)));
+    state.tasks
+      .filter((task) => task.active && task.status === "pending")
+      .forEach((task) => {
+        list.push({
+          id: `${task.id}-pending`,
+          title: t("notifPendingTitle", {
+            task: t(`catalog.${task.serviceId}.title`),
+          }),
+          desc: t("taskNotePending"),
+          time: task.updatedAt,
+        });
+      });
+
+    state.tasks
+      .filter((task) => task.active && task.note)
+      .slice()
+      .sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      )
+      .slice(0, 4)
+      .forEach((task) => {
+        list.push({
+          id: `${task.id}-update`,
+          title: t("notifUpdateTitle", {
+            task: t(`catalog.${task.serviceId}.title`),
+          }),
+          desc: task.note,
+          time: task.updatedAt,
+        });
+      });
+
+    state.messages
+      .filter((msg) => msg.sender === "team")
+      .slice()
+      .sort(
+        (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime(),
+      )
+      .slice(0, 3)
+      .forEach((msg) => {
+        list.push({
+          id: `${msg.id}-msg`,
+          title: t("notifMsgTitle"),
+          desc: msg.text,
+          time: msg.time,
+        });
+      });
+
+    return list.sort(
+      (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime(),
+    );
+  }, [state, t]);
+
+  const unreadCount = items.filter((item) => !readIds.has(item.id)).length;
+
+  const markAll = () => setReadIds(new Set(items.map((item) => item.id)));
+  const toggle = (item: NotificationItem) =>
+    setReadIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(item.id)) {
+        next.delete(item.id);
+      } else {
+        next.add(item.id);
+      }
+      return next;
+    });
 
   return (
     <div className="max-w-2xl space-y-4">
@@ -74,50 +142,57 @@ export default function PanelNotificationsPage() {
         )}
       </div>
 
-      <div className="space-y-3">
-        {items.map((item, i) => {
-          const isRead = read[i];
-          return (
-            <button
-              key={i}
-              type="button"
-              onClick={() => toggle(i)}
-              className={`w-full flex items-start gap-4 rounded-2xl border p-4 text-start transition-all duration-300 hover:border-accent/30 ${
-                isRead
-                  ? "bg-surface/60 border-border/30"
-                  : "bg-accent/[0.06] border-accent/25"
-              }`}>
-              <div
-                className={`mt-0.5 w-10 h-10 rounded-xl flex items-center justify-center border flex-shrink-0 ${
+      {items.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-border/60 p-10 text-center">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-card/60 border border-border/50 flex items-center justify-center text-muted">
+            {bellIcon}
+          </div>
+          <p className="text-sm text-muted">{t("notifEmpty")}</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {items.map((item) => {
+            const isRead = readIds.has(item.id);
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => toggle(item)}
+                className={`w-full flex items-start gap-4 rounded-2xl border p-4 text-start transition-all duration-300 hover:border-accent/30 ${
                   isRead
-                    ? "bg-card/60 border-border/40 text-muted"
-                    : "bg-accent/10 border-accent/25 text-accent"
+                    ? "bg-surface/60 border-border/30"
+                    : "bg-accent/[0.06] border-accent/25"
                 }`}>
-                {isRead ? checkIcon : bellIcon}
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`text-sm font-medium ${
-                      isRead
-                        ? "text-muted"
-                        : "text-foreground"
-                    }`}>
-                    {item.title}
-                  </span>
-                  {!isRead && (
-                    <span className="w-2 h-2 rounded-full bg-accent flex-shrink-0" />
-                  )}
+                <div
+                  className={`mt-0.5 w-10 h-10 rounded-xl flex items-center justify-center border flex-shrink-0 ${
+                    isRead
+                      ? "bg-card/60 border-border/40 text-muted"
+                      : "bg-accent/10 border-accent/25 text-accent"
+                  }`}>
+                  {isRead ? checkIcon : bellIcon}
                 </div>
-                <p className="text-xs text-muted mt-1">{item.description}</p>
-              </div>
-              <span className="text-[10px] text-muted flex-shrink-0">
-                {item.time}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`text-sm font-medium ${
+                        isRead ? "text-muted" : "text-foreground"
+                      }`}>
+                      {item.title}
+                    </span>
+                    {!isRead && (
+                      <span className="w-2 h-2 rounded-full bg-accent flex-shrink-0" />
+                    )}
+                  </div>
+                  <p className="text-xs text-muted mt-1">{item.desc}</p>
+                </div>
+                <span className="text-[10px] text-muted flex-shrink-0">
+                  {timeAgo(item.time, locale)}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

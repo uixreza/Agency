@@ -1,8 +1,8 @@
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
-import DashboardView from "@/components/panel/DashboardView";
+import BillingView from "@/components/panel/BillingView";
 
-export default async function PanelHomePage({
+export default async function PanelBillingPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -10,5 +10,5 @@ export default async function PanelHomePage({
   const { locale } = await params;
   setRequestLocale(locale as (typeof routing.locales)[number]);
 
-  return <DashboardView />;
+  return <BillingView />;
 }
